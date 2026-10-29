@@ -1,0 +1,30 @@
+
+<div class="box box-objectives">
+  <div class="box-title">Annales d'Examens Ciblées — Semaine 3</div>
+  <p>Exercices d'examens sur la complétude des jeux de connecteurs et les critères de validité des formes normales.</p>
+</div>
+
+<div class="exo-card">
+  <div class="exo-header">
+    <div>
+      <h3 class="exo-title">Examen Partiel 2021–2022 — Exercice 2 (Complétude et NAND)</h3>
+      <span style="font-size:0.8rem; color:var(--muted);">Source : partiel_2021_2022_S2.pdf (p. 2)</span>
+    </div>
+    <div class="exo-meta-badges"><span class="badge badge-accent">Semaine 3</span><span class="badge">Partiel</span></div>
+  </div>
+  <div class="exo-statement">
+    <p>On note {{ | }} le connecteur binaire NAND (barre de Sheffer), défini par {{ p | q \equiv \neg(p \land q) }}.</p>
+    <p>1. Exprimer la négation {{ \neg p }} en utilisant uniquement le connecteur {{ | }}.<br>
+    2. Exprimer la conjonction {{ p \land q }} en utilisant uniquement le connecteur {{ | }}.<br>
+    3. Exprimer la disjonction {{ p \lor q }} en utilisant uniquement le connecteur {{ | }}.<br>
+    4. En déduire que le jeu de connecteurs {{ \{|\} }} est fonctionnellement complet.</p>
+  </div>
+  <div class="step-content">
+    <strong>Correction officielle Sorbonne :</strong><br>
+    1. <strong>Négation :</strong> Par idempotence de la conjonction ({{ p \land p \equiv p }}), on a :<br>
+    {{ \neg p \equiv p \mid p }}<br>
+    2. <strong>Conjonction :</strong> On nie le NAND : {{ p \land q \equiv \neg(p | q) \equiv (p | q) | (p | q) }}.<br>
+    3. <strong>Disjonction :</strong> Par De Morgan, {{ p \lor q \equiv \neg(\neg p \land \neg q) \equiv \neg p | \neg q \equiv (p | p) | (q | q) }}.<br>
+    4. <strong>Complétude :</strong> Puisque {{ \{\neg, \land\} }} est un jeu complet de connecteurs et que chaque connecteur de ce jeu s'exprime avec {{ | }}, le jeu {{ \{|\} }} est fonctionnellement complet.
+  </div>
+</div>

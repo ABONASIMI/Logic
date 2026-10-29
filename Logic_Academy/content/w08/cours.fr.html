@@ -1,0 +1,30 @@
+
+<div class="box box-objectives">
+  <div class="box-title">Objectifs d'apprentissage — Semaine 8 (LPPO Sémantique)</div>
+  <ul>
+    <li>Comprendre la notion de <strong>structure</strong> {{ \mathcal{M} = \langle D, \mathcal{I} \rangle }} : domaine non vide et interprétation des symboles.</li>
+    <li>Évaluer des formules avec quantificateurs selon la sémantique de Tarski.</li>
+    <li>Évaluer rigoureusement des formules du premier ordre sur des <strong>domaines finis</strong>.</li>
+    <li>Définir et exécuter une <strong>substitution de terme {{ F[x \leftarrow t] }}</strong> sans capture de variable.</li>
+    <li>Construire des contre-modèles finis pour invalider des formules du premier ordre.</li>
+  </ul>
+</div>
+
+<h2 id="w08-c-structures">1. Structures et Interprétations</h2>
+<div class="box box-definition">
+  <div class="box-title">Définition 8.1 — Structure {{ \mathcal{M} = \langle D, \mathcal{I} \rangle }}</div>
+  <p>Une <strong>structure</strong> pour un langage {{ \mathcal{L} }} est la donnée de :</p>
+  <ul>
+    <li>Un ensemble non vide {{ D }} appelé le <strong>domaine de discours</strong> ;</li>
+    <li>Pour chaque constante {{ c }}, un élément {{ c^\mathcal{M} \in D }} ;</li>
+    <li>Pour chaque fonction {{ f }} d'arité {{ n }}, une fonction {{ f^\mathcal{M} : D^n \to D }} ;</li>
+    <li>Pour chaque prédicat {{ P }} d'arité {{ n }}, une relation {{ P^\mathcal{M} \subseteq D^n }}.</li>
+  </ul>
+</div>
+
+<h2 id="w08-c-substitution">2. Substitution Admissible (Sans Capture)</h2>
+<div class="box box-definition">
+  <div class="box-title">Définition 8.2 — Substitution {{ F[x \leftarrow t] }}</div>
+  <p>L'opération {{ F[x \leftarrow t] }} remplace toutes les occurrences <strong>libres</strong> de la variable {{ x }} par le terme {{ t }}.</p>
+  <p><strong>Condition d'admissibilité (évitement de capture) :</strong> Le terme {{ t }} est librement substituable à {{ x }} dans {{ F }} si aucune variable de {{ t }} n'est capturée par un quantificateur englobant lors du remplacement ! Si une capture menace, on doit obligatoirement renommer d'abord la variable liée ({{ \alpha }}-conversion).</p>
+</div>

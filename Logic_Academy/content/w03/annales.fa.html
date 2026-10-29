@@ -1,0 +1,30 @@
+
+<div class="box box-objectives">
+  <div class="box-title">نمونه سؤالات آزمون‌های نهایی سوربن — هفته ۳</div>
+  <p>سؤالات آزمون دانشگاه در زمینه اثبات تمامیت عملگر نند (NAND / Sheffer) و بازنویسی عملگرها.</p>
+</div>
+
+<div class="exo-card">
+  <div class="exo-header">
+    <div>
+      <h3 class="exo-title">امتحان میان‌ترم ۲۰۲۱–۲۰۲۲ — تمرین ۲ (تمامیت شفر و NAND)</h3>
+      <span style="font-size:0.8rem; color:var(--muted);">منبع رسمی: partiel_2021_2022_S2.pdf (صفحه ۲)</span>
+    </div>
+    <div class="exo-meta-badges"><span class="badge badge-accent">هفته ۳</span><span class="badge">امتحان Partiel</span></div>
+  </div>
+  <div class="exo-statement">
+    <p>عملگر دوتایی خط شفر یا NAND را با نماد {{ | }} نشان می‌دهیم که طبق تعریف {{ p | q \equiv \neg(p \land q) }} است.</p>
+    <p>۱. نقیض {{ \neg p }} را تنها با استفاده از {{ | }} بنویسید.<br>
+    ۲. عطف {{ p \land q }} را تنها با استفاده از {{ | }} بیان کنید.<br>
+    ۳. فصل {{ p \lor q }} را تنها با استفاده از {{ | }} بیان کنید.<br>
+    ۴. نتیجه بگیرید که مجموعه تک‌عضوی {{ \{|\} }} یک سیستم کامل تابعی است.</p>
+  </div>
+  <div class="step-content">
+    <strong>پاسخ تشریحی دانشگاه سوربن :</strong><br>
+    ۱. <strong>نقیض :</strong> طبق ویژگی یکسان‌توانی ({{ p \land p \equiv p }})، داریم :<br>
+    {{ \neg p \equiv p \mid p }}<br>
+    ۲. <strong>عطف :</strong> با نفی کردن نند : {{ p \land q \equiv \neg(p | q) \equiv (p | q) | (p | q) }}.<br>
+    ۳. <strong>فصل :</strong> با قانون دمورگان : {{ p \lor q \equiv \neg(\neg p \land \neg q) \equiv \neg p | \neg q \equiv (p | p) | (q | q) }}.<br>
+    ۴. <strong>اثبات تمامیت :</strong> چون می‌دانیم مجموعه {{ \{\neg, \land\} }} کامل است و نشان دادیم هر دو عملگر نقیض و عطف تنها با رابط {{ | }} قابل ساخت هستند، پس مجموعه تک‌عضوی {{ \{|\} }} به تنهایی کامل است.
+  </div>
+</div>

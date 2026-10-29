@@ -1,0 +1,352 @@
+/* Logic Academy - Interactive Tools, Steppers, Proof Tutors, AST & Solvers */
+
+/* ---------------------------------------------------------------- Interactive Exercise Controller */
+.exo-card {
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--paper);
+  margin: 1.8rem 0;
+  padding: 1.4rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.exo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 1rem;
+}
+.exo-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0;
+}
+html[lang="fa"] .exo-title {
+  font-family: var(--font-fa);
+}
+.exo-meta-badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  background: var(--code-bg);
+  border: 1px solid var(--rule);
+  color: var(--muted);
+}
+.badge-accent {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.badge-ok {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border-color: #a5d6a7;
+}
+
+/* Exercise Stepper Controls */
+.stepper-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+.btn-step {
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  border: 1px solid var(--rule-strong);
+  background: var(--paper);
+  color: var(--text);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.15s ease;
+}
+html[lang="fa"] .btn-step {
+  font-family: var(--font-fa);
+}
+.btn-step:hover {
+  background: var(--code-bg);
+  border-color: var(--accent);
+}
+.btn-step-primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+.btn-step-primary:hover {
+  filter: brightness(1.1);
+}
+.step-content {
+  margin: 0.8rem 0;
+  padding: 0.9rem 1.1rem;
+  border-radius: 6px;
+  background: var(--code-bg);
+  border-left: 4px solid var(--accent);
+  animation: fadeIn 0.25s ease;
+}
+html[dir="rtl"] .step-content {
+  border-left: none;
+  border-right: 4px solid var(--accent);
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------------------------------------------------------- Truth Table Interactive */
+.truth-table-tool {
+  background: var(--code-bg);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 1.2rem;
+  margin: 1.5rem 0;
+}
+.truth-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  margin: 1rem 0;
+  text-align: center;
+}
+.truth-table th, .truth-table td {
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--rule);
+}
+.truth-table th {
+  background: var(--paper);
+  font-weight: 700;
+}
+.truth-table tr:hover td {
+  background: rgba(122, 31, 43, 0.05);
+}
+.truth-val-true {
+  color: #2e7d32;
+  font-weight: 700;
+}
+.truth-val-false {
+  color: #c62828;
+  font-weight: 700;
+}
+.tt-summary {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+  margin-top: 0.8rem;
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------------------- Natural Deduction Fitch Boxes */
+.fitch-proof {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  margin: 1.2rem 0;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+.fitch-line {
+  display: grid;
+  grid-template-columns: 38px 1fr 140px;
+  gap: 0.8rem;
+  padding: 0.25rem 0.4rem;
+  align-items: center;
+  border-radius: 4px;
+}
+.fitch-line:hover {
+  background: var(--code-bg);
+}
+.fitch-num {
+  color: var(--faint);
+  font-size: 0.82rem;
+  text-align: right;
+  user-select: none;
+}
+html[dir="rtl"] .fitch-num {
+  text-align: left;
+}
+.fitch-box {
+  border-left: 2.5px solid var(--accent);
+  padding-left: 0.8rem;
+  margin: 0.25rem 0 0.25rem 1rem;
+}
+html[dir="rtl"] .fitch-box {
+  border-left: none;
+  border-right: 2.5px solid var(--accent);
+  padding-left: 0;
+  padding-right: 0.8rem;
+  margin: 0.25rem 1rem 0.25rem 0;
+}
+.fitch-hyp {
+  border-bottom: 1.5px solid var(--rule-strong);
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+.fitch-rule {
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-align: right;
+}
+html[dir="rtl"] .fitch-rule {
+  text-align: left;
+}
+
+/* ---------------------------------------------------------------- DPLL Search Tree */
+.dpll-tree {
+  margin: 1.2rem 0;
+  padding: 1rem;
+  background: var(--code-bg);
+  border-radius: 8px;
+  border: 1px solid var(--rule);
+}
+.dpll-node {
+  margin: 0.6rem 0;
+  padding: 0.7rem 0.9rem;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+.dpll-sat {
+  border-left: 5px solid #2e7d32;
+}
+.dpll-unsat {
+  border-left: 5px solid #c62828;
+}
+html[dir="rtl"] .dpll-sat {
+  border-left: 1px solid var(--rule);
+  border-right: 5px solid #2e7d32;
+}
+html[dir="rtl"] .dpll-unsat {
+  border-left: 1px solid var(--rule);
+  border-right: 5px solid #c62828;
+}
+.dpll-step-badge {
+  font-weight: 700;
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  margin-right: 0.4rem;
+}
+html[dir="rtl"] .dpll-step-badge {
+  margin-right: 0;
+  margin-left: 0.4rem;
+}
+
+/* ---------------------------------------------------------------- AST Visualizer */
+.ast-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  margin: 1.2rem 0;
+  overflow-x: auto;
+}
+.ast-ascii {
+  font-family: var(--font-mono);
+  line-height: 1.35;
+  font-size: 0.95rem;
+  color: var(--text);
+  white-space: pre;
+}
+
+/* ---------------------------------------------------------------- "Pourquoi je me trompe ?" Box */
+.box-pourquoi {
+  background: #fff8e1;
+  border-left: 5px solid #ffa000;
+  border-radius: 6px;
+  padding: 1rem 1.2rem;
+  margin: 1.5rem 0;
+}
+html[dir="rtl"] .box-pourquoi {
+  border-left: none;
+  border-right: 5px solid #ffa000;
+}
+:root[data-theme="dark"] .box-pourquoi {
+  background: #2a2415;
+  border-color: #ffb300;
+}
+.pourquoi-header {
+  font-weight: 700;
+  color: #d84315;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+:root[data-theme="dark"] .pourquoi-header {
+  color: #ff8a65;
+}
+
+/* ---------------------------------------------------------------- Consigne Examen Box */
+.box-consigne {
+  background: #e1f5fe;
+  border-left: 5px solid #0288d1;
+  border-radius: 6px;
+  padding: 1rem 1.2rem;
+  margin: 1.5rem 0;
+}
+html[dir="rtl"] .box-consigne {
+  border-left: none;
+  border-right: 5px solid #0288d1;
+}
+:root[data-theme="dark"] .box-consigne {
+  background: #102636;
+  border-color: #29b6f6;
+}
+.consigne-header {
+  font-weight: 700;
+  color: #01579b;
+  margin-bottom: 0.4rem;
+}
+:root[data-theme="dark"] .consigne-header {
+  color: #4fc3f7;
+}
+
+/* ---------------------------------------------------------------- Scope & Binding Visualizer (LPPO) */
+.lppo-scope {
+  font-family: var(--font-mono);
+  padding: 0.6rem 0.9rem;
+  background: var(--code-bg);
+  border-radius: 6px;
+  border: 1px solid var(--rule);
+  font-size: 1.05rem;
+  display: inline-block;
+  margin: 0.5rem 0;
+}
+.var-free {
+  color: #c62828;
+  font-weight: 700;
+  text-decoration: underline wavy #c62828;
+}
+.var-bound {
+  color: #1565c0;
+  font-weight: 700;
+}
+.quant-binder {
+  background: rgba(21, 101, 192, 0.12);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+

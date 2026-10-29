@@ -1,0 +1,111 @@
+<div class="lesson-header">
+  <div class="badge">Sorbonne Université — Fiche de Révision &amp; Auto-évaluation</div>
+  <h1>Révision Thème 2 : Mémo Algébrique et Conséquences</h1>
+  <p class="lead">Synthèse ultra-rapide des notions clés du Thème 2, radar des 5 pièges de partiels et quiz d'auto-évaluation immédiate.</p>
+</div>
+
+<div class="toc-box">
+  <h3>Sommaire de la fiche</h3>
+  <ul>
+    <li><a href="#rev2_fiches">1. Fiche mémo express des 5 règles d'or</a></li>
+    <li><a href="#rev2_pieges">2. Radar des pièges d'examen classiques</a></li>
+    <li><a href="#rev2_quiz">3. Quiz interactif auto-corrigé</a></li>
+  </ul>
+</div>
+
+<h2 id="rev2_fiches">1. Fiche mémo express des 5 règles d'or</h2>
+
+<div class="box tip">
+  <h4>Les 5 règles absolues à graver dans votre mémoire</h4>
+  <ol>
+    <li><strong>Traduction brute sans simplification :</strong>
+      <br/>Quand l'examen demande de calculer {{ [F]^{\mathcal{M}} }}, écrivez d'abord l'arbre complet avec les barres et les produits sans jamais simplifier au préalable (5 points au partiel !).
+    </li>
+    <li><strong>Distributivité croisée en algèbre de Boole :</strong>
+      <br/>{{ a + (b \cdot c) = (a + b) \cdot (a + c) }} et {{ a \cdot (b + c) = (a \cdot b) + (a \cdot c) }}.
+    </li>
+    <li><strong>Théorème de déduction sémantique :</strong>
+      <br/>{{ \mathcal{H} \cup \{A\} \models B \quad \iff \quad \mathcal{H} \models (A \Rightarrow B) }}. En particulier, {{ A \models B \iff \models (A \Rightarrow B) }}.
+    </li>
+    <li><strong>Dualité validité / insatisfiabilité :</strong>
+      <br/>{{ F }} est valide ssi {{ \neg F }} est insatisfiable.
+    </li>
+    <li><strong>Principe de réfutation par contre-modèle :</strong>
+      <br/>Pour infirmer {{ \mathcal{H} \models F }}, il suffit de fournir UNE seule interprétation {{ I }} telle que {{ [H]^I = 1 }} pour tout {{ H \in \mathcal{H} }} et {{ [F]^I = 0 }}.
+    </li>
+  </ol>
+</div>
+
+<h2 id="rev2_pieges">2. Radar des pièges d'examen classiques</h2>
+
+<div class="box warn">
+  <h4>Les erreurs les plus pénalisées par les correcteurs de la Sorbonne</h4>
+  <ul>
+    <li><strong>Piège 1 — Utiliser une table de vérité :</strong> La consigne interdit formellement les tables au Thème 2. Tout tableau de vérité entraîne la note 0 à l'exercice.</li>
+    <li><strong>Piège 2 — Oublier de nommer les équivalences :</strong> Dans une preuve équationnelle, omettre d'écrire « loi de De Morgan », « élément neutre » ou « complémentarité » coûte la moitié des points de la question.</li>
+    <li><strong>Piège 3 — Confondre {{ \models }} et {{ \Rightarrow }} :</strong> {{ \models }} est une relation métamathématique de déduction, tandis que {{ \Rightarrow }} est un symbole syntaxique de la formule.</li>
+    <li><strong>Piège 4 — Oublier que le faux implique tout :</strong> Si {{ F }} est insatisfiable, alors {{ F \models G }} est <strong>VRAIE</strong> pour n'importe quelle formule {{ G }} !</li>
+    <li><strong>Piège 5 — Déduire la validité de la conclusion :</strong> Si {{ F \models G }} et {{ G }} est valide, on ne peut RIEN en déduire sur {{ F }} (elle peut être contingente ou fausse). En revanche, si {{ F }} est valide et {{ F \models G }}, alors {{ G }} est obligatoirement valide !</li>
+  </ul>
+</div>
+
+<h2 id="rev2_quiz">3. Quiz interactif auto-corrigé</h2>
+
+<div class="w-quiz" data-id="w02-quiz">
+  <script type="application/json">
+{
+  "questions": [
+    {
+      "q": "En alg\u00e8bre de Boole, que vaut l'expression {{ a + (a \\cdot b) }} ?",
+      "options": [
+        "{{ a \\cdot b }}",
+        "{{ a }}",
+        "{{ a + b }}"
+      ],
+      "answer": 1,
+      "explain": "Par la loi d'absorption de l'alg\u00e8bre de Boole, a + (a \u00b7 b) = a \u00b7 1 + a \u00b7 b = a \u00b7 (1 + b) = a \u00b7 1 = a."
+    },
+    {
+      "q": "Soit F une formule insatisfiable et G une formule contingente quelconque. A-t-on {{ F \\models G }} ?",
+      "options": [
+        "OUI, toujours",
+        "NON, jamais",
+        "Cela d\u00e9pend de G"
+      ],
+      "answer": 0,
+      "explain": "Par le principe d'explosion (ex falso quodlibet), il n'existe aucune interpr\u00e9tation satisfaisant F. Tout mod\u00e8le de F satisfait donc trivialement G par vacuit\u00e9."
+    },
+    {
+      "q": "Quelle est l'\u00e9quivalence exacte en alg\u00e8bre de Boole pour {{ a + (b \\cdot c) }} ?",
+      "options": [
+        "{{ (a + b) \\cdot c }}",
+        "{{ (a + b) \\cdot (a + c) }}",
+        "Cette distributivit\u00e9 est impossible en alg\u00e8bre"
+      ],
+      "answer": 1,
+      "explain": "Contrairement \u00e0 l'alg\u00e8bre sur les nombres r\u00e9els, en alg\u00e8bre de Boole la somme est distributive sur le produit : a + (b \u00b7 c) = (a + b) \u00b7 (a + c)."
+    },
+    {
+      "q": "Pour prouver qu'une cons\u00e9quence s\u00e9mantique {{ \\mathcal{H} \\models F }} est FAUSSE, que suffit-il de faire ?",
+      "options": [
+        "Calculer l'int\u00e9gralit\u00e9 de la table de v\u00e9rit\u00e9",
+        "Exhiber une seule interpr\u00e9tation I qui satisfait toutes les hypoth\u00e8ses de H mais o\u00f9 [F]^I = 0",
+        "Montrer que F est insatisfiable"
+      ],
+      "answer": 1,
+      "explain": "Un contre-mod\u00e8le unique (satisfaisant toutes les hypoth\u00e8ses mais rendant fausse la conclusion) suffit \u00e0 an\u00e9antir l'implication universelle."
+    },
+    {
+      "q": "Si une formule F est valide ({{ \\models F }}), quelle propri\u00e9t\u00e9 fondamentale poss\u00e8de sa n\u00e9gation {{ \neg F }} ?",
+      "options": [
+        "Elle est \u00e9galement valide",
+        "Elle est satisfiable mais non valide",
+        "Elle est insatisfiable (aucune interpr\u00e9tation ne la satisfait)"
+      ],
+      "answer": 2,
+      "explain": "Par dualit\u00e9 fondamentale, F est vraie pour toute interpr\u00e9tation si et seulement si \u00acF est fausse pour toute interpr\u00e9tation (insatisfiable)."
+    }
+  ]
+}
+  </script>
+</div>

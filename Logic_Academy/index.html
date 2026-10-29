@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="fr" dir="ltr" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logic Academy – Sorbonne Université (UL2IN007 Logique)</title>
+<meta name="description" content="Manuel universitaire interactif et bilingue de Logique Mathématique et Computationnelle (Sorbonne Université UL2IN007 / LU2IN007) : Cours, 41 TD, 21 TP, 31 Annales d'examens en français et persan. 100% hors-ligne.">
+<meta name="theme-color" content="#7a1f2b">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+<link rel="stylesheet" href="assets/vendor/fonts.css">
+<link rel="stylesheet" href="assets/vendor/katex/katex.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/book.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/interactive.css">
+<link rel="stylesheet" href="css/widgets.css">
+<link rel="stylesheet" href="css/print.css" media="print">
+<style>
+/* Additional navigation styling */
+.top-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: var(--topbar-h);
+}
+.brand-link {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--text);
+}
+.brand-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+html[lang="fa"] .brand-title {
+  font-family: var(--font-fa);
+}
+.brand-sub {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--code-bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--rule);
+}
+.top-nav {
+  display: flex;
+  gap: 16px;
+}
+.nav-link {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+.nav-link:hover {
+  color: var(--accent);
+}
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.foot-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 16px;
+  text-align: center;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+@media (max-width: 768px) {
+  .top-nav { display: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#app">Aller au contenu principal / رفتن به محتوای اصلی</a>
+<header id="logic-top" class="topbar"></header>
+<main id="main">
+  <div id="app"><p class="loading">Chargement de la Logic Academy…</p></div>
+</main>
+<footer id="logic-foot" class="foot"></footer>
+<div id="logic-toasts" class="toasts" aria-live="polite"></div>
+<noscript><p class="noscript">Cette académie interactive nécessite JavaScript pour afficher les formules, arbres et exercices.</p></noscript>
+
+<!-- Core & Data Bundles (Zero Network Dependencies) -->
+<script src="js/core.js"></script>
+<script src="data/build.js"></script>
+<script src="data/status.js"></script>
+<script src="data/ui.js"></script>
+<script src="data/index.js"></script>
+<script src="data/glossary.js"></script>
+<script src="data/annales.js"></script>
+<script src="js/store.js"></script>
+<script src="js/common.js"></script>
+<script src="js/logic-engine.js"></script>
+<script src="js/math.js"></script>
+<script src="js/logic-tools.js"></script>
+<script src="js/widgets.js"></script>
+<script src="js/view-home.js"></script>
+<script src="js/view-lesson.js"></script>
+<script src="js/view-annales.js"></script>
+<script src="js/view-glossary.js"></script>
+<script src="js/view-me.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
+

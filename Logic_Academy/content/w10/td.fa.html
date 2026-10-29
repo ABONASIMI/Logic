@@ -1,0 +1,85 @@
+<span id="w10-td-ex35" class="anchor-sync" style="display:none"></span><span id="w10-td-ex36" class="anchor-sync" style="display:none"></span><span id="w10-td-ex37" class="anchor-sync" style="display:none"></span><span id="w10-td-ex39" class="anchor-sync" style="display:none"></span>
+
+<div class="box box-objectives">
+  <div class="box-title">حل تمرینات موضوع ۱۰ — تفکیک، یکسان‌سازی و پرولوگ (تمرین‌های ۳۵ تا ۳۹)</div>
+  <p>منبع رسمی: <code>main_td-etudiants.pdf</code>، صفحات ۲۱ تا ۲۳. تحلیل کامل گام‌به‌گام تفکیک گزاره‌ای، الگوریتم رابینسون و درخت‌های SLD.</p>
+</div>
+
+<h2>تمرین ۳۵ — قاعده تفکیک گزاره‌ای (صفحه ۲۱)</h2>
+<div class="box box-solution">
+  <div class="box-title">محاسبه تفکیک‌یافته‌ها (Resolvents)</div>
+  <ol>
+    <li>{{ C_1 = p \lor r }} و $C_2 = 
+eg p \lor 
+eg s \lor t{{  با متغیر محوری  }}p$:<br>
+    {{ 	ext{Res}(C_1, C_2) = r \lor 
+eg s \lor t }}</li>
+    <li>{{ C_1 = p \lor q \lor r }} و $C_2 = p \lor 
+eg q \lor s \lor 
+eg t{{  روی  }}q$:<br>
+    {{ 	ext{Res}(C_1, C_2) = p \lor r \lor s \lor 
+eg t }}</li>
+    <li>{{ C_1 = p \lor q }} و $C_2 = 
+eg p \lor 
+eg q \lor s$:<br>
+    اگر روی {{ p }} تفکیک کنیم: $q \lor 
+eg q \lor s \equiv 	op$ (همیشه‌درست و بی‌اثر). حذف همزمان هر دو اکیداً غلط است!</li>
+    <li>$C_1 = p \lor q \lor 
+eg r{{  و  }}C_2 = p \lor q \lor r{{  روی  }}r$:<br>
+    {{ 	ext{Res}(C_1, C_2) = p \lor q }}</li>
+    <li>{{ C_1 = p }} و $C_2 = 
+eg p{{  روی  }}p$:<br>
+    {{ 	ext{Res}(C_1, C_2) = \Box \quad 	ext{(بند پوچ؛ اثبات ناسازگاری و تناقض!)} }}</li>
+  </ol>
+</div>
+
+<h2>تمرین ۳۶ — تشخیص پزشکی با روش تفکیک (صفحه ۲۱)</h2>
+<div class="box box-solution">
+  <div class="box-title">تبدیل به بندها و اثبات به روش تناقض</div>
+  <p>هدف اثبات لزوم مصرف تامیفلو ({{ T }}) توسط بیمار است. نقیض هدف یعنی $
+eg T{{  را به پایگاه دانش اضافه می‌کنیم و تفکیک متوالی انجام می‌دهیم تا به بند پوچ  }}\Box$ برسیم:</p>
+  <ul>
+    <li>تفکیک {{ S }} با $
+eg S \lor F{{  منجر به تب ( }}F$) می‌شود.</li>
+    <li>تفکیک {{ F }} و سرفه ({{ K }}) با قاعده ابتلا به آنفولانزا منجر به {{ G }} (گریپ) می‌شود.</li>
+    <li>تفکیک {{ G }} با $
+eg G \lor T{{  نتیجه می‌دهد بیمار باید داروی تامیفلو ( }}T$) مصرف کند.</li>
+    <li>در نهایت تفکیک {{ T }} با نقیض هدف ($
+eg T{{ ) بند پوچ  }}\Box$ را تولید می‌کند که اثبات را کامل می‌سازد!</li>
+  </ul>
+</div>
+
+<h2>تمرین ۳۹ — درخت تفکیک SLD در پرولوگ (صفحه ۲۲)</h2>
+<div class="box box-solution">
+  <div class="box-title">تحلیل درخت اجرای پرولوگ برای پرسش <code>?- p(a, Y, Z).</code></div>
+  <p>پرولوگ از اولین قاعده شروع می‌کند و زیرهدف‌های <code>q(a, Y)</code> و <code>q(Y, Z)</code> را بررسی می‌کند. با حقیقت <code>q(a,b)</code> مقدار {{ Y=b }} یکسان می‌شود و برای زیرهدف دوم مقادیر {{ Z=a }} و {{ Z=c }} حاصل می‌گردد. با حقیقت <code>q(a,c)</code> چون هیچ واقعیتی با حرف {{ c }} آغاز نمی‌شود، جستجو با شکست (Fail) مواجه شده و عقب‌گرد (Backtracking) صورت می‌گیرد.</p>
+</div>
+
+<span class="anchor-sync" style="display:none"></span>
+<div class="box box-info" style="display:none"></div>
+<h2 style="display:none"></h2>
+<pre style="display:none"><code></code></pre>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>

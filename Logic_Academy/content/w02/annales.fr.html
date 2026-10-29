@@ -1,0 +1,214 @@
+<div class="lesson-header">
+  <div class="badge">Sorbonne Université — Annales Officielles Corrigées</div>
+  <h1>Annales Thème 2 : Calcul Équationnel et Conséquence Sémantique</h1>
+  <p class="lead">Sujets réels de partiels de la Sorbonne avec barème officiel détaillé, calculs sans tables de vérité, preuves équationnelles complètes et déductions sémantiques vérifiées.</p>
+</div>
+
+<div class="toc-box">
+  <h3>Sujets d'examen traités</h3>
+  <ul>
+    <li><a href="#annale_partiel_2017">1. Partiel 2017-2018 – Exercice 3 : Validité et déductions formelles (20 points)</a></li>
+    <li><a href="#annale_partiel_2019">2. Partiel 2019-2020 L2 – Exercice 3 : Preuve algébrique et relations avec G (8 points)</a></li>
+  </ul>
+</div>
+
+<!-- SUJET 1 : PARTIEL 2017-2018 -->
+<h2 id="annale_partiel_2017">1. Partiel 2017-2018 – Exercice 3 : Validité et déductions formelles (20 points)</h2>
+
+<div class="box info">
+  <h4>Référence de l'épreuve</h4>
+  <p><strong>Épreuve :</strong> Évaluation de mi-semestre (Partiel) 2017-2018 — Logique UL2IN007.<br/>
+  <strong>Barème officiel :</strong> 20 points (Question 1 : 2 pts ; Question 2 : 5 + 6 + 3 + 2 + 2 = 18 pts).<br/>
+  <strong>Règle d'or :</strong> Aucune table de vérité n'est autorisée. Tous les calculs s'effectuent par l'algèbre de Boole.</p>
+</div>
+
+<div class="q-card" id="p17_q1">
+  <div class="q-header">
+    <span class="q-num">Question 1 (2 points)</span>
+    <span class="q-title">Définition mathématique d'une formule valide</span>
+  </div>
+  <div class="box def">
+    <h4>Énoncé officiel</h4>
+    <p>Donner la définition d'une formule valide.</p>
+  </div>
+
+  <details class="sol" open>
+    <summary>Corrigé officiel de la Question 1</summary>
+    <div class="box method">
+      <p>Une formule {{ F }} est <strong>valide</strong> si et seulement si pour toute interprétation (ou structure) {{ \mathcal{M} }}, on a :</p>
+      <p style="text-align:center; font-weight:bold; font-size:1.15em;">{{ [F]^{\mathcal{M}} = 1 }}</p>
+      <p><em>(Barème officiel : 2/2 si la quantification universelle « pour toute interprétation » est explicitement formulée).</em></p>
+    </div>
+  </details>
+</div>
+
+<div class="q-card" id="p17_q2_ab">
+  <div class="q-header">
+    <span class="q-num">Question 2 (a) &amp; (b) (11 points)</span>
+    <span class="q-title">Traduction brute et preuve de validité par calcul équationnel</span>
+  </div>
+  <div class="box def">
+    <h4>Énoncé officiel</h4>
+    <p>Soit {{ F }} la formule {{ ((A \lor \neg B) \land B) \Rightarrow A }}.</p>
+    <ul>
+      <li><strong>(a) (5 points) :</strong> Étant donnée une structure {{ \mathcal{M} }}, calculer l'expression booléenne {{ [F]^{\mathcal{M}} }} en fonction de {{ I_{\mathcal{M}}(A) }} et {{ I_{\mathcal{M}}(B) }} (sans effectuer de simplification).</li>
+      <li><strong>(b) (6 points) :</strong> En utilisant un raisonnement équationnel, montrer que {{ F }} est une formule valide (indiquer à chaque étape le nom de l'équivalence utilisée).</li>
+    </ul>
+  </div>
+
+  <details class="sol" open>
+    <summary>Corrigé officiel des Questions 2(a) et 2(b)</summary>
+    <div class="box method">
+      <h4>(a) Traduction inductive brute sans simplification (5 points)</h4>
+      <p>Appliquons pas à pas la définition inductive de l'évaluation :</p>
+      <div style="line-height:2em; font-size:1.05em;">
+        {{ [F]^{\mathcal{M}} = [((A \lor \neg B) \land B) \Rightarrow A]^{\mathcal{M}} }}<br/>
+        {{ = \overline{[ (A \lor \neg B) \land B ]^{\mathcal{M}}} + [A]^{\mathcal{M}} }} \quad <em>(Définition de l'implication)</em><br/>
+        {{ = \overline{ [A \lor \neg B]^{\mathcal{M}} \cdot [B]^{\mathcal{M}} } + [A]^{\mathcal{M}} }} \quad <em>(Définition de la conjonction)</em><br/>
+        {{ = \overline{ ([A]^{\mathcal{M}} + [\neg B]^{\mathcal{M}}) \cdot [B]^{\mathcal{M}} } + [A]^{\mathcal{M}} }} \quad <em>(Définition de la disjonction)</em><br/>
+        {{ = \overline{ (I_{\mathcal{M}}(A) + \overline{I_{\mathcal{M}}(B)}) \cdot I_{\mathcal{M}}(B) } + I_{\mathcal{M}}(A) }} \quad <em>(Évaluation des atomes et de la négation)</em>
+      </div>
+
+      <h4>(b) Preuve de validité par raisonnement équationnel (6 points)</h4>
+      <p>Posons pour alléger l'écriture {{ a = I_{\mathcal{M}}(A) }} et {{ b = I_{\mathcal{M}}(B) }} :</p>
+      <div style="line-height:2.2em; font-size:1.05em;">
+        {{ [F]^{\mathcal{M}} = \overline{ (a + \overline{b}) \cdot b } + a }}<br/>
+        {{ \equiv (\overline{a + \overline{b}} + \overline{b}) + a }} \quad <em>(Loi de De Morgan sur la négation externe)</em><br/>
+        {{ \equiv ( (\overline{a} \cdot \overline{\overline{b}}) + \overline{b} ) + a }} \quad <em>(Loi de De Morgan sur {{ \overline{a + \overline{b}} }})</em><br/>
+        {{ \equiv ( (\overline{a} \cdot b) + \overline{b} ) + a }} \quad <em>(Involution : {{ \overline{\overline{b}} = b }})</em><br/>
+        {{ \equiv ( (\overline{a} + \overline{b}) \cdot (b + \overline{b}) ) + a }} \quad <em>(Distributivité de + sur {{ \cdot }})</em><br/>
+        {{ \equiv ( (\overline{a} + \overline{b}) \cdot 1 ) + a }} \quad <em>(Complémentarité : {{ b + \overline{b} = 1 }})</em><br/>
+        {{ \equiv (\overline{a} + \overline{b}) + a }} \quad <em>(Élément neutre de {{ \cdot }})</em><br/>
+        {{ \equiv (\overline{a} + a) + \overline{b} }} \quad <em>(Commutativité et associativité de +)</em><br/>
+        {{ \equiv 1 + \overline{b} }} \quad <em>(Complémentarité : {{ \overline{a} + a = 1 }})</em><br/>
+        {{ \equiv 1 }} \quad <em>(Élément absorbant : {{ 1 + x = 1 }})</em>
+      </div>
+      <p>Puisque {{ [F]^{\mathcal{M}} = 1 }} pour toute interprétation {{ \mathcal{M} }}, <strong>{{ F }} est une formule valide</strong>.</p>
+    </div>
+  </details>
+</div>
+
+<div class="q-card" id="p17_q2_cde">
+  <div class="q-header">
+    <span class="q-num">Question 2 (c), (d) &amp; (e) (7 points)</span>
+    <span class="q-title">Déductions sémantiques et propriétés métamathématiques</span>
+  </div>
+  <div class="box def">
+    <h4>Énoncé officiel</h4>
+    <ul>
+      <li><strong>(c) (3 points) :</strong> A-t-on {{ (A \lor \neg B) \land B \models A }} ? (justifier).</li>
+      <li><strong>(d) (2 points) :</strong> Soit {{ F_1 }} une formule quelconque. A-t-on {{ \neg F \models F_1 }} ? (justifier).</li>
+      <li><strong>(e) (2 points) :</strong> Soit {{ F_2 }} une formule telle que {{ F \models F_2 }}. La formule {{ F_2 }} est-elle satisfiable ? valide ? (justifier).</li>
+    </ul>
+  </div>
+
+  <details class="sol" open>
+    <summary>Corrigé officiel des Questions 2(c), 2(d) et 2(e)</summary>
+    <div class="box method">
+      <h4>(c) Conséquence sémantique {{ (A \lor \neg B) \land B \models A }} (3 points)</h4>
+      <p><strong>OUI.</strong> Par le théorème de déduction sémantique, on a l'équivalence fondamentale :</p>
+      <p style="text-align:center; font-weight:bold;">{{ P \models Q \quad \iff \quad \models (P \Rightarrow Q) }}</p>
+      <p>Comme on a prouvé à la question (b) que la formule {{ F = ((A \lor \neg B) \land B) \Rightarrow A }} est valide, on en déduit immédiatement que {{ (A \lor \neg B) \land B \models A }}.</p>
+
+      <h4>(d) Conséquence sémantique avec la négation {{ \neg F \models F_1 }} (2 points)</h4>
+      <p><strong>OUI.</strong> Puisque {{ F }} est une formule valide, sa négation {{ \neg F }} est <strong>insatisfiable</strong>. L'ensemble des structures satisfaisant {{ \neg F }} est donc <strong>vide</strong>. Dès lors, toute interprétation qui satisfait {{ \neg F }} satisfait trivialement {{ F_1 }} par vacuité (principe <em>ex falso quodlibet</em>). On a donc bien {{ \neg F \models F_1 }}.</p>
+
+      <h4>(e) Nature de {{ F_2 }} si {{ F \models F_2 }} (2 points)</h4>
+      <p>Puisque {{ F }} est valide, pour toute structure {{ \mathcal{M} }} on a {{ [F]^{\mathcal{M}} = 1 }}.</p>
+      <p>Comme {{ F \models F_2 }}, toute structure qui satisfait {{ F }} doit satisfaire {{ F_2 }}. Or <em>toutes</em> les structures satisfont {{ F }}, donc <strong>toutes les structures satisfont obligatoirement {{ F_2 }}</strong> ({{ \forall \mathcal{M}, [F_2]^{\mathcal{M}} = 1 }}).</p>
+      <p><strong>Conclusion :</strong> La formule {{ F_2 }} est donc <strong>valide</strong> (et donc également <strong>satisfiable</strong>).</p>
+    </div>
+  </details>
+</div>
+
+<!-- SUJET 2 : PARTIEL 2019-2020 L2 -->
+<h2 id="annale_partiel_2019">2. Partiel 2019-2020 L2 – Exercice 3 : Preuve algébrique et relations avec G (8 points)</h2>
+
+<div class="box info">
+  <h4>Référence de l'épreuve</h4>
+  <p><strong>Épreuve :</strong> Partiel L2 Informatique 2019-2020 — UE UL2IN007 Logique.<br/>
+  <strong>Barème officiel :</strong> 8 points (1 pt + 1 pt + 2 pts + 4 pts).<br/>
+  <strong>Formule étudiée :</strong> {{ F = (\neg A \Rightarrow (A \land \neg A)) \Rightarrow A }}.</p>
+</div>
+
+<div class="q-card" id="p19_q1_q2ab">
+  <div class="q-header">
+    <span class="q-num">Questions 1, 2(a) et 2(b) (4 points)</span>
+    <span class="q-title">Traduction et preuve de validité de F</span>
+  </div>
+  <div class="box def">
+    <h4>Énoncé officiel</h4>
+    <ol>
+      <li>Donner la définition mathématique d'une formule {{ F }} valide.</li>
+      <li>Soit {{ F = (\neg A \Rightarrow (A \land \neg A)) \Rightarrow A }} :
+        <ul>
+          <li><strong>(a) :</strong> Calculer l'expression booléenne {{ [F]^{\mathcal{M}} }} sans simplification.</li>
+          <li><strong>(b) :</strong> Par un raisonnement équationnel, montrer que {{ F }} est valide.</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+
+  <details class="sol" open>
+    <summary>Corrigé officiel pas-à-pas</summary>
+    <div class="box method">
+      <h4>1. Définition (1 point)</h4>
+      <p>{{ F }} est valide ssi pour toute structure {{ \mathcal{M} }}, {{ [F]^{\mathcal{M}} = 1 }}.</p>
+
+      <h4>2(a) Traduction brute sans simplification (1 point)</h4>
+      <div style="line-height:2em; font-size:1.05em;">
+        {{ [F]^{\mathcal{M}} = \overline{ [\neg A \Rightarrow (A \land \neg A)]^{\mathcal{M}} } + [A]^{\mathcal{M}} }}<br/>
+        {{ = \overline{ \overline{[\neg A]^{\mathcal{M}}} + [A \land \neg A]^{\mathcal{M}} } + [A]^{\mathcal{M}} }}<br/>
+        {{ = \overline{ \overline{\overline{I_{\mathcal{M}}(A)}} + (I_{\mathcal{M}}(A) \cdot \overline{I_{\mathcal{M}}(A)}) } + I_{\mathcal{M}}(A) }}
+      </div>
+
+      <h4>2(b) Raisonnement équationnel (2 points)</h4>
+      <p>En posant {{ x = I_{\mathcal{M}}(A) }} :</p>
+      <div style="line-height:2.2em; font-size:1.05em;">
+        {{ [F]^{\mathcal{M}} \equiv \overline{ x + (x \cdot \overline{x}) } + x }} \quad <em>(Involution : {{ \overline{\overline{x}} = x }})</em><br/>
+        {{ \equiv \overline{ x + 0 } + x }} \quad <em>(Complémentarité : {{ x \cdot \overline{x} = 0 }})</em><br/>
+        {{ \equiv \overline{x} + x }} \quad <em>(Élément neutre : {{ x + 0 = x }})</em><br/>
+        {{ \equiv 1 }} \quad <em>(Complémentarité : {{ \overline{x} + x = 1 }})</em>
+      </div>
+      <p>La formule {{ F }} est donc formellement valide.</p>
+    </div>
+  </details>
+</div>
+
+<div class="q-card" id="p19_q2c">
+  <div class="q-header">
+    <span class="q-num">Question 2(c) (4 points)</span>
+    <span class="q-title">Analyse des 4 conséquences sémantiques avec G quelconque</span>
+  </div>
+  <div class="box def">
+    <h4>Énoncé officiel</h4>
+    <p>Soit {{ G }} une formule quelconque. A-t-on :</p>
+    <ul>
+      <li>(i) {{ G \models F }} ?</li>
+      <li>(ii) {{ F \models G }} ?</li>
+      <li>(iii) {{ G \models \neg F }} ?</li>
+      <li>(iv) {{ \neg F \models G }} ?</li>
+    </ul>
+    <p>Justifier vos réponses.</p>
+  </div>
+
+  <details class="sol" open>
+    <summary>Corrigé officiel des 4 déductions</summary>
+    <div class="box method">
+      <ul>
+        <li><strong>(i) A-t-on {{ G \models F }} ? &rarr; OUI (1 point)</strong>
+          <br/>Toutes les structures qui satisfont {{ G }} satisfont nécessairement {{ F }}, puisque {{ F }} est <strong>valide</strong> et est donc satisfaite par <em>toutes</em> les structures sans exception.
+        </li>
+        <li><strong>(ii) A-t-on {{ F \models G }} ? &rarr; NON (1 point)</strong>
+          <br/>Comme {{ G }} est une formule quelconque, elle peut par exemple être une formule non satisfaite par une certaine structure {{ \mathcal{M} }} (par exemple {{ G = \text{false} }}). Cette structure satisfait pourtant {{ F }} puisque {{ F }} est valide. C'est donc un contre-modèle.
+        </li>
+        <li><strong>(iii) A-t-on {{ G \models \neg F }} ? &rarr; NON (1 point)</strong>
+          <br/>{{ G }} étant quelconque, elle peut être satisfaite par une certaine structure {{ \mathcal{M} }} (par exemple {{ G = \text{true} }}). Or {{ \neg F }} est insatisfiable (car {{ F }} est valide), donc aucune structure ne satisfait {{ \neg F }}.
+        </li>
+        <li><strong>(iv) A-t-on {{ \neg F \models G }} ? &rarr; OUI (1 point)</strong>
+          <br/>Puisque {{ F }} est valide, {{ \neg F }} est <strong>insatisfiable</strong>. L'ensemble des structures qui satisfont {{ \neg F }} est donc vide, ce qui rend l'implication universellement vraie par vacuité.
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>

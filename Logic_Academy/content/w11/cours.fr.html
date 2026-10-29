@@ -1,0 +1,66 @@
+
+<div class="box box-objectives">
+  <div class="box-title">Objectifs d'apprentissage — Semaine 11 (Prolog Avancé, Formes Normales & Skolémisation)</div>
+  <ul>
+    <li>Maîtriser la récursivité sur les listes en Prolog avec l'opérateur cons <code>[Tete | Queue]</code>.</li>
+    <li>Comprendre l'écriture et le fonctionnement bidirectionnel du prédicat <code>append/3</code>.</li>
+    <li>Mettre une formule LPPO sous <strong>Forme Normale Négative (FNN)</strong> et <strong>Forme Prénexe</strong>.</li>
+    <li>Maîtriser la <strong>Skolémisation</strong> : élimination rigoureuse des quantificateurs existentiels par des constantes et fonctions de Skolem.</li>
+    <li>Comprendre la notion capitale d'<strong>équisatisfiabilité</strong> et le <strong>Théorème de Herbrand</strong>.</li>
+  </ul>
+</div>
+
+<h2 id="w11-c-listes-prolog">1. Les Listes en Prolog et le Prédicat <code>append</code></h2>
+<div class="box box-definition">
+  <div class="box-title">Définition 11.1 — Structure Inductive d'une Liste</div>
+  <p>En Prolog, une liste est définie inductivement par :</p>
+  <ul>
+    <li>La liste vide : <code>[]</code></li>
+    <li>La cellule cons : <code>[T | Q]</code> où <code>T</code> est le premier élément (la tête) et <code>Q</code> est le reste de la liste (la queue).</li>
+  </ul>
+  <p>Exemple : <code>[a, b, c]</code> est du sucre syntaxique pour <code>[a | [b | [c | []]]]</code>.</p>
+</div>
+
+<div class="box box-method">
+  <div class="box-title">Le Prédicat Magique : <code>append(L1, L2, L3)</code></div>
+  <pre><code>append([], L, L).
+append([X | L1], L2, [X | L3]) :- append(L1, L2, L3).</code></pre>
+  <p>Prolog peut utiliser ce prédicat dans les deux sens :</p>
+  <ul>
+    <li><strong>Concaténer :</strong> <code>?- append([a, b], [c, d], R).</code> {{ \implies }} <code>R = [a, b, c, d]</code>.</li>
+    <li><strong>Décomposer :</strong> <code>?- append(X, Y, [a, b]).</code> génère par backtracking toutes les partitions possibles de la liste !</li>
+  </ul>
+</div>
+
+<h2 id="w11-c-formes-normales-lppo">2. Formes Normales en LPPO : Prénexe et Skolémisation</h2>
+<p>Pour appliquer la méthode de résolution à une formule de premier ordre quelconque, on doit la transformer en forme clausale en suivant 4 étapes strictes :</p>
+
+<div class="box box-method">
+  <div class="box-title">Les 4 Étapes de la Transformation Clausale en LPPO</div>
+  <ol>
+    <li><strong>Forme Normale Négative (FNN) :</strong> On élimine les équivalences et implications, puis on pousse les négations jusqu'aux atomes à l'aide des lois de De Morgan :
+    {{ 
+eg orall x A \equiv \exists x 
+eg A \quad 	ext{et} \quad 
+eg \exists x A \equiv orall x 
+eg A }}</li>
+    <li><strong>Renommage des variables ({{ lpha }}-conversion) :</strong> On s'assure que chaque quantificateur porte sur une variable portant un nom distinct afin d'éviter toute ambiguïté de portée.</li>
+    <li><strong>Forme Prénexe :</strong> On extrait tous les quantificateurs en tête de formule :
+    {{ Q_1 x_1 Q_2 x_2 \dots Q_k x_k \; M(x_1, \dots, x_k) }}
+    où la matrice {{ M }} ne contient plus aucun quantificateur.</li>
+    <li><strong>Skolémisation (Forme de Skolem) :</strong> On élimine les quantificateurs existentiels de gauche à droite :
+      <ul>
+        <li>Si {{ \exists y }} n'est précédé d'aucun quantificateur universel, on remplace chaque occurrence libre de {{ y }} par une nouvelle constante de Skolem {{ c }}.</li>
+        <li>Si {{ \exists y }} est précédé par les quantificateurs universels {{ orall x_1, \dots, orall x_n }}, on remplace {{ y }} par un terme fonctionnel {{ f_y(x_1, \dots, x_n) }} où {{ f_y }} est un nouveau symbole de fonction.</li>
+      </ul>
+    </li>
+  </ol>
+</div>
+
+<div class="box box-pourquoi">
+  <div class="box-title">Attention Conceptuelle : Équivalence vs Équisatisfiabilité</div>
+  <p>La formule skolémisée {{ F_{sk} }} n'est <strong>PAS logiquement équivalente</strong> à la formule de départ {{ F }} (car la signature a été enrichie de nouvelles fonctions) !</p>
+  <p>En revanche, elles sont <strong>ÉQUISATISFIABLES</strong> :</p>
+  {{ F 	ext{ est satisfiable} \iff F_{sk} 	ext{ est satisfiable} }}
+  <p>C'est exactement ce dont la preuve par réfutation a besoin pour conclure !</p>
+</div>

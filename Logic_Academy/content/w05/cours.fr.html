@@ -1,0 +1,85 @@
+
+<div class="box box-objectives">
+  <div class="box-title">Objectifs d'apprentissage — Semaine 5 (Déduction Naturelle Intuitionniste)</div>
+  <ul>
+    <li>Comprendre l'architecture d'une preuve en déduction naturelle (Gentzen) et le formalisme d'Édukera.</li>
+    <li>Maîtriser le cycle de vie d'une hypothèse : ouverture d'une boîte, raisonnement local, et <strong>décharge</strong>.</li>
+    <li>Appliquer rigoureusement les règles d'introduction et d'élimination des connecteurs : {{ \land, \lor, \Rightarrow, \neg, \bot }}.</li>
+    <li>Comprendre la différence capitale entre la règle intuitionniste {{ \bot E }} (ex falso quodlibet) et le raisonnement par l'absurde classique ({{ RAA }}).</li>
+    <li>Rédiger des preuves formelles selon le canevas universitaire : <em>Supposons... → Montrons... → Appliquons... → Conclusion</em>.</li>
+  </ul>
+</div>
+
+<h2 id="w05-c-principes">1. Anatomie d'un Système de Déduction Naturelle</h2>
+<p>
+Contrairement aux tables de vérité qui calculent la vérité par énumération exhaustive, la <strong>déduction naturelle</strong> formalise le raisonnement déductif étape par étape à partir d'hypothèses.
+</p>
+
+<div class="box box-definition">
+  <div class="box-title">Définition 5.1 — Jugement de Déductibilité et Boîtes d'Hypothèses</div>
+  <p>Une preuve établit un jugement de la forme : {{ \Gamma \vdash A }}</p>
+  <ul>
+    <li>{{ \Gamma }} est l'ensemble des <strong>hypothèses actives</strong> (le contexte).</li>
+    <li>{{ A }} est la formule cible (la conclusion ou le but).</li>
+    <li><strong>Boîte de preuve (Fitch / Édukera) :</strong> Pour prouver une implication {{ A \Rightarrow B }}, on ouvre une sous-preuve avec l'hypothèse temporaire {{ A }}. Dès que {{ B }} est dérivé, la boîte est <strong>fermée</strong> (l'hypothèse {{ A }} est <em>déchargée</em>) et on conclut {{ A \Rightarrow B }} au niveau supérieur. L'hypothèse {{ A }} n'est plus accessible ensuite !</li>
+  </ul>
+</div>
+
+<h2 id="w05-c-regles">2. Les Règles Fondamentales de la Logique Intuitionniste</h2>
+
+<div class="box box-definition">
+  <div class="box-title">Règles de l'Implication ({{ \Rightarrow }})</div>
+  <ul>
+    <li><strong>Introduction ({{ \Rightarrow I }}) :</strong> Pour prouver {{ A \Rightarrow B }}, on suppose {{ A }} et on prouve {{ B }}. L'hypothèse {{ A }} est déchargée.
+    {{ \frac{[A] \dots \vdash B}{\vdash A \Rightarrow B} (\Rightarrow I) }}</li>
+    <li><strong>Élimination ({{ \Rightarrow E }} / Modus Ponens) :</strong> Si on a {{ A \Rightarrow B }} et qu'on a {{ A }}, on en déduit {{ B }}.
+    {{ \frac{\Gamma \vdash A \Rightarrow B \quad \Gamma \vdash A}{\Gamma \vdash B} (\Rightarrow E) }}</li>
+  </ul>
+</div>
+
+<div class="box box-definition">
+  <div class="box-title">Règles de la Conjonction ({{ \land }})</div>
+  <ul>
+    <li><strong>Introduction ({{ \land I }}) :</strong> Si on a {{ A }} et on a {{ B }}, on en déduit {{ A \land B }}.</li>
+    <li><strong>Élimination ({{ \land E_1, \land E_2 }}) :</strong> De {{ A \land B }}, on peut déduire {{ A }} (élimination gauche) ou {{ B }} (élimination droite).</li>
+  </ul>
+</div>
+
+<div class="box box-definition">
+  <div class="box-title">Règles de la Disjonction ({{ \lor }})</div>
+  <ul>
+    <li><strong>Introduction ({{ \lor I_1, \lor I_2 }}) :</strong> De {{ A }}, on peut déduire {{ A \lor B }}. De {{ B }}, on peut déduire {{ A \lor B }}.</li>
+    <li><strong>Élimination ({{ \lor E }} / Raisonnement par cas) :</strong> Si on a {{ A \lor B }}, et qu'en supposant {{ A }} on arrive à {{ C }}, et qu'en supposant {{ B }} on arrive aussi à {{ C }}, alors on a prouvé {{ C }} sans condition sur {{ A }} ou {{ B }} !
+    {{ \frac{\Gamma \vdash A \lor B \quad \Gamma, [A] \vdash C \quad \Gamma, [B] \vdash C}{\Gamma \vdash C} (\lor E) }}</li>
+  </ul>
+</div>
+
+<div class="box box-definition">
+  <div class="box-title">Règles de la Négation ({{ \neg }}) et de l'Absurde Intuitionniste ({{ \bot }})</div>
+  <p>En logique formelle, la négation {{ \neg A }} est une abréviation pour {{ A \Rightarrow \bot }} (supposer {{ A }} mène à une contradiction impossible).</p>
+  <ul>
+    <li><strong>Introduction de {{ \neg }} ({{ \neg I }}) :</strong> Si en supposant {{ A }}, on dérive la contradiction {{ \bot }}, alors on a prouvé {{ \neg A }} (décharge de {{ A }}).</li>
+    <li><strong>Élimination de {{ \neg }} ({{ \neg E }}) :</strong> Si on a {{ A }} et {{ \neg A }}, on en déduit immédiatement la contradiction {{ \bot }}.</li>
+    <li><strong>Élimination du faux intuitionniste ({{ \bot E }} / Ex Falso Quodlibet) :</strong> De la contradiction {{ \bot }}, <strong>on peut déduire N'IMPORTE QUELLE proposition {{ B }}</strong> !
+    {{ \frac{\Gamma \vdash \bot}{\Gamma \vdash B} (\bot E) }}</li>
+  </ul>
+</div>
+
+<div class="box box-example">
+  <div class="box-title">Exemple Fondamental Décortiqué — Preuve de $
+eg A \Rightarrow (A \Rightarrow B)$</div>
+  <p>Voici la démonstration pas à pas exigée à l'examen :</p>
+  <ol>
+    <li>On veut prouver une implication dont la prémisse est {{ \neg A }}.<br>
+    <strong>Supposons {{ \neg A }} (Hypothèse 1).</strong></li>
+    <li>Le but restant est {{ A \Rightarrow B }}, qui est encore une implication.<br>
+    <strong>Supposons {{ A }} (Hypothèse 2).</strong></li>
+    <li>On a maintenant l'hypothèse 1 ($
+eg A{{ ) et l'hypothèse 2 ( }}A$) dans notre boîte active.<br>
+    <strong>Appliquons la règle {{ \neg E }} entre {{ A }} et {{ \neg A }} : on obtient {{ \bot }} (contradiction).</strong></li>
+    <li>De {{ \bot }}, appliquons la règle intuitionniste {{ \bot E }} : <strong>on déduit {{ B }} !</strong></li>
+    <li>On ferme l'hypothèse 2 ({{ A }}) : par {{ \Rightarrow I }}, <strong>on conclut {{ A \Rightarrow B }}.</strong></li>
+    <li>On ferme l'hypothèse 1 ($
+eg A{{ ) : par  }}\Rightarrow I$, <strong>on conclut {{ \neg A \Rightarrow (A \Rightarrow B) }}. Preuve terminée !</strong></li>
+  </ol>
+</div>

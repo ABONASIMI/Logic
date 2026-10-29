@@ -1,0 +1,214 @@
+<div class="lesson-header">
+  <div class="badge">دانشگاه سوربن — پاسخ‌نامه رسمی امتحانات میان‌ترم</div>
+  <h1>امتحانات فصل ۲: محاسبات معادلاتی و استلزام معنایی</h1>
+  <p class="lead">مسائل واقعی آزمون‌های میان‌ترم (Partiel) دانشگاه سوربن با بارم‌بندی دقیق، محاسبات بدون جدول درستی، اثبات‌های معادلاتی و استنتاج‌های صوری تاییدشده.</p>
+</div>
+
+<div class="toc-box">
+  <h3>امتحانات مورد بررسی</h3>
+  <ul>
+    <li><a href="#annale_partiel_2017">۱. میان‌ترم ۲۰۱۷-۲۰۱۸ – تمرین ۳ : اعتبار و استنتاج‌های صوری (۲۰ نمره)</a></li>
+    <li><a href="#annale_partiel_2019">۲. میان‌ترم ۲۰۱۹-۲۰۲۰ دوره کارشناسی – تمرین ۳ : اثبات جبری و روابط با فرمول دلخواه G (۸ نمره)</a></li>
+  </ul>
+</div>
+
+<!-- SUJET 1 : PARTIEL 2017-2018 -->
+<h2 id="annale_partiel_2017">1. Partiel 2017-2018 – Exercice 3 : Validité et déductions formelles (20 points)</h2>
+
+<div class="box info">
+  <h4>مشخصات برگه امتحانی</h4>
+  <p><strong>آزمون:</strong> امتحان میان‌ترم (Partiel) ۲۰۱۷-۲۰۱۸ — درس منطق UL2IN007.<br/>
+  <strong>بارم رسمی:</strong> ۲۰ نمره (سوال ۱: ۲ نمره ؛ سوال ۲: ۵ + ۶ + ۳ + ۲ + ۲ = ۱۸ نمره).<br/>
+  <strong>قانون طلایی:</strong> کشیدن جدول درستی اکیداً ممنوع بوده و تمام محاسبات باید با جبر بولی انجام پذیرد.</p>
+</div>
+
+<div class="q-card" id="p17_q1">
+  <div class="q-header">
+    <span class="q-num">سوال ۱ (۲ نمره)</span>
+    <span class="q-title">تعریف ریاضی فرمول معتبر (توتولوژی)</span>
+  </div>
+  <div class="box def">
+    <h4>متن اصلی صورت مسئله</h4>
+    <p>تعریف فرمول معتبر را بنویسید.</p>
+  </div>
+
+  <details class="sol" open>
+    <summary>پاسخ‌نامه رسمی سوال ۱</summary>
+    <div class="box method">
+      <p>فرمول {{ F }} <strong>معتبر</strong> است اگر و تنها اگر تحت هر تعبیر (یا ساختار) دلخواه {{ \mathcal{M} }} داشته باشیم:</p>
+      <p style="text-align:center; font-weight:bold; font-size:1.15em;" dir="ltr">{{ [F]^{\mathcal{M}} = 1 }}</p>
+      <p><em>(ضابطه تصحیح: ۲ نمره کامل در صورتی داده می‌شود که قید «به ازای هر تعبیر» صراحتاً قید شده باشد).</em></p>
+    </div>
+  </details>
+</div>
+
+<div class="q-card" id="p17_q2_ab">
+  <div class="q-header">
+    <span class="q-num">سوال ۲ (الف) و (ب) (۱۱ نمره)</span>
+    <span class="q-title">ترجمه خام و اثبات اعتبار با استدلال معادلاتی</span>
+  </div>
+  <div class="box def">
+    <h4>متن اصلی صورت مسئله</h4>
+    <p>فرض کنید {{ F }} فرمول {{ ((A \lor \neg B) \land B) \Rightarrow A }} باشد.</p>
+    <ul>
+      <li><strong>(الف) (۵ نمره) :</strong> تحت ساختار {{ \mathcal{M} }}، عبارت بولی {{ [F]^{\mathcal{M}} }} را بر حسب {{ I_{\mathcal{M}}(A) }} و {{ I_{\mathcal{M}}(B) }} بدون هیچ‌گونه ساده‌سازی بنویسید.</li>
+      <li><strong>(ب) (۶ نمره) :</strong> با استفاده از استدلال معادلاتی نشان دهید فرمول {{ F }} معتبر است (در هر گام نام قاعده جبری را ذکر کنید).</li>
+    </ul>
+  </div>
+
+  <details class="sol" open>
+    <summary>پاسخ‌نامه رسمی سوالات ۲(الف) و ۲(ب)</summary>
+    <div class="box method">
+      <h4>(الف) ترجمه خام استقرایی بدون ساده‌سازی (۵ نمره)</h4>
+      <p>قواعد تبدیل استقرایی را گام‌به‌گام پیاده می‌کنیم:</p>
+      <div style="line-height:2em; font-size:1.05em;" dir="ltr">
+        {{ [F]^{\mathcal{M}} = [((A \lor \neg B) \land B) \Rightarrow A]^{\mathcal{M}} }}<br/>
+        {{ = \overline{[ (A \lor \neg B) \land B ]^{\mathcal{M}}} + [A]^{\mathcal{M}} }} \quad <em>(تعریف شرطی)</em><br/>
+        {{ = \overline{ [A \lor \neg B]^{\mathcal{M}} \cdot [B]^{\mathcal{M}} } + [A]^{\mathcal{M}} }} \quad <em>(تعریف عطف)</em><br/>
+        {{ = \overline{ ([A]^{\mathcal{M}} + [\neg B]^{\mathcal{M}}) \cdot [B]^{\mathcal{M}} } + [A]^{\mathcal{M}} }} \quad <em>(تعریف فصل)</em><br/>
+        {{ = \overline{ (I_{\mathcal{M}}(A) + \overline{I_{\mathcal{M}}(B)}) \cdot I_{\mathcal{M}}(B) } + I_{\mathcal{M}}(A) }} \quad <em>(ارزیابی اتم‌ها و نقیض)</em>
+      </div>
+
+      <h4>(ب) اثبات اعتبار با استدلال معادلاتی (۶ نمره)</h4>
+      <p>برای اختصار می‌نویسیم {{ a = I_{\mathcal{M}}(A) }} و {{ b = I_{\mathcal{M}}(B) }} :</p>
+      <div style="line-height:2.2em; font-size:1.05em;" dir="ltr">
+        {{ [F]^{\mathcal{M}} = \overline{ (a + \overline{b}) \cdot b } + a }}<br/>
+        {{ \equiv (\overline{a + \overline{b}} + \overline{b}) + a }} \quad <em>(قانون دمرگان روی نقیض کلی)</em><br/>
+        {{ \equiv ( (\overline{a} \cdot \overline{\overline{b}}) + \overline{b} ) + a }} \quad <em>(قانون دمرگان روی عبارت داخلی {{ \overline{a + \overline{b}} }})</em><br/>
+        {{ \equiv ( (\overline{a} \cdot b) + \overline{b} ) + a }} \quad <em>(نفی مضاعف : {{ \overline{\overline{b}} = b }})</em><br/>
+        {{ \equiv ( (\overline{a} + \overline{b}) \cdot (b + \overline{b}) ) + a }} \quad <em>(توزیع‌پذیری جمع روی ضرب {{ \cdot }})</em><br/>
+        {{ \equiv ( (\overline{a} + \overline{b}) \cdot 1 ) + a }} \quad <em>(قانون متمم : {{ b + \overline{b} = 1 }})</em><br/>
+        {{ \equiv (\overline{a} + \overline{b}) + a }} \quad <em>(عنصر همانی ضرب {{ \cdot }})</em><br/>
+        {{ \equiv (\overline{a} + a) + \overline{b} }} \quad <em>(جابجایی و شرکت‌پذیری جمع)</em><br/>
+        {{ \equiv 1 + \overline{b} }} \quad <em>(قانون متمم : {{ \overline{a} + a = 1 }})</em><br/>
+        {{ \equiv 1 }} \quad <em>(عنصر جاذب : {{ 1 + x = 1 }})</em>
+      </div>
+      <p>از آنجا که {{ [F]^{\mathcal{M}} = 1 }} تحت هر تعبیر {{ \mathcal{M} }} برقرار است، <strong>فرمول {{ F }} معتبر است</strong>.</p>
+    </div>
+  </details>
+</div>
+
+<div class="q-card" id="p17_q2_cde">
+  <div class="q-header">
+    <span class="q-num">سوال ۲ (ج)، (د) و (هـ) (۷ نمره)</span>
+    <span class="q-title">استنتاج‌های معنایی و خواص فرامنطقی</span>
+  </div>
+  <div class="box def">
+    <h4>متن اصلی صورت مسئله</h4>
+    <ul>
+      <li><strong>(ج) (۳ نمره) :</strong> آیا رابطه {{ (A \lor \neg B) \land B \models A }} برقرار است؟ (توجیه کنید).</li>
+      <li><strong>(د) (۲ نمره) :</strong> فرض کنید {{ F_1 }} یک فرمول دلخواه باشد. آیا {{ \neg F \models F_1 }} برقرار است؟ (توجیه کنید).</li>
+      <li><strong>(هـ) (۲ نمره) :</strong> فرض کنید {{ F_2 }} فرمولی باشد به طوری که {{ F \models F_2 }}. آیا {{ F_2 }} صدق‌پذیر است؟ آیا معتبر است؟ (توجیه کنید).</li>
+    </ul>
+  </div>
+
+  <details class="sol" open>
+    <summary>پاسخ‌نامه رسمی سوالات ۲(ج)، ۲(د) و ۲(هـ)</summary>
+    <div class="box method">
+      <h4>(ج) استلزام معنایی {{ (A \lor \neg B) \land B \models A }} (۳ نمره)</h4>
+      <p><strong>بله.</strong> طبق قضیه بنیادین استنتاج معنایی، هم‌ارزی زیر برقرار است:</p>
+      <p style="text-align:center; font-weight:bold;" dir="ltr">{{ P \models Q \quad \iff \quad \models (P \Rightarrow Q) }}</p>
+      <p>از آنجا که در بخش (ب) اثبات شد فرمول {{ F = ((A \lor \neg B) \land B) \Rightarrow A }} معتبر است، بلافاصله نتیجه می‌گیریم که {{ (A \lor \neg B) \land B \models A }}.</p>
+
+      <h4>(د) استلزام با نقیض فرمول معتبر {{ \neg F \models F_1 }} (۲ نمره)</h4>
+      <p><strong>بله.</strong> از آنجا که {{ F }} معتبر است، نقیض آن {{ \neg F }} <strong>ناسازگار (تناقض)</strong> است. بنابراین مجموعه ساختارهایی که {{ \neg F }} را برآورده کنند <strong>تهی</strong> است. در نتیجه هر ساختاری که {{ \neg F }} را صادق کند، به طور بدیهی فرضیه را به انتفای مقدم برآورده ساخته و {{ F_1 }} را نتیجه می‌دهد. پس {{ \neg F \models F_1 }} صادق است.</p>
+
+      <h4>(هـ) ماهیت فرمول {{ F_2 }} در صورت {{ F \models F_2 }} (۲ نمره)</h4>
+      <p>چون فرمول {{ F }} معتبر است، تحت تمامی ساختارها {{ \mathcal{M} }}، مقدار {{ [F]^{\mathcal{M}} = 1 }} است.</p>
+      <p>از طرفی رابطه {{ F \models F_2 }} بیان می‌کند هر مدلی از {{ F }} باید مدلی برای {{ F_2 }} باشد. از آنجا که <em>تمام</em> ساختارهای جهان مدل {{ F }} هستند، نتیجه می‌شود که <strong>تمام ساختارها مدل فرمول {{ F_2 }} خواهند بود</strong> ({{ \forall \mathcal{M}, [F_2]^{\mathcal{M}} = 1 }}).</p>
+      <p><strong>نتیجه نهایی:</strong> بنابراین فرمول {{ F_2 }} الزاماً <strong>معتبر (توتولوژی)</strong> است (و در نتیجه <strong>صدق‌پذیر</strong> نیز می‌باشد).</p>
+    </div>
+  </details>
+</div>
+
+<!-- SUJET 2 : PARTIEL 2019-2020 L2 -->
+<h2 id="annale_partiel_2019">2. Partiel 2019-2020 L2 – Exercice 3 : Preuve algébrique et relations avec G (8 points)</h2>
+
+<div class="box info">
+  <h4>مشخصات برگه امتحانی</h4>
+  <p><strong>آزمون:</strong> میان‌ترم کارشناسی ۲۰۱۹-۲۰۲۰ — درس منطق UL2IN007.<br/>
+  <strong>بارم رسمی:</strong> ۸ نمره (۱ نمره + ۱ نمره + ۲ نمره + ۴ نمره).<br/>
+  <strong>فرمول مورد بررسی:</strong> {{ F = (\neg A \Rightarrow (A \land \neg A)) \Rightarrow A }}.</p>
+</div>
+
+<div class="q-card" id="p19_q1_q2ab">
+  <div class="q-header">
+    <span class="q-num">سوالات ۱، ۲(الف) و ۲(ب) (۴ نمره)</span>
+    <span class="q-title">ترجمه و اثبات اعتبار جبری فرمول F</span>
+  </div>
+  <div class="box def">
+    <h4>متن اصلی صورت مسئله</h4>
+    <ol>
+      <li>تعریف ریاضی فرمول معتبر {{ F }} را بنویسید.</li>
+      <li>فرمول {{ F = (\neg A \Rightarrow (A \land \neg A)) \Rightarrow A }} را در نظر بگیرید:
+        <ul>
+          <li><strong>(الف) :</strong> عبارت بولی {{ [F]^{\mathcal{M}} }} را بدون ساده‌سازی بنویسید.</li>
+          <li><strong>(ب) :</strong> با استدلال معادلاتی نشان دهید {{ F }} معتبر است.</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+
+  <details class="sol" open>
+    <summary>پاسخ‌نامه رسمی تشریحی</summary>
+    <div class="box method">
+      <h4>۱. تعریف صوری (۱ نمره)</h4>
+      <p>فرمول {{ F }} معتبر است اگر و تنها اگر برای هر ساختار {{ \mathcal{M} }} داشته باشیم: {{ [F]^{\mathcal{M}} = 1 }}.</p>
+
+      <h4>۲(الف) ترجمه خام بدون ساده‌سازی (۱ نمره)</h4>
+      <div style="line-height:2em; font-size:1.05em;" dir="ltr">
+        {{ [F]^{\mathcal{M}} = \overline{ [\neg A \Rightarrow (A \land \neg A)]^{\mathcal{M}} } + [A]^{\mathcal{M}} }}<br/>
+        {{ = \overline{ \overline{[\neg A]^{\mathcal{M}}} + [A \land \neg A]^{\mathcal{M}} } + [A]^{\mathcal{M}} }}<br/>
+        {{ = \overline{ \overline{\overline{I_{\mathcal{M}}(A)}} + (I_{\mathcal{M}}(A) \cdot \overline{I_{\mathcal{M}}(A)}) } + I_{\mathcal{M}}(A) }}
+      </div>
+
+      <h4>۲(ب) استدلال معادلاتی (۲ نمره)</h4>
+      <p>با تعریف متغیر {{ x = I_{\mathcal{M}}(A) }} داریم:</p>
+      <div style="line-height:2.2em; font-size:1.05em;" dir="ltr">
+        {{ [F]^{\mathcal{M}} \equiv \overline{ x + (x \cdot \overline{x}) } + x }} \quad <em>(نفی مضاعف : {{ \overline{\overline{x}} = x }})</em><br/>
+        {{ \equiv \overline{ x + 0 } + x }} \quad <em>(قانون متمم : {{ x \cdot \overline{x} = 0 }})</em><br/>
+        {{ \equiv \overline{x} + x }} \quad <em>(عنصر همانی : {{ x + 0 = x }})</em><br/>
+        {{ \equiv 1 }} \quad <em>(قانون متمم : {{ \overline{x} + x = 1 }})</em>
+      </div>
+      <p>بنابراین فرمول {{ F }} یک توتولوژی صوری و معتبر است.</p>
+    </div>
+  </details>
+</div>
+
+<div class="q-card" id="p19_q2c">
+  <div class="q-header">
+    <span class="q-num">سوال ۲(ج) (۴ نمره)</span>
+    <span class="q-title">تحلیل ۴ استلزام با فرمول دلخواه G</span>
+  </div>
+  <div class="box def">
+    <h4>متن اصلی صورت مسئله</h4>
+    <p>فرض کنید {{ G }} فرمولی دلخواه باشد. آیا روابط زیر برقرارند؟</p>
+    <ul>
+      <li>(i) آیا {{ G \models F }} برقرار است؟</li>
+      <li>(ii) آیا {{ F \models G }} برقرار است؟</li>
+      <li>(iii) آیا {{ G \models \neg F }} برقرار است؟</li>
+      <li>(iv) آیا {{ \neg F \models G }} برقرار است؟</li>
+    </ul>
+    <p>پاسخ‌های خود را توجیه نمایید.</p>
+  </div>
+
+  <details class="sol" open>
+    <summary>پاسخ‌نامه رسمی هر ۴ حالت</summary>
+    <div class="box method">
+      <ul>
+        <li><strong>(i) آیا {{ G \models F }} برقرار است؟ &larr; بله (۱ نمره)</strong>
+          <br/>تمامی ساختارهایی که {{ G }} را برآورده می‌سازند اجباراً {{ F }} را نیز برآورده می‌کنند، چرا که {{ F }} <strong>معتبر</strong> بوده و در تمامی ساختارهای ممکن مقدار ۱ دارد.
+        </li>
+        <li><strong>(ii) آیا {{ F \models G }} برقرار است؟ &larr; خیر (۱ نمره)</strong>
+          <br/>چون {{ G }} فرمولی دلخواه است، می‌تواند گزاره‌ای باشد که در ساختاری خاص {{ \mathcal{M} }} مقدار صفر بگیرد (مثلاً {{ G = \text{false} }}). با این حال آن ساختار، {{ F }} را صادق می‌نماید چون {{ F }} معتبر است. پس یک پادمدل وجود دارد.
+        </li>
+        <li><strong>(iii) آیا {{ G \models \neg F }} برقرار است؟ &larr; خیر (۱ نمره)</strong>
+          <br/>فرمول دلخواه {{ G }} می‌تواند توسط یک ساختار {{ \mathcal{M} }} برآورده شود (مثلاً {{ G = \text{true} }}). اما فرمول {{ \neg F }} ناسازگار است (چون {{ F }} معتبر است) و بنابراین هیچ ساختاری {{ \neg F }} را برآورده نمی‌کند.
+        </li>
+        <li><strong>(iv) آیا {{ \neg F \models G }} برقرار است؟ &larr; بله (۱ نمره)</strong>
+          <br/>از آنجا که {{ F }} معتبر است، فرمول {{ \neg F }} <strong>ناسازگار</strong> است و مجموعه ساختارهایی که {{ \neg F }} را صادق کنند تهی است، که استلزام را به طور بدیهی درست می‌گرداند.
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>

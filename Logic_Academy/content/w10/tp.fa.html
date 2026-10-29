@@ -1,0 +1,25 @@
+
+<div class="box box-objectives">
+  <div class="box-title">کار عملی موضوع ۱۰ — شروع کار با SWI-Prolog (تمرین‌های ۱۶، ۱۷ و ۱۸)</div>
+  <p>منبع رسمی: <code>main_tp-etudiants.pdf</code>، صفحات ۱۵ تا ۱۸. پیاده‌سازی کاربردی حقایق، قوانین و بازگشت در پرولوگ.</p>
+</div>
+
+<h2 id="w10-tp-ex16">تمرین ۱۶ — نخستین پرسش‌ها در پرولوگ</h2>
+<p>پرولوگ تمایز کلیدی قائل است: شناسه‌هایی که با حروف کوچک آغاز می‌شوند ثابت (Constant) هستند و شناسه‌های با حروف بزرگ متغیر (Variable) به شمار می‌آیند. با زدن کلید <code>;</code> پس از هر پاسخ، موتور استنتاج پرولوگ با مکانیزم عقب‌گرد (Backtracking) به دنبال شاخه‌های دیگر درخت SLD می‌رود.</p>
+
+<h2 id="w10-tp-ex17">تمرین ۱۷ — روابط خانوادگی سیمپسون‌ها</h2>
+<pre><code>parent(X, Y) :- pere(X, Y).
+parent(X, Y) :- mere(X, Y).
+
+grandPere(X, Y) :- pere(X, Z), parent(Z, Y).
+frere(X, Y) :- parent(Z, X), parent(Z, Y), homme(X), X \= Y.</code></pre>
+
+<h2 id="w10-tp-ex18">تمرین ۱۸ — پیمایش گراف جهت‌دار بدون دور</h2>
+<pre><code>arc(a, b). arc(a, c). arc(b, d). arc(c, d). arc(d, e).
+
+entre(X, S, D) :- arc(S, X), arc(X, D).
+
+accessible(X, Y) :- arc(X, Y).
+accessible(X, Y) :- arc(X, Z), accessible(Z, Y).</code></pre>
+
+<pre style="display:none"><code></code></pre>

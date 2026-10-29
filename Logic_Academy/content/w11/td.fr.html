@@ -1,0 +1,96 @@
+
+<div class="box box-objectives">
+  <div class="box-title">TD Thème 11 — Listes Prolog & Formes Normales LPPO (Exercices 40 et 41)</div>
+  <p>Source : <code>main_td-etudiants.pdf</code>, pages 23–24. Résolution exhaustive des exercices 40 et 41.</p>
+</div>
+
+<h2 id="w11-td-ex40">Exercice 40 — Listes en Prolog : Unification et Prédicats (p. 23)</h2>
+<div class="box box-solution">
+  <div class="box-title">Question 1 : Réponses aux requêtes d'unification</div>
+  <ol>
+    <li><code>?- [a, b, c] = [X].</code> {{ \implies }} <strong>false (Échec)</strong> car le membre de gauche a 3 éléments et celui de droite un seul.</li>
+    <li><code>?- [a, b, c] = [X, Y, Z].</code> {{ \implies }} <strong>Succès : X = a, Y = b, Z = c.</strong></li>
+    <li><code>?- [a, b, c] = [X | Y].</code> {{ \implies }} <strong>Succès : X = a, Y = [b, c].</strong> (Tête = premier élément, Queue = liste des éléments suivants).</li>
+    <li><code>?- [a, [b, c], d] = [X, Y, Z].</code> {{ \implies }} <strong>Succès : X = a, Y = [b, c], Z = d.</strong></li>
+    <li><code>?- append([a, b], [c, d], [a, b, c, d]).</code> {{ \implies }} <strong>true.</strong></li>
+    <li><code>?- append([a, b], [c, d], L).</code> {{ \implies }} <strong>L = [a, b, c, d].</strong></li>
+    <li><code>?- append([a, b], [c, d], [c, d, a, b]).</code> {{ \implies }} <strong>false.</strong></li>
+    <li><code>?- append(X, [c, Y], [a, b, c, d]).</code> {{ \implies }} <strong>X = [a, b], Y = d.</strong></li>
+    <li><code>?- append(X, Y, [a, b, c, d]).</code> {{ \implies }} Génère successivement 5 solutions :
+      <ul>
+        <li><code>X = [], Y = [a, b, c, d]</code></li>
+        <li><code>X = [a], Y = [b, c, d]</code></li>
+        <li><code>X = [a, b], Y = [c, d]</code></li>
+        <li><code>X = [a, b, c], Y = [d]</code></li>
+        <li><code>X = [a, b, c, d], Y = []</code></li>
+      </ul>
+    </li>
+  </ol>
+</div>
+
+<div class="box box-solution">
+  <div class="box-title">Question 2 : Définition des Prédicats de Manipulation de Listes</div>
+  <p><strong>1. Prédicat <code>premier(L, X)</code> :</strong></p>
+  <pre><code>premier([X | _], X).</code></pre>
+  <p><strong>2. Prédicat <code>dernier(L, X)</code> :</strong></p>
+  <pre><code>dernier([X], X).
+dernier([_ | Queue], X) :- dernier(Queue, X).</code></pre>
+  <p><strong>3. Prédicat <code>longueur(L, N)</code> :</strong></p>
+  <pre><code>longueur([], 0).
+longueur([_ | Q], N) :- longueur(Q, N1), N is N1 + 1.</code></pre>
+</div>
+
+<h2 id="w11-td-ex41">Exercice 41 — Formes Normales en LPPO (p. 24)</h2>
+<p>Formule initiale : $F = 
+eg ( (orall x(p(f(x)) \implies 
+eg q(x))) \implies 
+eg \exists x (p(f(x)) \land q(x)) )$.</p>
+
+<div class="box box-solution">
+  <div class="box-title">Résolution Étape par Étape</div>
+  <p><strong>Étape 1 : Forme Normale Négative (FNN)</strong></p>
+  <p>On applique $
+eg(A \implies B) \equiv A \land 
+eg B$ :</p>
+  {{ (orall x(p(f(x)) \implies 
+eg q(x))) \land 
+eg 
+eg \exists x (p(f(x)) \land q(x)) }}
+  {{ \equiv (orall x(
+eg p(f(x)) \lor 
+eg q(x))) \land \exists x (p(f(x)) \land q(x)) }}
+
+  <p><strong>Étape 2 : Renommage et Forme Prénexe</strong></p>
+  <p>On renomme la variable de l'existentiel en {{ y }} :</p>
+  {{ (orall x(
+eg p(f(x)) \lor 
+eg q(x))) \land \exists y (p(f(y)) \land q(y)) }}
+  <p>Extraction des quantificateurs :</p>
+  {{ orall x \exists y [ (
+eg p(f(x)) \lor 
+eg q(x)) \land p(f(y)) \land q(y) ] }}
+
+  <p><strong>Étape 3 : Skolémisation</strong></p>
+  <p>Le quantificateur {{ \exists y }} dépend de {{ orall x }}. On introduit le symbole de fonction de Skolem {{ g }} : {{ y \mapsto g(x) }}.</p>
+  {{ orall x [ (
+eg p(f(x)) \lor 
+eg q(x)) \land p(f(g(x))) \land q(g(x)) ] }}
+
+  <p><strong>Étape 4 : Forme Normale Conjonctive (Clauses)</strong></p>
+  <ul>
+    <li>$C_1 = 
+eg p(f(x)) \lor 
+eg q(x)$</li>
+    <li>{{ C_2 = p(f(g(x))) }}</li>
+    <li>{{ C_3 = q(g(x)) }}</li>
+  </ul>
+
+  <p><strong>Étape 5 : Résolution et Conclusion</strong></p>
+  <p>Résolution entre {{ C_2 }} (avec renommage {{ x' }}) et {{ C_1 }} avec l'unificateur {{ \sigma = \{x \mapsto g(x')\} }} :</p>
+  {{ 	ext{Res}(C_2, C_1) = 
+eg q(g(x')) }}
+  <p>Résolution avec {{ C_3 }} :</p>
+  {{ 	ext{Res}(
+eg q(g(x')), q(g(x))) = \Box }}
+  <p><strong>Conclusion :</strong> On a dérivé la clause vide {{ \Box }}. La formule {{ F }} est donc <strong>INSATISFIABLE</strong> !</p>
+</div>

@@ -1,0 +1,289 @@
+[
+  {
+    "num": 1,
+    "theme": 1,
+    "page": 2,
+    "title": "Arbre de syntaxe abstraite - notation préfixe",
+    "text": "Exercice 1 – Arbre de syntaxe abstraite - notation préfixe\nQuestion 1\nPour chacune des formules suivantes où p, q et r sont des symboles de propositions :\n- dessiner son arbre de syntaxe abstraite\n- écrire la formule en notation préfixe.\n1. F1 = ¬(p ∧ (q ⇒ ((q ∨ r) ∧ q)))\n2. F2 = ¬p ∧ q ⇒ q ∨ r ∧ q\n\nQuestion 2\nParenthéser les formules suivantes en respectant la priorité des opérateurs.\n1. F3 = p ∧ q ∧ r ∧ s\n2. F4 = p ⇒ q ∧ ¬r ⇒ p ∨ q\n"
+  },
+  {
+    "num": 2,
+    "theme": 1,
+    "page": 2,
+    "title": "Implication",
+    "text": "Exercice 2 – Implication\nQuestion 1\nParmi les énoncés suivants, lesquels sont vérifiés s’il ne fait pas beau et que je me promène ?\n1. S’il fait beau, je me promène\n2. Pour que je me promène, il faut qu’il fasse beau\n3. Je ne me promène que si il fait beau\n4. Je me promène dès qu’il fait beau\n5. Je me promène seulement si il fait beau\n6. Pour que je me promène, il suffit qu’il fasse beau\n\nQuestion 2\nA l’aide des propositions p1 et p2 , traduire chacun des énoncés précédents en une formule de la logique propositionnelle :\n- p1 : il fait beau\n- p2 : je me promène\n©2026-2027(by Sorbonne Université/Licence d’informatique/UL2IN007)\n\n27 août 2026\n\n\nUE UL2IN007\n\npage 3/24\n"
+  },
+  {
+    "num": 3,
+    "theme": 1,
+    "page": 3,
+    "title": "Tables de vérité et énigmes",
+    "text": "Exercice 3 – Tables de vérité et énigmes\nQuestion 1\nSoit la formule F = (p ∧ q) ∧ ((q ⇒ p) ∨ ¬(p ∨ q)) où p et q sont des propositions. Calculer la table de vérité de F\n\nQuestion 2\nAnna et Julie sont interrogées au sujet d’un crime et déclarent :\nAnna :\nJulie :\n\n≪\n≪\n\nJulie est coupable. ≫\nSi je suis coupable, alors Anna l’est aussi. ≫\n\nNous avons à notre disposition les propositions suivantes :\n- A : Anna est coupable\n- J : Julie est coupable\n1. Donner la formule F1 qui correspond à l’affirmation d’Anna, et la formule F2 qui correspond à l’affirmation de\nJulie.\n2. Soit F3 = F1 ∨ F2\n(a) Calculer la table de vérité de F3\n(b) Que peut-on en conclure ?\n3. Soit F4 = F1 ∧ F2\n(a) Calculer la table de vérité de F4\n(b) Que peut-on en conclure ?\n\nQuestion 3\nAnissa, Xavier et Jennifer ont un examen de logique à passer. On suppose que :\nH1 :\nH2 :\nH3 :\n\nL’un des trois au moins révisera pour l’examen.\nSi Anissa ne révise pas, alors Xavier non plus.\nSi Anissa révise, alors Jennifer aussi.\n\n1. En notant A : “Anissa révise”, X : “Xavier révise” et J : “Jennifer révise”, formaliser ces trois hypothèses.\n2. Peut-on dire qui révisera ? qui ne révisera pas ?\n\n©2026-2027(by Sorbonne Université/Licence d’informatique/UL2IN007)\n\n27 août 2026\n\n\nUE UL2IN007\n\npage 4/24\n\nThème 2 - TD\nObjectifs\n- Interprétations\n- Expressions booléennes\n- Satisfiabilité, validité\n- Conséquence sémantique, équivalence\n\nExercices\nPour répondre aux exercices de ce thème vous ne devez pas utiliser de table de vérité.\n"
+  },
+  {
+    "num": 4,
+    "theme": 2,
+    "page": 4,
+    "title": "Formules satisfiables, valides",
+    "text": "Exercice 4 – Formules satisfiables, valides\nOn considère la formule F1 suivante :\n(p ∧ ¬q) ∨ (¬p ∧ q)\n\nQuestion 1\nLes formules F1 et ¬F1 sont-elles satisfiables ? Sont-elles valides ?\n\nQuestion 2\nSoit F2 =(p ∧ q) ∨ (¬p ∧ ¬q).\nLes formules suivantes sont-elles satisfiables ? Sont-elles valides ?\n- F3 = F1 ∨ F2\n- F4 = F1 ∧ F2\n"
+  },
+  {
+    "num": 5,
+    "theme": 2,
+    "page": 4,
+    "title": "Conséquence sémantique",
+    "text": "Exercice 5 – Conséquence sémantique\nSoit F une formule insatisfiable et G une formule ni valide, ni non satisfiable.\n(a)\n(c)\n\nA-t-on F |= G ?\nA-t-on ¬F |= G ?\n\n(Justifier)\n(Justifier)\n\n(b)\n(d)\n\nA-t-on G |= F ?\nA-t-on G |= ¬F ?\n\n(Justifier)\n(Justifier)\n"
+  },
+  {
+    "num": 6,
+    "theme": 2,
+    "page": 4,
+    "title": "Equivalence",
+    "text": "Exercice 6 – Equivalence\nSoit F1 et F2 deux formules de la logique propositionnelle.\n1. Montrer que si F1 est valide alors F1 ∧ F2 |≡| F2 .\n2. Montrer que si F1 est insatisfiable alors F1 ∨ F2 |≡| F2 .\n\n©2026-2027(by Sorbonne Université/Licence d’informatique/UL2IN007)\n\n27 août 2026\n\n\nUE UL2IN007\n\npage 5/24\n"
+  },
+  {
+    "num": 7,
+    "theme": 2,
+    "page": 5,
+    "title": "Expressions boooléennes",
+    "text": "Exercice 7 – Expressions boooléennes\nQuestion 1\nSoit la formule F = (p ∧ q) ∧ ((q ⇒ p) ∨ ¬(p ∨ q)) où p et p sont des propositions.\nCalculer et simplifier l’expression booléenne [F ]I en fonction de I(p) et I(q) en indiquant l’équivalence utilisée à\nchaque étape.\n\nQuestion 2\nNous reprenons une énigme vue la semaine dernière qui sera cette fois résolue à l’aide d’un raisonnement équationnel.\nAnissa, Xavier et Jennifer ont un examen de logique à passer. On suppose que :\nH1 :\nH2 :\nH3 :\n\nL’un des trois au moins révisera pour l’examen.\nSi Anissa ne révise pas, alors Xavier non plus.\nSi Anissa révise, alors Jennifer aussi.\n\n1. En notant A : “Anissa révise”, X : “Xavier révise” et J : “Jennifer révise”, où A, X et J sont des propositions\nbooléennes, formaliser ces trois hypothèses (question identique à celle de la semaine dernière).\n2. En utilisant un raisonnement équationnel, peut-on dire qui révisera ? qui ne révisera pas ?\n"
+  },
+  {
+    "num": 8,
+    "theme": 2,
+    "page": 5,
+    "title": "Faut-il toujours croire ChatGPT ?",
+    "text": "Exercice 8 – Faut-il toujours croire ChatGPT ?\nVoici une question posée à ChatGPT :\n≪ Donne-moi une formule logiquement équivalente à A ∧ B mais plus complexe ≫.\n\nQuestion 1\nLa réponse obtenue en juin 2025 :\nTrès bien ! Voici une formule déguisée, mais toujours logiquement équivalente à A ∧ B :\n¬((A ⇒ ¬B) ∨ (¬A ⇒ B))\nPourquoi c’est équivalent à A ∧ B ?\nDécomposons-la :\n1. A ⇒ ¬B |≡| ¬A ∨ ¬B\n2. ¬A ⇒ B |≡| A ∨ B\nDonc : (A ⇒ ¬B) ∨ (¬A ⇒ B) |≡| (¬A ∨ ¬B) ∨ (A ∨ B)\nEt le tout est nié : ¬((¬A ∨ ¬B) ∨ (A ∨ B)), cette négation force que ni l’un ni l’autre ne soit vrai, ce qui au final\nimpose A ∧ B\n1. Soit F = A ∧ B et G = ¬((A ⇒ ¬B) ∨ (¬A ⇒ B)), en calculant [F ]I et [G]I montrer que la réponse donnée\npar ChatGPT est fausse.\n2. Identifier l’erreur dans le raisonnement donné par ChatGPT.\n\nQuestion 2\nLa réponse obtenue en juillet 2026 :\n©2026-2027(by Sorbonne Université/Licence d’informatique/UL2IN007)\n\n27 août 2026\n\n\nUE UL2IN007\n\npage 6/24\n\nOui. Par exemple, une formule nettement plus complexe mais logiquement équivalente à A ∧ B est :\n(A ∨ C) ∧ (B ∨ ¬C) ∧ (A ∨ ¬C)\nElle est équivalente à A ∧ B, car :\n- si A ∧ B est vraie, les trois sous-formules sont vraies, quel que soit C ;\n- réciproquement, les trois sous-formules imposent à la fois A et B.\nUne autre formule, peut-être plus intéressante pour un exercice de simplification logique, est :\n(A ∨ C) ∧ (A ∨ ¬C) ∧ (B ∨ C) ∧ (B ∨ ¬C)\nqui est également logiquement équivalente à A ∧ B.\nSoit F = (A ∨ C) ∧ (B ∨ ¬C) ∧ (A ∨ ¬C) et G = (A ∨ C) ∧ ("
+  },
+  {
+    "num": 9,
+    "theme": 3,
+    "page": 7,
+    "title": "Forme normale : identification",
+    "text": "Exercice 9 – Forme normale : identification\nQuestion 1\nNous considérons trois variables booléennes x, y et z. Parmi les expressions suivantes, lesquelles sont sous forme\nnormale disjonctive ? conjonctive ?\n1. x · y + y · z\n3. x · (y + y · z)\n5. x · y · z\n7. x\n2. (x + y + z) · (y + z)\n4. (x + y) + (z · (y + z))\n6. x + y + z\n"
+  },
+  {
+    "num": 10,
+    "theme": 3,
+    "page": 7,
+    "title": "Formules valides et insatisfiables",
+    "text": "Exercice 10 – Formules valides et insatisfiables\nQuestion 1\nSoit la fonction booléenne f (x, y, z) qui représente une formule valide. Donner :\n- une forme normale conjonctive associée comprenant au moins trois sommes différentes (combien de sommes\nsont nécessaires ?)\n- une forme normale disjonctive associée comprenant au moins trois produits différents (combien de produits\nsont nécessaires ?)\n\nQuestion 2\nSoit la fonction booléenne g(x, y, z) qui représente une formule insatisfiable. Donner :\n- une forme normale conjonctive associée comprenant au moins trois sommes différentes (combien de sommes\nsont nécessaires ?)\n- une forme normale disjonctive associée comprenant au moins trois produits différents (combien de produits\nsont nécessaires ?)\n"
+  },
+  {
+    "num": 11,
+    "theme": 3,
+    "page": 7,
+    "title": "Fonctions booléennes",
+    "text": "Exercice 11 – Fonctions booléennes\nQuestion 1\nConstruire la table de vérité de la fonction booléenne correspondant à l’opérateur booléen “ou exclusif”, noté XOR.\nEn déduire des formes normales disjonctive et conjonctive pour cette fonction.\n©2026-2027(by Sorbonne Université/Licence d’informatique/UL2IN007)\n\n27 août 2026\n\n\nUE UL2IN007\n\npage 8/24\n\nQuestion 2\nDonner une expression booléenne pour la fonction f définie par :\nx\n0\n0\n1\n1\n\ny f (x, y)\n0\n1\n1\n0\n0\n0\n1\n0\n\nQuestion 3\nSoit les formules F = ¬A ∧ ¬B et G = (¬A ∨ B) ∧ ((A ∨ ¬B) ∧ (¬A ∨ ¬B)). Déduire de la question précédente\nque F |≡| G.\n"
+  },
+  {
+    "num": 12,
+    "theme": 3,
+    "page": 8,
+    "title": "Forme normale vers table de vérité",
+    "text": "Exercice 12 – Forme normale vers table de vérité\nQuestion 1\nSoit l’expression booléenne suivante f (x, y, z) = x · y + y · z + x · y · z , en déduire sa table de vérité.\n\nQuestion 2\nSoit l’expression booléenne suivante g(x, y, z) = (x + y) · (y + z) · (x + y + z) , en déduire sa table de vérité.\n"
+  },
+  {
+    "num": 13,
+    "theme": 3,
+    "page": 8,
+    "title": "Forme normale",
+    "text": "Exercice 13 – Forme normale\nSoit la formule F = (A ∧ (B ∨ C)) ∨ (¬A ∧ ¬B)\nVous devez répondre aux questions de cet exercice sans construire de table de vérité.\n\nQuestion 1\nDonner une fonction boooléenne associée à F .\n\nQuestion 2\nMettre l’expression booléenne associée à F sous forme normale disjonctive.\n\nQuestion 3\nMettre l’expression booléenne associée à F sous forme normale conjonctive.\n\n©2026-2027(by Sorbonne Université/Licence d’informatique/UL2IN007)\n\n27 août 2026\n\n\nUE UL2IN007\n\npage 9/24\n\nThème 4 - TD\nObjectifs\n- DPLL\n- SAT\n\nExercices\n"
+  },
+  {
+    "num": 14,
+    "theme": 4,
+    "page": 9,
+    "title": "Propagation unitaire",
+    "text": "Exercice 14 – Propagation unitaire\nOn considère l’ensemble de clauses suivant :\nC1 = a ∨ b\n\nC2 = ¬a ∨ b ∨ c\n\nC3 = b ∨ ¬c ∨ d\n\nC4 = ¬b ∨ ¬e\n\nC5 = e ∨ d\n\nC6 = ¬d\n\nQuestion 1\nAppliquer la propagation unitaire à F = C1 ∧ C2 ∧ C3 ∧ C4 ∧ C5 ∧ C6 .\nQu’obtient-on ? Que peut-on en déduire ?\n\nQuestion 2\nOn pose D3 : ¬b ∨ ¬c ∨ d.\nAppliquer la propagation unitaire à F2 = C1 ∧ C2 ∧ D3 ∧ C4 ∧ C5 ∧ C6 , obtenue en remplaçant C3 par D3 dans F .\nQu’obtient-on ? que peut-on en déduire ?\n"
+  },
+  {
+    "num": 15,
+    "theme": 4,
+    "page": 9,
+    "title": "DPLL",
+    "text": "Exercice 15 – DPLL\nLorsqu’on met en œuvre l’algorithme DPLL, quand on ne peut utiliser ni une clause unitaire, ni un littéral pur, le\nchoix de la variable de décision explorée peut avoir un impact important. Une heuristique fréquemment utilisée est\nbasée sur le nombre d’occurrences (positives et négatives) des variables dans les petites clauses : pour k ∈ N, k > 1\nreprésentant une longueur de clause, et p une variable propositionnelle, on pose\nhk (p) = nbocc (k, Σ, p) + nbocc (k, Σ, ¬p)\noù nbocc (k, Σ, l) = Card({Cj ∈ Σ|l ∈ Cj et Card(Cj ) = k}) est le nombre d’occurrences du littéral l dans des\nclauses de Σ de taille k. L’heuristique consiste alors à sélectionner les variables qui maximisent h2 , puis, parmi cellesci, celles qui maximisent h3 , et ainsi de suite pour isoler une seule variable : on espère pouvoir choisir une variable\nqui va amener à une clause unitaire ou à un littéral pur le plus rapidement possible.\nSi cela ne suffit pas à départager deux variables (même valeur de hk pour tous les k), on utilise l’ordre alphabétique\nde leur nom. On explore toujours la branche faux en premier.\n\nQuestion 1\nAppliquer DPLL à la théorie clausale suivante\nΣ={\n\na ∨ b ∨ c,\n¬a ∨ b ∨ d ∨ e,\n\na ∨ b ∨ ¬c,\n¬a ∨ b ∨ d ∨ ¬e,\n\na ∨ ¬b ∨ d ∨ e,\n¬a ∨ ¬b ∨ f\n\n©2026-2027(by Sorbonne Université/Licence d’informatique/UL2IN007)\n\na ∨ ¬b ∨ ¬d ∨ e,\n}\n27 août 2026\n\n\nUE UL2IN007\n\npage 10/24\n\nQuestion 2\nAppliquer DPLL à la théorie Σ2 = {a ∨ b, a ∨ e, b ∨ d, ¬a ∨ ¬b ∨ f, ¬f, b ∨ ¬d, a ∨ ¬e}.\n"
+  },
+  {
+    "num": 16,
+    "theme": 4,
+    "page": 10,
+    "title": "Représentation : choisir une pizza",
+    "text": "Exercice 16 – Représentation : choisir une pizza\nTrois amis, Laure, Marie et Nicolas, veulent commander une pizza à se partager. La pizzeria propose des pizzas\nutilisant 4 sortes de garnitures : des champignons, des poivrons, du jambon ou de l’œuf.\nMarie pose un veto sur toute pizza avec des champignons. Nicolas ne veut pas d’œuf et veut qu’il y ait du jambon\ndans la pizza. Laure, elle, n’apprécie le jambon que s’il est accompagné de champignons, elle s’oppose donc aux\npizza contenant du jambon sans contenir de champignons.\nPeut-on composer une pizza qui satisfasse tout le monde ?\n\nQuestion 1\nRépondre à cette question en traduisant le problème en SAT, en utilisant les variables propositionnelles suivantes :\n- c, p, j, o représentent les ingrédients présents dans la pizza (respectivement champignons, poivrons, jambon et\nœuf). c est vrai si la pizza contient des champignons et faux sinon.\n- vL , vM , vN représentent les vetos de respectivement Laure, Marie et Nicolas. vL est vrai si Laure met un veto\nsur la pizza proposée et faux si la pizza lui convient.\n\nQuestion 2\nOn relâche le problème en demandant une pizza qui satisfasse au moins 2 personnes. Traduire ce problème en SAT et\nle résoudre.\n\n©2026-2027(by Sorbonne Université/Licence d’informatique/UL2IN007)\n\n27 août 2026\n\n\nUE UL2IN007\n\npage 11/24\n\nThème 5 - TD\nObjectifs\n- Preuves\n- Règles de la déduction naturelle\n- Connecteurs logiques\n\nExercices\nVous devez répondre aux questions de ce thème en utilisant les règles de la dédu"
+  },
+  {
+    "num": 17,
+    "theme": 5,
+    "page": 11,
+    "title": "Preuves de formules",
+    "text": "Exercice 17 – Preuves de formules\nProuver les formules ci-dessous.\n\nQuestion 1\nF1 = (A ⇒ B) ⇒ ((B ⇒ C) ⇒ (A ⇒ C))\n\nQuestion 2\nF2 = (((A ∧ B) ⇒ C) ∧ (A ⇒ B)) ⇒ (A ⇒ C)\n\nQuestion 3\nF3 = (A ⇒ B) ⇒ ((A ∨ C) ⇒ (B ∨ C))\n\nQuestion 4\nF4 = (A ∨ (B ⇒ C)) ⇒ ((A ∨ B) ⇒ (A ∨ C))\n\nQuestion 5\nF5 = (A ⇒ B) ⇒ (¬B ⇒ ¬A)\n\nQuestion 6\nF6 = (A ∧ B) ⇒ ¬(¬A ∨ ¬B)\n"
+  },
+  {
+    "num": 18,
+    "theme": 5,
+    "page": 11,
+    "title": "Enigme",
+    "text": "Exercice 18 – Enigme\nAnissa, Boris et Chloé sont invités à une fête. Soit les affirmations suivantes :\n- h1 : Si Anissa vient, alors Chloé ne vient pas.\n- h2 : Si Chloé vient, alors Boris vient.\n- h3 : Anissa vient ou Boris ne vient pas\n\nQuestion 1\nNous disposons des propositions atomiques suivantes :\n- A : Anissa vient\n- B : Boris vient\n- C : Chloé vient\nFormaliser chacune des affirmations par une formule propositionnelle.\n\nQuestion 2\nMontrer que si les trois affirmations sont vérifiées, alors on peut déduire que Chloé ne vient pas à la fête.\n©2026-2027(by Sorbonne Université/Licence d’informatique/UL2IN007)\n\n27 août 2026\n\n\nUE UL2IN007\n\npage 12/24\n\nThème 6 - TD\nObjectifs\n- Déduction naturelle, règles dérivées\n- logique classique\n\nExercices\nVous devez répondre aux questions de ce thème en utilisant les règles de la déduction naturelle. L’utilisation\ndes règles dérivées est possible.\n"
+  },
+  {
+    "num": 19,
+    "theme": 6,
+    "page": 12,
+    "title": "Logique intuitionniste - logique classique",
+    "text": "Exercice 19 – Logique intuitionniste - logique classique\nQuestion 1\nProuver la formule F = (P ∨ Q) ⇒ ((P ⇒ Q) ∨ (Q ⇒ P )) en n’utilisant que des règles de la logique intuitioniste.\n\nQuestion 2\nProuver la formule (P ⇒ Q) ∨ (Q ⇒ P ). Peut-on prouver cette formule en n’utilisant que des règles de la logique\nintuitioniste ?\n"
+  },
+  {
+    "num": 20,
+    "theme": 6,
+    "page": 12,
+    "title": "Preuves de formules",
+    "text": "Exercice 20 – Preuves de formules\nProuver les formules ci-dessous.\n\nQuestion 1\nF1 = (¬B ⇒ ¬A) ⇒ (A ⇒ B)\n\nQuestion 2\nF2 = ¬(A ∧ B) ⇒ (¬A ∨ ¬B)\n\nQuestion 3\nF3 = ¬(A ⇒ B) ⇒ (A ∧ ¬B)\n\nQuestion 4\nF4 = ¬(A ∨ ¬B) ∨ ¬(¬A ∧ B)\n"
+  },
+  {
+    "num": 21,
+    "theme": 6,
+    "page": 12,
+    "title": "Enigme",
+    "text": "Exercice 21 – Enigme\nAnna et Julie sont interrogées au sujet d’un crime et déclarent :\nAnna :\nJulie :\n\n≪\n≪\n\nJulie est coupable. ≫\nSi je suis coupable, alors Anna l’est aussi. ≫\n\nQuestion 1\nMontrer par les règles de la déduction naturelle que l’une au moins des deux déclarations est vraie.\n\nQuestion 2\nOn suppose maintenant que les innocents disent la vérité et que les coupables mentent. Montrer par les règles de la\ndéduction naturelle qu’exactement l’une des deux est coupable.\n©2026-2027(by Sorbonne Université/Licence d’informatique/UL2IN007)\n\n27 août 2026\n\n\nUE UL2IN007\n\npage 13/24\n\nThème 7 - TD\nObjectifs\n- Logique des prédicats du premier ordre\n• termes\n• syntaxe\n• variables liées\n• renommage variables\n• formules closes, clôture universelle\n\nExercices\n"
+  },
+  {
+    "num": 22,
+    "theme": 7,
+    "page": 13,
+    "title": "Entiers naturels et Termes",
+    "text": "Exercice 22 – Entiers naturels et Termes\nSoit F = F0 ∪ F1 un ensemble de symboles de fonction avec F0 = {a} et F1 = {s}. Etant donné un entier naturel\nn, on note sn (a) le terme :\n\u001a\na\nsi n = 0\nsn (a) =\ns(sk (a)) si n = k + 1\n\nQuestion 1\nParticulariser la définition de l’ensemble de termes T0 (F).\n\nQuestion 2\nMontrer que T0 (F) =\n\nS\n\nn\nn∈IN {s (a)}.\n"
+  },
+  {
+    "num": 23,
+    "theme": 7,
+    "page": 13,
+    "title": "Termes avec variables",
+    "text": "Exercice 23 – Termes avec variables\nOn considère un langage de termes avec un seul symbole de variable : X = {x}. L’ensemble des symboles de\nfonction de ce langage est F = F1 = {f, g}.\n\nQuestion 1\nParticulariser la définition de T (X, F) pour X et F.\n\nQuestion 2\nDonner une définition inductive du nombre nbf (t) de symboles f et du nombre nbg (t) de symboles g apparaissant\ndans un terme t.\n\n©2026-2027(by Sorbonne Université/Licence d’informatique/UL2IN007)\n\n27 août 2026\n\n\nUE UL2IN007\n\npage 14/24\n"
+  },
+  {
+    "num": 24,
+    "theme": 7,
+    "page": 14,
+    "title": "Symboles d’une formules",
+    "text": "Exercice 24 – Symboles d’une formules\nSoit la formule F ∈ IF(X, F, P) où X = {x, x1 , x2 , x3 , z} définie par :\n(∀x (s1 (s2 (x, x)) ∧ ∃x s1 (s2 (x, z)))) ∧ (s3 (s4 (x)) ∧ (∃x s1 (s2 (x, z))))\n\nQuestion 1\nQuels sont les symboles de fonction apparaissant dans F ? Donner l’arité de ces symboles.\n\nQuestion 2\nQuels sont les symboles de prédicat apparaissant dans F ? Donner l’arité de ces symboles.\n\nQuestion 3\nDéterminer l’ensemble Free(F ). Donner une clôture universelle de F .\n\nQuestion 4\nOn souhaite renommer certains symboles de variable pour obtenir une formule logiquement équivalente à F et\ndans\nlaquelle\nportent sur des\u0011\u0011\nsymboles de variable différents. On propose la formule suivante :\n\u0010\n\u0010 \u0010 les\n\u0010 quantificateurs\n\u0011\u0011\n∀x1 s1 s2 ... , ... ∧ ∃x2 s1 (s2 (..., ...))\n∧ (s3 (s4 (...)) ∧ (∃x3 s1 (s2 (..., ...)))) Remplacer les ... par les\nsymboles de variable appropriés.\n"
+  },
+  {
+    "num": 25,
+    "theme": 7,
+    "page": 14,
+    "title": "Construction de formules",
+    "text": "Exercice 25 – Construction de formules\nSoit F ∈ IF(X, F, P) la formule représentée par :\n\u0010\n\u0010\n\u0011\u0011\u0011\n\u0010\u0010\n\u0010\nA , A\nA , A\n⇒\nA A ∃ A\n∀y A\n\nA\n\n\u0010\n\nA\n\n\u0010\n\nA , A\n\n\u0011\u0011\u0011\n\n∨ A\n\n\u0010\n\nA , A\n\n\u0011\u0011\n\noù chaque case peut contenir un unique symbole : soit un quantificateur, soit un symbole de l’ensemble X = {x, y, z},\nsoit un symbole de l’ensemble F = F0 ∪F2 avec F0 = {k} et F2 = {f }, soit un symbole de l’ensemble P = P1 ∪P2\navec P1 = {p} et P2 = {q}. On souhaite que F vérifie les contraintes suivantes :\n- x admet uniquement deux occurrences libres et une occurrence liée par le quantificateur ∀ dans F ,\n- y admet uniquement une occurrence liée par le quantificateur ∀ et une occurrence liée par le quantificateur ∃\ndans F ,\n- z admet uniquement une occurrence libre dans F ,\n\nQuestion 1\nRemplir les cases de F pour que les contraintes soient respectées.\n\nQuestion 2\nDessiner l’arbre de syntaxe de la formule F et encadrer les occurrences libres de variable.\n\nQuestion 3\nProposer une clôture universelle F ′ de F puis renommer certains symboles de variable de F ′ pour obtenir une formule\nF ′′ logiquement équivalente à F ′ et dans laquelle les quantificateurs portent sur des symboles de variable différents.\n"
+  },
+  {
+    "num": 26,
+    "theme": 7,
+    "page": 14,
+    "title": "Renommage de variables, formules équivalentes",
+    "text": "Exercice 26 – Renommage de variables, formules équivalentes\nPour chacune des formules suivantes dire s’il est possible de renommer certains symboles de variable de Fi pour\nobtenir une formule Fi′ telle que :\n©2026-2027(by Sorbonne Université/Licence d’informatique/UL2IN007)\n\n27 août 2026\n\n\nUE UL2IN007\n\npage 15/24\n\n- Fi′ est logiquement équivalente à Fi\n- le seul symbole de variable qui apparaı̂t dans Fi′ est le symbole x\nSi oui, donner la formule Fi′ , sinon justifier.\n\nQuestion 1\nF1 = ∃y (p(y) ∧ ∀x p(x))\n\nQuestion 2\nF2 = (∃y p(y)) ⇒ (p(x) ∨ (∀z p(z)))\n\nQuestion 3\nF3 = (∀x ∃y (p(y) ⇒ p(x))) ∨ (∀z p(z) ∧ p(y))\n\n©2026-2027(by Sorbonne Université/Licence d’informatique/UL2IN007)\n\n27 août 2026\n\n\nUE UL2IN007\n\npage 16/24\n\nThème 8 - TD\nObjectifs\n- Logique des prédicats du premier ordre\n• substitution de variables\n• sémantique\n• interprétation\n\nExercices\n"
+  },
+  {
+    "num": 27,
+    "theme": 8,
+    "page": 16,
+    "title": "Substitutions",
+    "text": "Exercice 27 – Substitutions\nExiste-t-il une substitution :\nsymbole de variable à compléter\nterme à compléter\n↓\n↓\ni\nh\n?\n:=\n?\ntelle que :\n1. ∀x p(x, y, z)\n\nh\n\n2. ∀x p(x, y, z)\n\nh\n\n3. ∀x p(x, y, z)\n\nh\n\n4. ∀x p(x, y, z)\n\nh\n\n? := ?\n\ni\n\n= ∀x p(x, y, z)\n\n? := ?\n\ni\n\n= ∀x p(x, f (z), z)\n\n? := ?\n\ni\n\n= ∀x p(x, f (x), z)\n\n? := ?\n\ni\n\n= ∀w p(w, f (x), z)\n\nSi cette substitution existe, compléter le symbole de variable et le terme, sinon expliquer brièvement pourquoi cette\nsubstitution n’existe pas.\n"
+  },
+  {
+    "num": 28,
+    "theme": 8,
+    "page": 16,
+    "title": "Interprétation prédicats et fonctions",
+    "text": "Exercice 28 – Interprétation prédicats et fonctions\nOn considère F = F0 ∪ F1 ∪ F2 un ensemble de symboles de fonction où F2 = {f }, F1 = {g} et F0 = {a, b},\nl’ensemble des symboles de prédicat P = {p} contenant l’unique prédicat unaire p et la formule F =(¬p(a)∧p(b)) ⇒\n(p(f (a, b)) ∧ (p(g(a)) ∧ p(g(b)))).\n\nQuestion 1\nDéfinir une structure M1 telle que [F ]M1 = 1. (justifier)\n\nQuestion 2\nDéfinir une structure M2 telle que [F ]M2 = 0. (justifier)\n"
+  },
+  {
+    "num": 29,
+    "theme": 8,
+    "page": 16,
+    "title": "Valuation",
+    "text": "Exercice 29 – Valuation\nSoit p un prédicat unaire.\n©2026-2027(by Sorbonne Université/Licence d’informatique/UL2IN007)\n\n27 août 2026\n\n\nUE UL2IN007\n\npage 17/24\n\nQuestion 1\nConsidérons la structure M telle que |M| = IN avec pM (x) = (x est pair). Nous considérons la formule F = ∃x p(x)\nM\net une valuation v quelconque. Calculer [F ]M\nv[x←3] et [F ]v[x←4] . Justifier votre réponse.\n\nQuestion 2\nSoit la formule F ′ = ∀x ((∃y ¬p(y)) ∨ p(x)). Calculer l’expression booléenne [F ′ ]M\nv (pour toute valuation v). En\ndéduire que F ′ est valide. Justifier votre réponse.\n"
+  },
+  {
+    "num": 30,
+    "theme": 8,
+    "page": 17,
+    "title": "Quantification de formules atomiques",
+    "text": "Exercice 30 – Quantification de formules atomiques\nOn considère une structure M dont le domaine d’interprétation est l’ensemble IN des entiers naturels et dans\nlaquelle l’interprétation du symbole de prédicat p ∈ P2 est définie par pM (x, y) = (y = 2x).\n\nQuestion 1\nParmi les formules suivantes, lesquelles sont satisfaites par M ?\n(F1 )\n(F4 )\n(F7 )\n(F10 )\n\np(0, 0)\n∃x p(x, 1)\n∀x p(x, 1)\n∀x ∃y p(x, y)\n\n(F2 )\n(F5 )\n(F8 )\n(F11 )\n\np(1, 1)\n∃x p(x, 2)\n∃x ∃y p(x, y)\n∀x ∀y p(x, y)\n\n(F3 ) ∃x p(1, x)\n(F6 ) ∀x p(1, x)\n(F9 ) ∃x ∀y p(x, y)\n"
+  },
+  {
+    "num": 31,
+    "theme": 8,
+    "page": 17,
+    "title": "Domaine d’interprétation",
+    "text": "Exercice 31 – Domaine d’interprétation\nOn considère un langage comprenant l’égalité (prédicat = d’arité 2) ainsi qu’un symbole de prédicat p d’arité 2.\nSoit la formule :\n(F ) ∀x ∃y (p(x, y) ∧ ¬(x = y))\nDéterminer s’il existe une structure M qui satisfait F :\n\nQuestion 1\nlorsque le domaine d’interprétation de M est un singleton.\n\nQuestion 2\nLorsque le domaine d’interprétation de M contient uniquement deux éléments.\n\nQuestion 3\nLorsque le domaine d’interprétation de M est l’ensemble des entiers naturels IN et lorsque pM (x, y) =\n(x est divisible par y).\n\n©2026-2027(by Sorbonne Université/Licence d’informatique/UL2IN007)\n\n27 août 2026\n\n\nUE UL2IN007\n\npage 18/24\n"
+  },
+  {
+    "num": 32,
+    "theme": 8,
+    "page": 18,
+    "title": "Interprétation des formules",
+    "text": "Exercice 32 – Interprétation des formules\nQuestion 1\nLe domaine d’interprétation d’une structure peut-il être vide ?\n\nQuestion 2\nSoit F2 = ∃x ((∀y p(x, y)) ⇒ ∃z p(z, x)), montrer que F2 est valide.\nSoit M une structure telle que |M| = {a, b, c} et F1 = ∃x ∀y p(x, y).\n\nQuestion 3\nProposer une interprétation pM de p telle que pM (e1 , e2 ) = 1 pour exactement 3 couples différents et telle que\n[F1 ]M\nv = 1 (quelle que soit la valuation v). Justifier votre réponse.\n\nQuestion 4\nProposer une interprétation pM de p telle que pM (e1 , e2 ) = 1 pour exactement 3 couples différents et telle que\n[F1 ]M\nv = 0 (quelle que soit la valuation v). Justifier votre réponse.\n\nQuestion 5\nA-t-on F2 |= F1 ? F1 |= F2 ? Justifier vos réponses.\n\n©2026-2027(by Sorbonne Université/Licence d’informatique/UL2IN007)\n\n27 août 2026\n\n\nUE UL2IN007\n\npage 19/24\n\nThème 9 - TD\nObjectifs\n- Déduction naturelle : logique des prédicats du premier ordre\n\nExercices\nVous devez répondre aux questions de ce thème en utilisant les règles de la déduction naturelle. L’utilisation\ndes règles dérivées est possible.\n"
+  },
+  {
+    "num": 33,
+    "theme": 9,
+    "page": 19,
+    "title": "Preuves de formules",
+    "text": "Exercice 33 – Preuves de formules\nProuver les formules ci-dessous.\n\nQuestion 1\nF1 = (∀x p(x) ∨ ∀x q(x)) ⇒ ∀x (p(x) ∨ q(x))\n\nQuestion 2\nF2 = (∃x (p(x) ∨ q(x))) ⇒ (∃x p(x) ∨ ∃x q(x))\n\nQuestion 3\nF3 = (∃x ∀y r(x, y)) ⇒ (∀y ∃x r(x, y))\n\nQuestion 4\nF4 = (∀x (p(x) ⇒ ¬q(x))) ⇒ ¬∃x (p(x) ∧ q(x))\n\nQuestion 5\nF5 = (∃x ¬p(x)) ⇒ (¬∀x p(x))\n\nQuestion 6\nF6 = (¬∀x p(x)) ⇒ (∃x ¬p(x))\n\nQuestion 7\nF7 = (∀x p(x)) ∨ (∃x ¬p(x))\n"
+  },
+  {
+    "num": 34,
+    "theme": 9,
+    "page": 19,
+    "title": "Preuves imbriquées",
+    "text": "Exercice 34 – Preuves imbriquées\nLe but de cet exercice est de prouver la formule ∃x (p(x) ⇒ ∀y p(y)) en utilisant la règle du Tiers Exclu.\n\nQuestion 1\nProuver la formule ∃x (p(x) ⇒ ∀y p(y)) à partir de l’hypothèse h1 : ∀y p(y). On note B1 la preuve obtenue :\n⟨1B1 ⟩\n\n⟨1B1 ⟩\n\nsupposons h1 : ∀y p(y),\nmontrons ∃x (p(x) ⇒ ∀y p(y)) par (nom de la règle à compléter)\npreuve à compléter\npreuve B1\n\nIndication : on suppose que l’on dispose d’un nombre infini dénombrable de symboles de variable, et il est donc\npossible d’appliquer la règle I∃ en utilisant un ≪ nouveau ≫ symbole de variable.\n©2026-2027(by Sorbonne Université/Licence d’informatique/UL2IN007)\n\n27 août 2026\n\n\nUE UL2IN007\n\npage 20/24\n\nQuestion 2\nProuver la formule (¬∀y p(y)) ⇒ (∃y ¬p(y)). On note B2 la preuve obtenue :\n⟨1B2 ⟩\n⟨1B2 ⟩\n\nmontrons (¬∀y p(y)) ⇒ (∃y ¬p(y)) par (nom de la règle à compléter)\npreuve à compléter\npreuve B2\n\nQuestion 3\nCompléter la preuve B3 ci-dessous de la formule ∃x (p(x) ⇒ ∀y p(y)) à partir de l’hypothèse h2 : ¬∀y p(y).\n⟨1B3 ⟩\n\n⟨1B3 ⟩\n\nsupposons h2 : ¬∀y p(y), montrons ∃x (p(x) ⇒ ∀y p(y)) par E∃\n⟨2B3 ⟩ montrons ∃y ¬p(y) par E⇒\n⟨1B2 ⟩ montrons (¬∀y p(y)) ⇒ (∃y ¬p(y))\n···\npreuve B2\n⟨1B2 ⟩\n⟨3B3 ⟩ montrons formule à compléter par nom de la règle à compléter\npreuve à compléter\n⟨3B3 ⟩\n⟨2B3 ⟩\n⟨3B3 ⟩ soit une nouvelle variable z, supposons h3 : formule à compléter\nmontrons formule à compléter par nom de la règle à compléter\npreuve à compléter\n⟨3B3 ⟩\npreuve B3\n\nQuestion 4\nConstruire une preuve de la formule ∃"
+  },
+  {
+    "num": 35,
+    "theme": 10,
+    "page": 21,
+    "title": "Règle de résolution, cas propositionnel",
+    "text": "Exercice 35 – Règle de résolution, cas propositionnel\nOn considère les couples de clauses suivants. Pour chacun d’eux, indiquer la résolvante de leur résolution sur leur\npremier littéral complémentaire.\n1. C1 = p ∨ r et C2 = ¬p ∨ ¬s ∨ t\n2. C1 = p ∨ q ∨ r et C2 = p ∨ ¬q ∨ s ∨ ¬t\n3. C1 = p ∨ q et C2 = ¬p ∨ ¬q ∨ s\n4. C1 = p ∨ q ∨ ¬r et C2 = p ∨ q ∨ r\n5. C1 = p et C2 = ¬p ∨ r ∨ s\n6. C1 = p et C2 = ¬p\n"
+  },
+  {
+    "num": 36,
+    "theme": 10,
+    "page": 21,
+    "title": "Preuve par résolution, cas propositionnel : diagnostic médical simpliste",
+    "text": "Exercice 36 – Preuve par résolution, cas propositionnel : diagnostic médical simpliste\nOn dispose des connaissances suivantes sur la grippe :\n1. La fièvre est définie comme une température supérieure à 38◦ .\n2. Les patients qui ont la grippe doivent prendre du tamiflu.\n3. Les patients qui ont de la fièvre et qui toussent ont la grippe.\n4. Le patient tousse et a une température supérieure à 38◦ .\n\nQuestion 1\nFormaliser ces connaissances en utilisant les variables propositionnelles grippe, tamiflu, fièvre, toux,\nsup38.\n\nQuestion 2\nEn utilisant la méthode de résolution, montrer que le patient doit prendre du tamiflu.\n"
+  },
+  {
+    "num": 37,
+    "theme": 10,
+    "page": 21,
+    "title": "Règle de résolution, cas LPPO",
+    "text": "Exercice 37 – Règle de résolution, cas LPPO\nOn considère les couples de clauses suivants, où X = {x, y, z, u}, F0 = {a, b}, f et g sont des fonctions (dont\nl’arité peut changer d’une question à l’autre) et p, q, r et s des prédicats (dont l’arité peut changer d’une question à\nl’autre).\nDans chacun des cas, calculer la résolvante de leur résolution (les questions sont indépendantes les unes des autres).\n©2026-2027(by Sorbonne Université/Licence d’informatique/UL2IN007)\n\n27 août 2026\n\n\nUE UL2IN007\n\npage 22/24\n\n1. C1 = p(x, y, z) ∨ ¬q(x, y) ∨ ¬q(y, z) et C2 = ¬p(a, u, b)\n2. C3 = q(x, y) ∨ r(y, f (y)) et C4 = ¬q(x, x) ∨ s(x) ∨ t(g(x))\n3. C5 = p(x, y, z) ∨ ¬r(g(a, f (y)), f (y)) et C6 = r(f (z), x) ∨ r(g(x, f (z)), f (b))\n4. C7 = p(a, x) ∨ q(x, y) et C8 = ¬p(x, f (x, y, z)) ∨ q(x, y)\n5. C9 = q(a, x, b) ∨ ¬p(z, f (x), x) C10 = ¬q(y, c, y) ∨ p(f (z), y, f (y))\n"
+  },
+  {
+    "num": 38,
+    "theme": 10,
+    "page": 22,
+    "title": "Preuve par résolution, cas LPPO",
+    "text": "Exercice 38 – Preuve par résolution, cas LPPO\nQuestion 1\nOn considère les quatre clauses suivantes\nC1 = ¬p(f (x)) ∨ p(x)\nC2 = ¬p(f (a))\nC3 = q(x) ∨ p(f (x))\nC4 = ¬q(f (y))\nMontrer par résolution qu’elles sont insatisfiables.\n\nQuestion 2\nOn considère les quatre clauses suivantes\nD1 = p(x) ∨ ¬p(f (x))\nD2 = p(f (a))\nD3 = q(f (x)) ∨ ¬p(x)\nD4 = ¬q(f (y))\nMontrer par résolution qu’elles sont insatisfiables.\n"
+  },
+  {
+    "num": 39,
+    "theme": 10,
+    "page": 22,
+    "title": "Arbre de résolution, format Prolog",
+    "text": "Exercice 39 – Arbre de résolution, format Prolog\nQuestion 1\nOn considère la base de règles suivantes :\np(X,Y,Z) :- q(X,Y), q(Y,Z).\np(X,Y,X) :- q(b,X), q(Y,a).\nq(a,b).\nq(b,a).\nq(b,c).\nq(a,c).\nDévelopper l’arbre de résolution SLD pour la requête ?-p(a,Y,Z).\n\nQuestion 2\nOn considère la base de règles suivantes :\nq(f(X)) :- p(X).\np(f(a)).\np(X):-p(f(X)).\nDévelopper l’arbre de résolution SLD pour la requête ?-q(f(Y)).\n\n©2026-2027(by Sorbonne Université/Licence d’informatique/UL2IN007)\n\n27 août 2026\n\n\nUE UL2IN007\n\npage 23/24\n\nThème 11 - TD\nObjectifs\n- Prolog, unification et listes\n- Formes normales conjonctives en LPPO\n- Résolution en LPPO\n\nExercices\n"
+  },
+  {
+    "num": 40,
+    "theme": 11,
+    "page": 23,
+    "title": "Listes en prolog : unification et manipulation",
+    "text": "Exercice 40 – Listes en prolog : unification et manipulation\nUne liste est une suite finie d’objets, de taille quelconque. En prolog, elle est représentée entre crochets, les éléments\nétant séparés par des virgules : par exemple [a, b, c] pour une liste de constantes, [] pour la liste vide. Cette\nstructure peut être définie récursivement par\n- la liste vide, représentée par [].\n- si T est un terme et L une liste, [T | L] représente la liste de premier élément T (tête de liste), suivi de L\n(queue de liste). L’opérateur |, appelé cons permet de construire les listes.\nUn prédicat essentiel pour manipuler les listes est le prédicat append, qui est tel que append(L1, L2, L3)\nest satisfait si la concaténation de L1 avec L2 s’unifie avec L3.\nPar exemple, append([a, b], [c, d, e], [a, b, c, d , e]) est satisfait,\nmais append([a, b], [c, d, e], [c, d , e, a, b]) ne l’est pas et\nappend([a, b], [c, d, e], [a, b, c]) non plus.\n\nQuestion 1\nIndiquer, en justifiant les réponses, les résultats des requêtes suivantes :\n1. ?- [a, b, c] = [X].\n2. ?- [a, b, c] = [X, Y, Z].\n3. ?- [a, b, c] = [X| Y].\n4. ?- [a, [b, c], d] = [X, Y, Z].\n5. ?- append([a, b], [c, d], [a, b, c, d]).\n6. ?- append([a, b], [c, d], L).\n7. ?- append([a, b], [c, d], [c, d, a, b]).\n8. ?- append(X, [c, Y], [a, b, c, d]).\n9. ?- append(X, Y, [a, b, c, d]).\n\nQuestion 2\nDéfinir les prédicats suivants :\n1. premier tel que premier(L, X) est satisfait si X est le premier élément de L.\nPar exemple premier([a, b, c], X) doit conduire à "
+  },
+  {
+    "num": 41,
+    "theme": 11,
+    "page": 24,
+    "title": "Formes normales en LPPO",
+    "text": "Exercice 41 – Formes normales en LPPO\nOn considère la formule F = ¬((∀x(p(f (x)) ⇒ ¬q(x))) ⇒ ¬∃x(p(f (x)) ∧ q(x))). On souhaite examiner si elle\nest valide, satisfiable non valide ou insatisfiable par résolution.\n1. Mettre F sous forme normale négative.\n2. Mettre la formule obtenue sous forme prénexe.\n3. Skolémiser la formule obtenue.\n4. Mettre la formule obtenue sous forme normale conjonctive.\n5. En utilisant la résolution, que peut-on en déduire sur F ?\n\n©2026-2027(by Sorbonne Université/Licence d’informatique/UL2IN007)\n\n27 août 2026\n\n"
+  }
+]

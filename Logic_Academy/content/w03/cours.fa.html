@@ -1,0 +1,72 @@
+
+<div class="box box-objectives">
+  <div class="box-title">اهداف آموزشی و خروجی‌های یادگیری — هفته ۳</div>
+  <ul>
+    <li>درک تابع بولی و فرمول شمارش تعداد آن‌ها ({{ 2^{2^n} }}).</li>
+    <li>تعریف دقیق لیترال، بند فصلی (Clause)، ترم عطفی، فرم FNC و فرم FND.</li>
+    <li>تسلط بر الگوریتم استاندارد استخراج FND (مین‌ترم‌ها) و FNC (مکس‌ترم‌ها) از روی جدول درستی.</li>
+    <li>تبدیل مستقیم فرمول به فرم نرمال از طریق قوانین جبر بولی بدون رسم جدول.</li>
+    <li>تشخیص سریع و خطی صدق‌پذیری در FND و اعتبار در FNC.</li>
+    <li>مفهوم تمامیت مجموعه‌های رابط‌های منطقی و رابط‌های فراگیر نند (NAND) و نور (NOR).</li>
+  </ul>
+</div>
+
+<h2 id="w03-c-fonctions">۱. توابع بولی و شمارش آن‌ها</h2>
+<div class="box box-definition">
+  <div class="box-title">تعریف ۳.۱ — تابع بولی</div>
+  <p>یک <strong>تابع بولی</strong> با {{ n }} متغیر، نگاشتی است به صورت :</p>
+  {{ f : \{0, 1\}^n \longrightarrow \{0, 1\} }}
+  <p>چون دامنه دارای {{ 2^n }} بردار ورودی است، تعداد کل توابع بولی ممکن دقیقاً برابر است با :</p>
+  {{ 2^{2^n} \quad \text{تابع بولی متمایز با } n \text{ متغیر}. }}
+</div>
+
+<h2 id="w03-c-fnc-fnd">۲. فرم‌های نرمال: FNC و FND</h2>
+<div class="box box-definition">
+  <div class="box-title">تعریف ۳.۲ — واژگان استاندارد فرم‌های نرمال</div>
+  <ul>
+    <li><strong>لیترال (Littéral):</strong> یک متغیر گزاره‌ای {{ p }} یا نقیض آن {{ \neg p }}.</li>
+    <li><strong>بند فصلی (Clause):</strong> فصلی از چند لیترال : {{ (l_1 \lor l_2 \lor \dots \lor l_k) }}.</li>
+    <li><strong>ترم عطفی (Terme):</strong> عطفی از چند لیترال : {{ (l_1 \land l_2 \land \dots \land l_k) }}.</li>
+    <li><strong>فرم نرمال عطفی (FNC / CNF):</strong> عطف چند بند : {{ \bigwedge_{i=1}^m \left( \bigvee_{j=1}^{k_i} l_{i,j} \right) }}</li>
+    <li><strong>فرم نرمال فصلی (FND / DNF):</strong> فصل چند ترم : {{ \bigvee_{i=1}^m \left( \bigwedge_{j=1}^{k_i} l_{i,j} \right) }}</li>
+  </ul>
+</div>
+
+<h2 id="w03-c-conversion">۳. استخراج فرم‌های نرمال از جدول درستی</h2>
+<div class="box box-method">
+  <div class="box-title">الگوریتم ساخت فرم‌های نرمال از جدول درستی</div>
+  <ul>
+    <li><strong>برای ساخت FND :</strong> تمام سطرهایی را که خروجی فرمول در آن‌ها <strong>۱</strong> است پیدا کنید. برای هر سطر یک <em>مین‌ترم</em> بنویسید (عطف متغیرها به گونه‌ای که اگر مقدار ۱ دارند خودشان و اگر ۰ دارند نقیضشان باشد). سپس بین تمام مین‌ترم‌ها علامت فصل ({{ \lor }}) بگذارید.</li>
+    <li><strong>برای ساخت FNC :</strong> تمام سطرهایی را که خروجی فرمول در آن‌ها <strong>۰</strong> است پیدا کنید. برای هر سطر یک <em>مکس‌ترم</em> بنویسید (فصل متغیرها به گونه‌ای که اگر مقدار ۱ دارند نقیضشان و اگر ۰ دارند خودشان باشد). سپس بین تمام مکس‌ترم‌ها علامت عطف ({{ \land }}) بگذارید.</li>
+  </ul>
+</div>
+
+<h2 id="w03-c-completude">۴. تمامیت تابعی مجموعه‌های رابط‌های منطقی</h2>
+<div class="box box-definition">
+  <div class="box-title">تعریف ۳.۳ — مجموعه کامل رابط‌ها</div>
+  <p>مجموعه‌ای از رابط‌ها را <strong>کامل</strong> می‌نامند هرگاه بتوان هر تابع بولی دلخواهی را تنها با استفاده از رابط‌های آن مجموعه بیان کرد.</p>
+  <ul>
+    <li>مجموعه $\{
+eg, \land, \lor\}$ کامل است.</li>
+    <li>مجموعه‌های دو عنصری $\{
+eg, \land\}{{  و  }}\{
+eg, \lor\}{{  و  }}\{
+eg, \Rightarrow\}$ همگی کاملند.</li>
+    <li><strong>مجموعه {{ \{\land, \lor\} }} ناقص است:</strong> زیرا هر فرمولی که تنها با AND و OR ساخته شود یکنواخت صعودی است و هرگز نمی‌تواند نقیض را تولید کند.</li>
+    <li><strong>رابط تک‌عنصری نند (NAND / خط شفر {{ | }}):</strong> به تنهایی یک مجموعه کامل است!</li>
+    <li><strong>رابط تک‌عنصری نور (NOR / پیکان پیرس {{ \downarrow }}):</strong> به تنهایی یک مجموعه کامل است!</li>
+  </ul>
+</div>
+
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>

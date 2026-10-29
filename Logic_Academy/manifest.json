@@ -1,0 +1,14 @@
+{
+  "name": "Logic Academy – Sorbonne Université UL2IN007 Logique",
+  "short_name": "Logic Academy",
+  "description": "Manuel Universitaire Interactif de Logique Mathématique et Computationnelle (Sorbonne Université UL2IN007 / LU2IN007) en Français et Persan.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f1efea",
+  "theme_color": "#7a1f2b",
+  "icons": [
+    {"src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}
+  ]
+}
+

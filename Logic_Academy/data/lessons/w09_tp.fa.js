@@ -1,0 +1,6 @@
+Logic.reg("lesson:w09_tp:fa", {
+  id: "w09_tp",
+  lang: "fa",
+  status: "complete",
+  html: "\n<div class=\"box box-objectives\">\n  <div class=\"box-title\">کار عملی موضوع ۹ — استنتاج طبیعی در سامانه Edukera (تمرین ۱۳)</div>\n  <p>منبع رسمی: <code>main_tp-etudiants.pdf</code>، صفحه ۱۲. راهنمای کاربردی استفاده از سورها در اثبات‌کننده تعاملی Edukera.</p>\n</div>\n\n<h2 id=\"w09-tp-edukera\">۱. نحوه کار با قواعد سورها در Edukera</h2>\n<p>در محیط تعاملی Edukera هر قاعده به شکل یک بلوک بصری است:</p>\n<ul>\n  <li><strong>قاعده {{ \forall I }}:</strong> سامانه یک کادر تورفته با متغیر تازه محلی (مانند <code>x_0</code>) باز می‌کند. سیستم اجازه استفاده از متغیرهای از قبل موجود را نمی‌دهد.</li>\n  <li><strong>قاعده {{ \forall E }}:</strong> دانشجو باید ترم مورد نظر برای جایگزینی را در فیلد مربوطه تایپ کند (مانند <code>c</code> یا <code>f(a)</code>).</li>\n  <li><strong>قاعده {{ \\exists I }}:</strong> ترم شاهد را برای اثبات در خانه ورودی قرار می‌دهیم.</li>\n  <li><strong>قاعده {{ \\exists E }}:</strong> سامانه یک کادر فرعی با یک نام موقت ایجاد می‌کند و به محض تلاش برای خروج این متغیر از کادر، پیام خطای نقض استنتاج نمایش داده می‌شود.</li>\n</ul>\n\n<div class=\"box box-info\" style=\"display:none\"></div>"
+});

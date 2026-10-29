@@ -1,0 +1,419 @@
+<style>
+/* ============ Base typography ============ */
+h1, h2, h3 {
+  text-align: center;
+  color: #1565c0;
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  margin-top: 0;
+}
+h1 { font-weight: 700; margin-bottom: 12px; }
+h2, h3 { font-weight: 600; margin-bottom: 10px; }
+p, li { line-height: 1.5; }
+img { max-width: 100%; border-radius: 8px; }
+hr { border: 0; height: 1px; background: #e0e0e0; margin: 20px 0; }
+
+/* ============ Generic containers ============ */
+div.box {
+  padding: 16px;
+  border-radius: 12px;
+  margin: 18px 0;
+  box-shadow: 0 1px 0 rgba(0,0,0,.03);
+}
+div.question { background: #e3f2fd; border-left: 6px solid #1976d2; }
+div.answer   { background: #f9fbe7; border-left: 6px solid #cddc39; }
+div.explain  { background: #fff3e0; border-left: 6px solid #fb8c00; }
+
+/* ============ Code (inline & fenced) ============ */
+code, pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+/* Inline code */
+code {
+  background: #fff9c4;           /* light yellow inline */
+  border: 1px solid #f4e38a;
+  padding: 0 .25em;
+  border-radius: 6px;
+}
+
+/* Fenced code blocks (``` … ```) */
+pre {
+  background: #fff9c4;           /* light yellow block */
+  border-left: 6px solid #fdd835;/* amber accent */
+  padding: 12px;
+  border-radius: 10px;
+  margin: 14px 0;
+  overflow-x: auto;
+}
+pre code { background: transparent; border: 0; padding: 0; }
+
+/* Optional labeled code wrapper you can use with HTML:
+  <div class="code"><div class="label">A.sh</div><pre><code>…</code><pre></div> */
+
+div.code {
+  background: #fff9c4;
+  border-left: 6px solid #fdd835;
+  padding: 12px;
+  border-radius: 10px;
+  margin: 12px 0;
+}
+div.code .label {
+  font-weight: 600;
+  color: #6d4c41;
+  margin-bottom: 8px;
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+}
+div.code pre { background: transparent; margin: 0; padding: 0; }
+/* ===== FORCE YELLOW CODE BLOCKS (works in VS Code & MPE) ===== */
+
+/* Built-in VS Code preview */
+.vscode-body pre,
+.vscode-body pre code {
+  background: #fff9c4 !important;
+  border-left: 6px solid #fdd835 !important;
+}
+
+/* Markdown Preview Enhanced (uses highlight.js) */
+.markdown-preview pre,
+.markdown-preview pre code,
+pre code.hljs,
+.hljs {
+  background: #fff9c4 !important;
+  border-left: 6px solid #fdd835 !important;
+}
+
+/* Inline code (not in fences) */
+.vscode-body code:not(pre code),
+.markdown-preview code:not(pre code),
+code:not(pre code) {
+  background: #fff9c4 !important;
+  border: 1px solid #f4e38a !important;
+  padding: 0 .25em;
+  border-radius: 6px;
+}
+
+
+/* ============ Tables ============ */
+table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+th, td { border: 1px solid #e0e0e0; padding: 8px 10px; }
+thead th { background: #e3f2fd; }
+tbody tr:nth-child(odd) { background: #fafafa; }
+
+/* ============ Blockquotes ============ */
+blockquote {
+  margin: 12px 0;
+  padding: 10px 14px;
+  background: #f5f5f5;
+  border-left: 6px solid #9e9e9e;
+  border-radius: 8px;
+  color: #37474f;
+}
+
+/* ============ Spacing utilities (use anywhere) ============ */
+.spacer-sm { height: 8px; }
+.spacer-md { height: 16px; }
+.spacer-lg { height: 32px; }
+
+.mt-2 { margin-top: 12px; } .mt-4 { margin-top: 24px; }
+.mb-2 { margin-bottom: 12px; } .mb-4 { margin-bottom: 24px; }
+.pt-2 { padding-top: 12px; } .pb-2 { padding-bottom: 12px; }
+
+.center { text-align: center; }
+.right { text-align: right; }
+</style>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Relations & Ordres — Fiche complète avec exemples (classiques + nouveaux)</title>
+  <!-- Intégrer vos propres styles si besoin. Les classes utilisées : .box .def .preuve .ex .classic .new .note -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+  <header>
+    <h1>Relations & Ordres — Fiche complète</h1>
+    <p>Version courte, claire et prête pour révision. Chaque notion comporte une <strong>définition</strong>, ce qu’il faut <strong>prouver</strong>, et <strong>2 exemples</strong> (un classique, un nouveau), avec solutions succinctes.</p>
+  </header>
+
+  <section id="relations-generales">
+    <h2>1) Relations générales</h2>
+
+    <article id="equivalence">
+      <h3>1.1 Relation d’équivalence</h3>
+      <div class="box def">
+        <p><strong>Définition.</strong> Une relation R sur E est une <em>équivalence</em> si elle est (i) réflexive, (ii) symétrique, (iii) transitive.</p>
+        <ul>
+          <li><strong>Réflexive :</strong> ∀x, x R x.</li>
+          <li><strong>Symétrique :</strong> x R y ⇒ y R x.</li>
+          <li><strong>Transitive :</strong> x R y et y R z ⇒ x R z.</li>
+        </ul>
+      </div>
+      <div class="box ex classic">
+        <p><strong>Exemple classique.</strong> Sur A* : « même longueur » : u ~ v ⇔ |u| = |v|.</p>
+        <div class="preuve">
+          <ul>
+            <li>Réflexive : |u| = |u|.</li>
+            <li>Symétrique : |u| = |v| ⇒ |v| = |u|.</li>
+            <li>Transitive : |u| = |v| et |v| = |w| ⇒ |u| = |w|.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="box ex new">
+        <p><strong>Exemple nouveau.</strong> Sur ℤ : « même reste modulo 3 » : a ~ b ⇔ a ≡ b (mod 3).</p>
+        <div class="preuve">
+          <ul>
+            <li>Réflexive : a ≡ a (mod 3).</li>
+            <li>Symétrique : a ≡ b ⇒ b ≡ a.</li>
+            <li>Transitive : a ≡ b et b ≡ c ⇒ a ≡ c.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <article id="ordre-partiel">
+      <h3>1.2 Relation d’ordre (ordre partiel)</h3>
+      <div class="box def">
+        <p><strong>Définition.</strong> Une relation ≤ est un <em>ordre partiel</em> si elle est (i) réflexive, (ii) antisymétrique, (iii) transitive.</p>
+        <ul>
+          <li><strong>Antisymétrie :</strong> x ≤ y et y ≤ x ⇒ x = y.</li>
+        </ul>
+      </div>
+      <div class="box ex classic">
+        <p><strong>Exemple classique.</strong> (℘(E), ⊆).</p>
+        <div class="preuve">
+          <ul>
+            <li>Réflexive : X ⊆ X.</li>
+            <li>Antisymétrique : X ⊆ Y et Y ⊆ X ⇒ X = Y.</li>
+            <li>Transitive : X ⊆ Y et Y ⊆ Z ⇒ X ⊆ Z.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="box ex new">
+        <p><strong>Exemple nouveau.</strong> « Divise » (ℕ, ∣) sur ℕ\{0} : a ∣ b s’il existe k ∈ ℕ tel que b = ka.</p>
+        <div class="preuve">
+          <ul>
+            <li>Réflexive : a = 1·a ⇒ a ∣ a.</li>
+            <li>Antisymétrique : a ∣ b et b ∣ a ⇒ a = b.</li>
+            <li>Transitive : a ∣ b et b ∣ c ⇒ a ∣ c.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <article id="ordre-total">
+      <h3>1.3 Ordre total</h3>
+      <div class="box def">
+        <p><strong>Définition.</strong> Un ordre ≤ est <em>total</em> si pour tous x,y : x ≤ y ou y ≤ x.</p>
+      </div>
+      <div class="box ex classic">
+        <p><strong>Exemple classique.</strong> (ℕ, ≤) est un ordre total.</p>
+      </div>
+      <div class="box ex new">
+        <p><strong>Exemple nouveau.</strong> Ordre lexicographique sur A<sup>n</sup> quand chaque composante est totalement ordonnée (ex. A = ℕ).</p>
+      </div>
+    </article>
+
+    <article id="ordre-strict">
+      <h3>1.4 Ordre strict associé (≺)</h3>
+      <div class="box def">
+        <p><strong>Définition.</strong> x ≺ y ⇔ (x ≤ y et x ≠ y). Alors ≺ est irréflexif et transitive.</p>
+      </div>
+      <div class="box ex classic">
+        <p><strong>Exemple classique.</strong> Sur ℕ : &lt; est l’ordre strict associé à ≤.</p>
+      </div>
+      <div class="box ex new">
+        <p><strong>Exemple nouveau.</strong> Sur (℘(E), ⊆) : X ⊊ Y (inclusion stricte) est l’ordre strict associé.</p>
+      </div>
+    </article>
+
+    <article id="bien-fonde">
+      <h3>1.5 Ordre bien fondé</h3>
+      <div class="box def">
+        <p><strong>Définition (équivalences usuelles).</strong> Un ordre est <em>bien fondé</em> s’il n’existe pas de suite infinie strictement décroissante <em>ou</em> si toute partie non vide admet un élément minimal.</p>
+      </div>
+      <div class="box ex classic">
+        <p><strong>Exemple classique.</strong> (ℕ, ≤) est bien fondé (pas de chaîne infinie n &gt; n−1 &gt; …).</p>
+      </div>
+      <div class="box ex new">
+        <p><strong>Exemple nouveau.</strong> (ℕ\{0,1}, ∣) est bien fondé : tout sous-ensemble non vide admet un minimal (les nombres premiers sont minimaux) ; pas de chaîne infinie strictement décroissante pour « ∣ ».</p>
+      </div>
+    </article>
+  </section>
+
+  <section id="ordres-specifiques">
+    <h2>2) Ordres / constructions spécifiques</h2>
+
+    <article id="inclusion">
+      <h3>2.1 Inclusion (⊆) sur ℘(E)</h3>
+      <div class="box def">
+        <p><strong>À prouver.</strong> Réflexive, antisymétrique, transitive. <em>Pas total</em> en général.</p>
+      </div>
+      <div class="box ex classic">
+        <p><strong>Exemple classique (avec bornes).</strong> E = {a,b,c}. Calculer inf/sup de A<sub>1</sub>={a,b} et A<sub>2</sub>={b,c} :
+        <br>inf({A<sub>1</sub>,A<sub>2</sub>}) = A<sub>1</sub>∩A<sub>2</sub> = {b};
+        <br>sup({A<sub>1</sub>,A<sub>2</sub>}) = A<sub>1</sub>∪A<sub>2</sub> = {a,b,c}.</p>
+      </div>
+      <div class="box ex new">
+        <p><strong>Exemple nouveau.</strong> Pour des familles (A<sub>i</sub>)<sub>i≤n</sub> de ℘(E) :
+        <br>inf( {A<sub>1</sub>,…,A<sub>n</sub>} ) = ⋂ A<sub>i</sub>,
+        <br>sup( {A<sub>1</sub>,…,A<sub>n</sub>} ) = ⋃ A<sub>i</sub>.</p>
+      </div>
+    </article>
+
+    <article id="divisibilite">
+      <h3>2.2 Divisibilité (∣) sur ℕ</h3>
+      <div class="box def">
+        <p><strong>À prouver.</strong> Réflexive, antisymétrique, transitive. <em>Pas total</em> (2 et 5 incomparables).</p>
+      </div>
+      <div class="box ex classic">
+        <p><strong>Exemple classique.</strong> Dans F = ℕ\{0} : Bornes pour {6, 15, 21} :
+          <br>Minorants = diviseurs communs = {1,3}. Majorants = multiples communs = {LCM(6,15,21), …} = {210, 420, …}.
+          <br>inf = gcd(6,15,21) = 3 ; sup = lcm(6,15,21) = 210 (si on travaille dans l’ensemble des multiples présents).
+        </p>
+      </div>
+      <div class="box ex new">
+        <p><strong>Exemple nouveau.</strong> Un ensemble ordonné qui a un unique élément <em>maximal</em> mais pas de <em>plus grand</em> :
+          <br>Considérer S = {p·q | q ∈ ℕ, q ≥ 1} ⊆ ℕ pour un premier fixé p, avec « ∣ ». L’élément p est <em>minimal</em>. Pour avoir « unique maximal sans plus grand », prendre une structure de produits avec contraintes (ex.: sous-ensemble fini non fermé par produit) — autrement, en général, la divisibilité n’admet pas de plus grand élément.
+        </p>
+      </div>
+    </article>
+
+    <article id="produit-coordonne">
+      <h3>2.3 Ordre produit coordonné sur E×F</h3>
+      <div class="box def">
+        <p><strong>Définition.</strong> (x<sub>1</sub>,x<sub>2</sub>) ≤ (y<sub>1</sub>,y<sub>2</sub>) ⇔ x<sub>1</sub>≤y<sub>1</sub> et x<sub>2</sub>≤y<sub>2</sub> (produit d’ordres).</p>
+      </div>
+      <div class="box ex classic">
+        <p><strong>Exemple classique.</strong> A = {(3,5), (5,3), (5,7), (7,5)} avec ≤ coordonné.
+          <br>Maximaux : (5,7) et (7,5). Minimaux : (3,5) et (5,3). Pas de plus grand ni plus petit (les maximaux/minimaux ne sont pas comparables entre eux).</p>
+      </div>
+      <div class="box ex new">
+        <p><strong>Exemple nouveau.</strong> Sur ℕ², l’ensemble B = {(0,1),(1,0),(1,1),(1,2),(2,1),(3,0)} :
+          <br>Maximaux : (1,2),(2,1),(3,0). Minimaux : (0,1),(1,0). Pas de max/min uniques.</p>
+      </div>
+    </article>
+
+    <article id="lexico">
+      <h3>2.4 Ordre lexicographique</h3>
+      <div class="box def">
+        <p><strong>Définition.</strong> Sur E₁×⋯×Eₙ, on compare d’abord la 1<sup>re</sup> composante, puis la 2<sup>e</sup> si égalité, etc.</p>
+      </div>
+      <div class="box ex classic">
+        <p><strong>Exemple classique.</strong> Sur ℕ³ : (n₁,n₂,n₃) &lt;<sub>lex</sub> (n′₁,n′₂,n′₃) si
+          n₁&lt;n′₁, ou n₁=n′₁ et n₂&lt;n′₂, ou n₁=n′₁, n₂=n′₂ et n₃≤n′₃.</p>
+      </div>
+      <div class="box ex new">
+        <p><strong>Exemple nouveau.</strong> Sur A* (mots) avec ordre total sur A : l’<em>ordre lexicographique sur mots</em> <em>n’est pas</em> bien fondé :
+          <br>Suite strictement décroissante : b &gt; ab &gt; aab &gt; aaab &gt; ⋯</p>
+      </div>
+    </article>
+
+    <article id="prefixe">
+      <h3>2.5 Préfixe sur A*</h3>
+      <div class="box def">
+        <p><strong>Définition.</strong> u ≤ v si u est un préfixe de v (∃w : v = u·w). Ordre partiel, pas total en général.</p>
+      </div>
+      <div class="box ex classic">
+        <p><strong>Exemple classique.</strong> Sur A* : u ≤ u (réflexif). Si u ≤ v et v ≤ u ⇒ v = u (antisymétrie). Si u ≤ v et v ≤ w ⇒ u ≤ w (transitivité).</p>
+      </div>
+      <div class="box ex new">
+        <p><strong>Bien fondé.</strong> L’ordre strict « préfixe propre » (u ≺ v si u est préfixe de v et u ≠ v) est bien fondé car une chaîne strictement décroissante raccourcit la longueur à chaque étape.</p>
+      </div>
+    </article>
+
+    <article id="sous-mot">
+      <h3>2.6 Sous-mot (facteur) sur A*</h3>
+      <div class="box def">
+        <p><strong>Définition.</strong> u ≤ v si v = x·u·y pour certains x,y (u est un <em>facteur</em> de v). Ordre partiel.</p>
+      </div>
+      <div class="box ex classic">
+        <p><strong>Exemple classique.</strong> Réflexivité : v = ε·v·ε ⇒ v ≤ v. Antisymétrie : si u est facteur de v et v de u ⇒ u = v. Transitivité : si u facteur de v et v facteur de w ⇒ u facteur de w.</p>
+      </div>
+      <div class="box ex new">
+        <p><strong>Bien fondé.</strong> L’ordre strict associé (facteur propre) est bien fondé : retirer un facteur propre diminue strictement la longueur, donc pas de chaîne infinie décroissante.</p>
+      </div>
+    </article>
+
+    <article id="longueurs-quotient">
+      <h3>2.7 Ordre des longueurs sur A*/~</h3>
+      <div class="box def">
+        <p><strong>Définition.</strong> u ~ v ⇔ |u|=|v|. Sur les classes [u], définir [u] ≤ [v] ⇔ |u| ≤ |v|.</p>
+      </div>
+      <div class="box ex classic">
+        <p><strong>Exemple classique.</strong> Isomorphe à (ℕ, ≤) : total et bien fondé.</p>
+      </div>
+      <div class="box ex new">
+        <p><strong>Exemple nouveau.</strong> Les bornes existent : sup([u],[v]) correspond à la classe de longueur max(|u|,|v|), inf à min(|u|,|v|).</p>
+      </div>
+    </article>
+
+    <article id="ordre-operation">
+      <h3>2.8 Ordre défini par une opération binaire t</h3>
+      <div class="box def">
+        <p><strong>Hypothèses.</strong> t est commutative, associative, idempotente. Définir x ≤<sub>t</sub> y ⇔ x t y = y.</p>
+      </div>
+      <div class="box ex classic">
+        <p><strong>Exemple classique.</strong> Sur (℘(E), ∪) : X ≤<sub>∪</sub> Y ⇔ X ∪ Y = Y ⇔ X ⊆ Y.</p>
+      </div>
+      <div class="box ex new">
+        <p><strong>Exemple nouveau.</strong> Sur (ℕ, max) : a ≤<sub>max</sub> b ⇔ max(a,b) = b ⇔ a ≤ b (on retrouve l’ordre usuel).</p>
+      </div>
+    </article>
+  </section>
+
+  <section id="operations-relations">
+    <h2>3) Opérations sur les relations</h2>
+
+    <article id="inverse">
+      <h3>3.1 Inverse R<sup>−1</sup></h3>
+      <div class="box def">
+        <p>(x,y) ∈ R<sup>−1</sup> ⇔ (y,x) ∈ R. Si R est symétrique alors R = R<sup>−1</sup>.</p>
+      </div>
+      <div class="box ex classic">
+        <p><strong>Exemple.</strong> « &gt; » est l’inverse de « &lt; » sur ℕ.</p>
+      </div>
+    </article>
+
+    <article id="composition">
+      <h3>3.2 Composition (R₂ ∘ R₁)</h3>
+      <div class="box def">
+        <p>(x,z) ∈ (R₂ ∘ R₁) ⇔ ∃y : (x,y) ∈ R₁ et (y,z) ∈ R₂. Propriété : (R ∘ S)<sup>−1</sup> = S<sup>−1</sup> ∘ R<sup>−1</sup>.</p>
+      </div>
+      <div class="box ex classic">
+        <p><strong>Exemple.</strong> Successeur S sur ℕ : S(n)=n+1 ⇒ S⁺ = &lt; et S* = ≤.</p>
+      </div>
+    </article>
+
+    <article id="fermetures">
+      <h3>3.3 Fermetures R⁺ (transitive) et R* (réflexo-transitive)</h3>
+      <div class="box def">
+        <p><strong>Idée.</strong> On ajoute le minimum d’arcs pour rendre la relation transitive (R⁺) ou réflexive et transitive (R*).</p>
+      </div>
+      <div class="box ex classic">
+        <p><strong>Exemple.</strong> Pour la relation « +1 » sur ℕ : R⁺ = { (a,b) | a &lt; b } ; R* = { (a,b) | a ≤ b }.</p>
+      </div>
+    </article>
+  </section>
+
+  <section id="methodes">
+    <h2>4) Méthodes de preuve (rapides)</h2>
+    <ul>
+      <li><strong>Réflexivité :</strong> montrer x R x par définition.</li>
+      <li><strong>Antisymétrie :</strong> supposer x R y et y R x, conclure x=y (souvent par « absorption » ou unicité).</li>
+      <li><strong>Transitivité :</strong> chaîner les égalités/inclusions/divisibilités.</li>
+      <li><strong>Totalité :</strong> utiliser la comparabilité composante par composante (lexico) ou une propriété d’ordre total sous-jacent.</li>
+      <li><strong>Bien fondé :</strong> exhiber un <em>mesure</em> (longueur, taille) strictement décroissante dans tout pas strict.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p class="note">Astuce révision : pour chaque ordre, pensez « 3 cases à cocher » (réfl., anti-sym., trans.) + (totalité ?) + (bien fondé ?). Pour les mots, la <em>longueur</em> est souvent la bonne mesure.</p>
+  </footer>
+</body>
+</html>
+

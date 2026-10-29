@@ -1,0 +1,25 @@
+
+<div class="box box-objectives">
+  <div class="box-title">TP Thème 11 — Listes et Applications Prolog (Exercices 19, 20 et 21)</div>
+  <p>Source : <code>main_tp-etudiants.pdf</code>, pages 19–24. Pratique avancée des listes en Prolog.</p>
+</div>
+
+<h2 id="w11-tp-ex20">Exercice 20 — Manipulation de Listes</h2>
+<pre><code>% Deuxième élément
+deuxieme([_, X | _], X).
+
+% Avant-dernier élément
+avantDernier([X, _], X).
+avantDernier([_ | Q], X) :- avantDernier(Q, X).
+
+% Inversion de liste (version avec accumulateur O(n))
+inverse(L, Res) :- inv_acc(L, [], Res).
+inv_acc([], Acc, Acc).
+inv_acc([T | Q], Acc, Res) :- inv_acc(Q, [T | Acc], Res).</code></pre>
+
+<h2 id="w11-tp-ex21">Exercice 21 — Menus et Listes de Courses</h2>
+<pre><code>entree(salade). entree(avocat).
+plat(poulet). plat(saumon).
+dessert(pomme). dessert(yaourt).
+
+menuValide([E, P, D]) :- entree(E), plat(P), dessert(D).</code></pre>

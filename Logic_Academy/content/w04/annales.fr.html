@@ -1,0 +1,27 @@
+
+<div class="box box-objectives">
+  <div class="box-title">Annales d'Examens Ciblées — Semaine 4</div>
+  <p>Trace formelle d'exécution de DPLL extraite des examens partiels de la Sorbonne.</p>
+</div>
+
+<div class="exo-card">
+  <div class="exo-header">
+    <div>
+      <h3 class="exo-title">Examen Partiel 2018–2019 — Exercice 2 (DPLL pas à pas)</h3>
+      <span style="font-size:0.8rem; color:var(--muted);">Source : partiel_2018_2019.pdf (p. 2)</span>
+    </div>
+    <div class="exo-meta-badges"><span class="badge badge-accent">Semaine 4</span><span class="badge">Partiel</span></div>
+  </div>
+  <div class="exo-statement">
+    <p>Exécuter rigoureusement DPLL sur : {{ \Sigma = \{\{p, q\}, \{\neg p, r\}, \{\neg q, \neg r\}, \{p, \neg r\}\} }}</p>
+  </div>
+  <div class="step-content">
+    <strong>Correction complète rédigée Sorbonne :</strong><br>
+    Aucune clause unitaire ni littéral pur.<br>
+    1. <strong>Branchement sur {{ p = 0 }} :</strong><br>
+    {{ \Sigma_{p=0} = \{\{q\}, \{\neg q, \neg r\}, \{\neg r\}\} }}.<br>
+    Propagation unitaire de {{ q = 1 }} et {{ \neg r = 1 }} ({{ r=0 }}) dans {{ \{\neg q, \neg r\} }} : la clause est satisfaite par {{ \neg r }} !<br>
+    Toutes les clauses sont éliminées : {{ \Sigma = \emptyset }}.<br>
+    <strong>Résultat immédiat : SAT !</strong> Modèle trouvé : {{ p=0, q=1, r=0 }}.
+  </div>
+</div>

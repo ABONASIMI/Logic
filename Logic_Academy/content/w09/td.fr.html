@@ -1,0 +1,119 @@
+
+<div class="box box-objectives">
+  <div class="box-title">TD Thème 9 — Preuves Formelles en LPPO (Exercices 33 et 34)</div>
+  <p>Source : <code>main_td-etudiants.pdf</code>, pages 19–20. Toutes les preuves sont détaillées pas à pas avec les arbres de déduction naturelle au format Fitch.</p>
+</div>
+
+<h2 id="w09-td-ex33">Exercice 33 — Preuves de Formules Quantifiées (p. 19)</h2>
+<p>Prouver rigoureusement chacune des 7 formules ci-dessous en déduction naturelle.</p>
+
+<h3>Question 1 : {{ F_1 = (\forall x p(x) \lor \forall x q(x)) \implies \forall x (p(x) \lor q(x)) }}</h3>
+<div class="box box-solution">
+  <div class="box-title">Correction détaillée Question 1</div>
+  <p><strong>Stratégie :</strong> On suppose l'hypothèse de gauche {{ h_1 : \forall x p(x) \lor \forall x q(x) }}. Il s'agit d'une disjonction, donc on effectue une élimination de la disjonction {{ (\lor E) }} avec deux sous-preuves. Dans chaque cas, on choisit une variable fraîche {{ y }}, on instancie le quantificateur universel {{ (\forall E) }} avec {{ y }}, puis on introduit la disjonction {{ (\lor I) }} et enfin le quantificateur universel {{ (\forall I) }}.</p>
+  <div class="fitch-proof">
+    <div class="fitch-line"><span class="fitch-num">1</span> <span class="fitch-hyp">Hypothèse {{ h_1 : orall x p(x) \lor orall x q(x) }}</span></div>
+    <div class="fitch-box">
+      <div class="fitch-line"><span class="fitch-num">2</span> <span class="fitch-hyp">Sous-preuve Cas 1 : {{ h_2 : orall x p(x) }}</span></div>
+      <div class="fitch-box">
+        <div class="fitch-line"><span class="fitch-num">3</span> <span class="fitch-hyp">Soit {{ y }} une variable fraîche</span></div>
+        <div class="fitch-line"><span class="fitch-num">4</span> <span>{{ p(y) }}</span> <span class="fitch-rule">par {{ orall E }} sur 2 avec {{ x \leftarrow y }}</span></div>
+        <div class="fitch-line"><span class="fitch-num">5</span> <span>{{ p(y) \lor q(y) }}</span> <span class="fitch-rule">par {{ \lor I_g }} sur 4</span></div>
+      </div>
+      <div class="fitch-line"><span class="fitch-num">6</span> <span>{{ orall x (p(x) \lor q(x)) }}</span> <span class="fitch-rule">par {{ orall I }} sur 3–5 ({{ y }} fraîche)</span></div>
+    </div>
+    <div class="fitch-box">
+      <div class="fitch-line"><span class="fitch-num">7</span> <span class="fitch-hyp">Sous-preuve Cas 2 : {{ h_3 : orall x q(x) }}</span></div>
+      <div class="fitch-box">
+        <div class="fitch-line"><span class="fitch-num">8</span> <span class="fitch-hyp">Soit {{ y }} une variable fraîche</span></div>
+        <div class="fitch-line"><span class="fitch-num">9</span> <span>{{ q(y) }}</span> <span class="fitch-rule">par {{ orall E }} sur 7 avec {{ x \leftarrow y }}</span></div>
+        <div class="fitch-line"><span class="fitch-num">10</span> <span>{{ p(y) \lor q(y) }}</span> <span class="fitch-rule">par {{ \lor I_d }} sur 9</span></div>
+      </div>
+      <div class="fitch-line"><span class="fitch-num">11</span> <span>{{ orall x (p(x) \lor q(x)) }}</span> <span class="fitch-rule">par {{ orall I }} sur 8–10 ({{ y }} fraîche)</span></div>
+    </div>
+    <div class="fitch-line"><span class="fitch-num">12</span> <span>{{ orall x (p(x) \lor q(x)) }}</span> <span class="fitch-rule">par {{ \lor E }} sur 1, 2–6, 7–11</span></div>
+    <div class="fitch-line"><span class="fitch-num">13</span> <span>{{ (orall x p(x) \lor orall x q(x)) \implies orall x (p(x) \lor q(x)) }}</span> <span class="fitch-rule">par {{ \implies I }} déchargeant 1</span></div>
+  </div>
+</div>
+
+<h3>Question 2 : {{ F_2 = (\exists x (p(x) \lor q(x))) \implies (\exists x p(x) \lor \exists x q(x)) }}</h3>
+<div class="box box-solution">
+  <div class="box-title">Correction détaillée Question 2</div>
+  <p><strong>Stratégie :</strong> Supposons {{ h_1 : \exists x (p(x) \lor q(x)) }}. Pour éliminer cet existentiel {{ (\exists E) }}, on introduit une variable fraîche {{ y }} et l'hypothèse locale {{ p(y) \lor q(y) }}. On élimine ensuite la disjonction : si {{ p(y) }}, alors {{ \exists x p(x) }} par {{ \exists I }} (témoin {{ y }}), puis {{ \exists x p(x) \lor \exists x q(x) }} par {{ \lor I }}. De même si {{ q(y) }}. La conclusion ne contenant pas {{ y }}, la règle {{ \exists E }} est valide !</p>
+</div>
+
+<h3>Question 3 : {{ F_3 = (\exists x \forall y r(x, y)) \implies (\forall y \exists x r(x, y)) }}</h3>
+<div class="box box-solution">
+  <div class="box-title">Correction détaillée Question 3 (Inversion {{ \exists orall \implies orall \exists }})</div>
+  <p><strong>Règle d'or des portées :</strong> On suppose {{ h_1 : \exists x orall y r(x, y) }}. On applique {{ \exists E }} en fixant une variable fraîche {{ a }} et {{ h_2 : orall y r(a, y) }}. Maintenant, pour prouver {{ orall y \exists x r(x, y) }}, on se donne une nouvelle variable fraîche {{ b }} ({{ orall I }}). Par {{ orall E }} sur {{ h_2 }} avec le terme {{ b }}, on obtient {{ r(a, b) }}. Par {{ \exists I }} avec le témoin {{ a }}, on obtient {{ \exists x r(x, b) }}. Par {{ orall I }} sur {{ b }}, on obtient {{ orall y \exists x r(x, y) }}. Enfin par {{ \exists E }}, on décharge {{ a }}. CQFD !</p>
+</div>
+
+<h2 id="w09-td-ex34">Exercice 34 — Preuves Imbriquées : Le Paradoxe du Buveur (p. 19-20)</h2>
+<p>Le but est de prouver {{ \exists x (p(x) \implies orall y p(y)) }} en 4 étapes modulaires.</p>
+
+<div class="box box-solution">
+  <div class="box-title">Correction Q1 : Preuve {{ B_1 }} sous l'hypothèse {{ h_1 : orall y p(y) }}</div>
+  <p>Sous l'hypothèse {{ h_1 }}, choisissons une variable fraîche quelconque {{ z }}.</p>
+  <div class="fitch-proof">
+    <div class="fitch-line"><span class="fitch-num">1</span> <span class="fitch-hyp">Hypothèse {{ h_1 : orall y p(y) }}</span></div>
+    <div class="fitch-box">
+      <div class="fitch-line"><span class="fitch-num">2</span> <span class="fitch-hyp">Sous-hypothèse {{ h' : p(z) }}</span></div>
+      <div class="fitch-line"><span class="fitch-num">3</span> <span>{{ orall y p(y) }}</span> <span class="fitch-rule">Répétition de 1</span></div>
+    </div>
+    <div class="fitch-line"><span class="fitch-num">4</span> <span>{{ p(z) \implies orall y p(y) }}</span> <span class="fitch-rule">par {{ \implies I }} déchargeant 2</span></div>
+    <div class="fitch-line"><span class="fitch-num">5</span> <span>{{ \exists x (p(x) \implies orall y p(y)) }}</span> <span class="fitch-rule">par {{ \exists I }} avec le témoin {{ z }}</span></div>
+  </div>
+</div>
+
+<div class="box box-solution">
+  <div class="box-title">Correction Q2 : Preuve {{ B_2 }} de $(
+eg orall y p(y)) \implies (\exists y 
+eg p(y))$</div>
+  <p>Cette dualité n'est pas intuitionniste ; elle nécessite le Raisonnement par l'Absurde classique (RAA) : pour prouver $\exists y 
+eg p(y){{ , on suppose sa négation  }}
+eg \exists y 
+eg p(y){{ . Pour toute variable  }}z{{ , si  }}
+eg p(z){{ , alors  }}\exists y 
+eg p(y){{ , contradiction avec l'hypothèse ! Donc par RAA,  }}p(z){{  est vrai. Comme  }}z{{  est fraîche,  }}orall y p(y){{  est vrai par  }}orall I{{ . Contradiction avec  }}
+eg orall y p(y){{  ! Donc par RAA,  }}\exists y 
+eg p(y)$ est prouvé.</p>
+</div>
+
+<div class="box box-solution">
+  <div class="box-title">Correction Q3 : Preuve {{ B_3 }} sous l'hypothèse $h_2 : 
+eg orall y p(y)$</div>
+  <p>Par la preuve {{ B_2 }}, on déduit $\exists y 
+eg p(y){{ . On applique  }}\exists E{{  avec une variable fraîche  }}z{{  et l'hypothèse  }}h_3 : 
+eg p(z)$.</p>
+  <div class="fitch-proof">
+    <div class="fitch-line"><span class="fitch-num">1</span> <span class="fitch-hyp">Hypothèse $h_2 : 
+eg orall y p(y)$</span></div>
+    <div class="fitch-line"><span class="fitch-num">2</span> <span>$\exists y 
+eg p(y)$</span> <span class="fitch-rule">par application de la preuve {{ B_2 }} sur 1</span></div>
+    <div class="fitch-box">
+      <div class="fitch-line"><span class="fitch-num">3</span> <span class="fitch-hyp">Soit {{ z }} frais, hypothèse $h_3 : 
+eg p(z)$</span></div>
+      <div class="fitch-box">
+        <div class="fitch-line"><span class="fitch-num">4</span> <span class="fitch-hyp">Sous-hypothèse {{ h_4 : p(z) }}</span></div>
+        <div class="fitch-line"><span class="fitch-num">5</span> <span>{{ ot }}</span> <span class="fitch-rule">par $
+eg E$ sur 4 et 3</span></div>
+        <div class="fitch-line"><span class="fitch-num">6</span> <span>{{ orall y p(y) }}</span> <span class="fitch-rule">par {{ ot E }} (ex falso) sur 5</span></div>
+      </div>
+      <div class="fitch-line"><span class="fitch-num">7</span> <span>{{ p(z) \implies orall y p(y) }}</span> <span class="fitch-rule">par {{ \implies I }} déchargeant 4</span></div>
+      <div class="fitch-line"><span class="fitch-num">8</span> <span>{{ \exists x (p(x) \implies orall y p(y)) }}</span> <span class="fitch-rule">par {{ \exists I }} avec le témoin {{ z }}</span></div>
+    </div>
+    <div class="fitch-line"><span class="fitch-num">9</span> <span>{{ \exists x (p(x) \implies orall y p(y)) }}</span> <span class="fitch-rule">par {{ \exists E }} sur 2 et 3–8</span></div>
+  </div>
+</div>
+
+<div class="box box-solution">
+  <div class="box-title">Correction Q4 : Synthèse par le Tiers Exclu</div>
+  <p>Par la règle du Tiers Exclu classique {{ (TE) }}, on a $orall y p(y) \lor 
+eg orall y p(y)$.</p>
+  <ul>
+    <li>Dans la première branche ({{ orall y p(y) }}), la preuve {{ B_1 }} conclut {{ \exists x (p(x) \implies orall y p(y)) }}.</li>
+    <li>Dans la seconde branche ($
+eg orall y p(y){{ ), la preuve  }}B_3{{  conclut  }}\exists x (p(x) \implies orall y p(y))$.</li>
+  </ul>
+  <p>Par {{ \lor E }}, on conclut sans aucune hypothèse résiduelle : {{ dash \exists x (p(x) \implies orall y p(y)) }}. Preuve complète achevée !</p>
+</div>

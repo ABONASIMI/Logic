@@ -1,0 +1,233 @@
+<div class="lesson-header">
+  <div class="badge">Sorbonne Université — L2 Informatique (UL2IN007)</div>
+  <h1>Thème 1 : Syntaxe et Sémantique Propositionnelle</h1>
+  <p class="lead">Fondements mathématiques du calcul des propositions : grammaire inductive, arbres de syntaxe abstraite, conventions d'évaluation de la Sorbonne et modélisation du raisonnement.</p>
+</div>
+
+<div class="toc-box">
+  <h3>Sommaire du cours</h3>
+  <ul>
+    <li><a href="#sec1">1. Introduction et motivations en informatique</a></li>
+    <li><a href="#sec2">2. Syntaxe formelle et arbres syntaxiques (AST)</a></li>
+    <li><a href="#sec3">3. Règles de priorité et parenthésage Sorbonne</a></li>
+    <li><a href="#sec4">4. Sémantique et algèbre des valeurs de vérité</a></li>
+    <li><a href="#sec5">5. Tables de vérité et classification des formules</a></li>
+    <li><a href="#sec6">6. Modélisation rigoureuse du langage naturel et implication</a></li>
+    <li><a href="#sec7">7. Laboratoire interactif</a></li>
+  </ul>
+</div>
+
+<h2 id="sec1">1. Introduction et motivations en informatique</h2>
+
+<div class="box info">
+  <h4>Pourquoi la logique formelle est le cœur de l'informatique</h4>
+  <p>En informatique fondamentale, un ordinateur ne manipule pas des idées vagues mais des états binaires stricts ({{ 0 }} et {{ 1 }}). La logique propositionnelle constitue le socle mathématique indispensable à :</p>
+  <ul>
+    <li><strong>La conception des circuits numériques :</strong> modélisation des portes logiques (ET, OU, NON) et simplification booléenne par tables de Karnaugh.</li>
+    <li><strong>L'écriture de conditions logicielles :</strong> expressions conditionnelles <code>if (A &amp;&amp; !B || C)</code> dans les langages de programmation.</li>
+    <li><strong>La vérification formelle de programmes :</strong> prouver mathématiquement qu'un algorithme critique (aéronautique, cryptographie) ne contient aucun bug.</li>
+    <li><strong>L'intelligence artificielle et la résolution de contraintes :</strong> solveurs SAT/SMT utilisés quotidiennement pour résoudre des problèmes NP-complets industriels.</li>
+  </ul>
+</div>
+
+<h2 id="sec2">2. Syntaxe formelle et arbres syntaxiques (AST)</h2>
+
+<div class="box def">
+  <h4>Définition inductive de l'ensemble des formules propositionnelles {{ \mathcal{F}_p(\mathcal{P}_0) }}</h4>
+  <p>Soit {{ \mathcal{P}_0 = \{p, q, r, p_0, p_1, \dots\} }} un ensemble dénombrable de <strong>symboles de propositions</strong> (ou atomes). L'ensemble {{ \mathcal{F}_p(\mathcal{P}_0) }} des formules propositionnelles bien formées est défini inductivement par les trois règles suivantes (Sorbonne Cours 1, Slide 14) :</p>
+  <ol>
+    <li><strong>Base :</strong> Les constantes logiques {{ 	ext{true} }} (notée aussi {{ 	op }}) et {{ 	ext{false} }} (notée aussi {{ ot }}) appartiennent à {{ \mathcal{F}_p(\mathcal{P}_0) }}. Tout symbole de proposition {{ p \in \mathcal{P}_0 }} appartient à {{ \mathcal{F}_p(\mathcal{P}_0) }}.</li>
+    <li><strong>Induction unaire :</strong> Si {{ F \in \mathcal{F}_p(\mathcal{P}_0) }}, alors {{ (
+eg F) \in \mathcal{F}_p(\mathcal{P}_0) }} (négation).</li>
+    <li><strong>Induction binaire :</strong> Si {{ F_1, F_2 \in \mathcal{F}_p(\mathcal{P}_0) }}, alors :
+      <ul>
+        <li>{{ (F_1 \land F_2) \in \mathcal{F}_p(\mathcal{P}_0) }} (conjonction : « ET »)</li>
+        <li>{{ (F_1 \lor F_2) \in \mathcal{F}_p(\mathcal{P}_0) }} (disjonction : « OU »)</li>
+        <li>{{ (F_1 \Rightarrow F_2) \in \mathcal{F}_p(\mathcal{P}_0) }} (implication : « IMPLIQUE »)</li>
+        <li>{{ (F_1 \Leftrightarrow F_2) \in \mathcal{F}_p(\mathcal{P}_0) }} (équivalence : « ÉQUIVAUT »)</li>
+      </ul>
+    </li>
+  </ol>
+</div>
+
+<div class="box method">
+  <h4>Arbre de Syntaxe Abstraite (AST — Abstract Syntax Tree)</h4>
+  <p>Toute formule bien formée possède une représentation unique sous forme d'arbre ordonné :</p>
+  <ul>
+    <li>Les <strong>feuilles</strong> portent les symboles atomiques ({{ p, q, r }}) ou les constantes ({{ 	op, ot }}).</li>
+    <li>Les <strong>nœuds internes</strong> portent les connecteurs logiques ({{ 
+eg, \land, \lor, \Rightarrow, \Leftrightarrow }}).</li>
+    <li>La <strong>racine</strong> de l'arbre est le <em>connecteur principal</em> de la formule (l'opération effectuée en tout dernier lieu).</li>
+  </ul>
+  <p>Les parcours d'arbres permettent d'exprimer la formule sous différentes notations :</p>
+  <ul>
+    <li><strong>Parcours infixe :</strong> sous-arbre gauche, nœud racine, sous-arbre droit. C'est la notation standard avec parenthèses : <code>(p &and; q) &rArr; r</code>.</li>
+    <li><strong>Parcours préfixe (notation polonaise de Łukasiewicz) :</strong> nœud racine, sous-arbre gauche, sous-arbre droit. Exemple : <code>&rArr; &and; p q r</code>. Cette notation a l'immense avantage d'être totalement <em>dénuée d'ambiguïté sans jamais nécessiter la moindre parenthèse</em> !</li>
+  </ul>
+</div>
+
+<div class="w-ast" data-formula="~(p & (q => ((q | r) & q)))"></div>
+
+<h2 id="sec3">3. Règles de priorité et parenthésage Sorbonne</h2>
+
+<div class="box warn">
+  <h4>Priorité décroissante des opérateurs et associativité à droite</h4>
+  <p>Pour alléger l'écriture des formules et supprimer les parenthèses superflues, le cours de Logique de Sorbonne Université fixe deux conventions impératives (Cours 1, Slide 11) :</p>
+  <ol>
+    <li><strong>Ordre de priorité décroissante :</strong>
+      <div style="text-align:center; font-weight:bold; margin: 10px 0; font-size:1.1em;">
+        {{ 
+eg \quad > \quad \land \quad > \quad \lor \quad > \quad \Rightarrow \quad > \quad \Leftrightarrow }}
+      </div>
+      La négation {{ 
+eg }} lie plus fort que tout, suivie du ET {{ \land }}, puis du OU {{ \lor }}, puis de l'implication {{ \Rightarrow }}, et enfin de l'équivalence {{ \Leftrightarrow }}.
+    </li>
+    <li><strong>Convention d'associativité en cas de priorité égale :</strong>
+      <em>La sous-formule de droite est toujours prioritaire !</em> (Associativité à droite).
+      <br/>Exemples fondamentaux :
+      <ul>
+        <li>{{ A \land B \land C \equiv A \land (B \land C) }}</li>
+        <li>{{ A \Rightarrow B \Rightarrow C \equiv A \Rightarrow (B \Rightarrow C) }}</li>
+      </ul>
+      <p><strong>ATTENTION PIÈGE D'EXAMEN :</strong> En arithmétique ou dans certains langages de programmation, l'évaluation se fait souvent de gauche à droite. À la Sorbonne en UL2IN007, <code>A &rArr; B &rArr; C</code> signifie impérativement <code>A &rArr; (B &rArr; C)</code> et JAMAIS <code>(A &rArr; B) &rArr; C</code> !</p>
+    </li>
+  </ol>
+</div>
+
+<h2 id="sec4">4. Sémantique et algèbre des valeurs de vérité</h2>
+
+<div class="box def">
+  <h4>Interprétation et fonction d'évaluation inductive {{ [F]^I }}</h4>
+  <p>La syntaxe décrit des chaînes de caractères sans signification. La <strong>sémantique</strong> leur donne un sens de vérité en les reliant à l'ensemble booléen {{ \mathbb{B} = \{0, 1\} }}.</p>
+  <ul>
+    <li>Une <strong>interprétation</strong> (ou valuation) est une fonction {{ I : \mathcal{P}_0 	o \{0, 1\} }} qui associe à chaque symbole de proposition une valeur de vérité ({{ 0 }} pour Faux, {{ 1 }} pour Vrai).</li>
+    <li>La valeur de vérité d'une formule composée {{ F }} sous l'interprétation {{ I }}, notée {{ [F]^I }}, est calculée par induction sur la structure de son AST :
+      <ul>
+        <li>{{ [	ext{true}]^I = 1 }}, {{ [	ext{false}]^I = 0 }}</li>
+        <li>{{ [p]^I = I(p) }} pour tout symbole atomique {{ p }}</li>
+        <li>{{ [
+eg F]^I = 1 - [F]^I }}</li>
+        <li>{{ [F_1 \land F_2]^I = \min([F_1]^I, [F_2]^I) }}</li>
+        <li>{{ [F_1 \lor F_2]^I = \max([F_1]^I, [F_2]^I) }}</li>
+        <li>{{ [F_1 \Rightarrow F_2]^I = \max(1 - [F_1]^I, [F_2]^I) }}</li>
+        <li>{{ [F_1 \Leftrightarrow F_2]^I = 1 }} si {{ [F_1]^I = [F_2]^I }}, et {{ 0 }} sinon.</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<div class="w-eval" data-formula="(p & q) => (p | r)"></div>
+
+<h2 id="sec5">5. Tables de vérité et classification des formules</h2>
+
+<div class="box method">
+  <h4>Construction méthodique d'une table de vérité</h4>
+  <p>Une formule comportant {{ n }} variables distinctes admet exactement {{ 2^n }} interprétations différentes. Pour construire une table irréprochable :</p>
+  <ol>
+    <li>Lister les variables propositionnelles par ordre alphabétique en tête des premières colonnes.</li>
+    <li>Énumérer les lignes dans l'ordre binaire naturel (de {{ 00\dots0 }} à {{ 11\dots1 }}).</li>
+    <li>Créer une colonne pour chaque sous-formule stricte, de la plus petite vers la plus grande, en respectant la décomposition de l'AST.</li>
+    <li>La toute dernière colonne correspond au connecteur principal de la formule complète.</li>
+  </ol>
+</div>
+
+<div class="w-tt" data-formula="(p & q) & ((q => p) | ~(p | q))"></div>
+
+<div class="box tip">
+  <h4>Classification sémantique tripartite des formules</h4>
+  <ul>
+    <li><strong>Formule satisfiable (ou consistante) :</strong> Il existe au moins une interprétation {{ I }} telle que {{ [F]^I = 1 }}. L'interprétation {{ I }} est appelée un <em>modèle</em> de {{ F }}.</li>
+    <li><strong>Formule valide (ou tautologie, notée {{ \models F }}) :</strong> Pour <em>toute</em> interprétation {{ I }}, on a {{ [F]^I = 1 }}. La formule est vraie quelles que soient les circonstances.</li>
+    <li><strong>Formule insatisfiable (ou antilogie / contradiction) :</strong> Pour <em>toute</em> interprétation {{ I }}, on a {{ [F]^I = 0 }}. La formule ne possède aucun modèle.</li>
+  </ul>
+</div>
+
+<h2 id="sec6">6. Modélisation rigoureuse du langage naturel et implication</h2>
+
+<div class="box warn">
+  <h4>L'implication matérielle {{ A \Rightarrow B }} : vérité et paradoxes apparents</h4>
+  <p>Par définition sémantique, {{ A \Rightarrow B }} équivaut strictement à {{ 
+eg A \lor B }}. Elle n'est fausse que dans un seul et unique cas : <strong>quand la prémisse {{ A }} est Vraie et que la conclusion {{ B }} est Fausse</strong>.</p>
+  <p><em>Principe d'explosion (Ex falso quodlibet) :</em> Dès lors que {{ A }} est faux ({{ I(A)=0 }}), l'implication {{ A \Rightarrow B }} est <strong>automatiquement VRAIE</strong>, quelle que soit la valeur de vérité de {{ B }} !</p>
+  <p><em>Exemple frappant :</em> L'affirmation « S'il pleut des vaches, alors la Lune est en fromage vert » est une implication formellement VRAIE en logique classique, car son hypothèse est fausse.</p>
+</div>
+
+<div class="box method">
+  <h4>Dictionnaire de traduction : Langage naturel &harr; Logique propositionnelle</h4>
+  <p>Ce tableau récapitule les tournures françaises classiques et leur formalisation exacte :</p>
+  <table class="logic-table" style="width:100%; margin:12px 0;">
+    <thead>
+      <tr>
+        <th>Énoncé en français</th>
+        <th>Sens mathématique</th>
+        <th>Traduction formelle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>« Si A, alors B » / « B dès que A »</td>
+        <td>A entraîne B</td>
+        <td>{{ A \Rightarrow B }}</td>
+      </tr>
+      <tr>
+        <td>« A seulement si B » / « A uniquement si B »</td>
+        <td>Si B n'est pas réalisé, A ne peut l'être ({{ 
+eg B \Rightarrow 
+eg A }})</td>
+        <td>{{ A \Rightarrow B }}</td>
+      </tr>
+      <tr>
+        <td>« Pour que B, il faut que A » (condition nécessaire)</td>
+        <td>A est obligatoire pour avoir B</td>
+        <td>{{ B \Rightarrow A }}</td>
+      </tr>
+      <tr>
+        <td>« Pour que B, il suffit que A » (condition suffisante)</td>
+        <td>La présence de A garantit B</td>
+        <td>{{ A \Rightarrow B }}</td>
+      </tr>
+      <tr>
+        <td>« A si et seulement si B » / « A équivaut à B »</td>
+        <td>Condition nécessaire ET suffisante</td>
+        <td>{{ A \Leftrightarrow B }}</td>
+      </tr>
+      <tr>
+        <td>« Ni A ni B »</td>
+        <td>Ni l'un ni l'autre n'est vrai</td>
+        <td>{{ 
+eg A \land 
+eg B \equiv 
+eg(A \lor B) }}</td>
+      </tr>
+      <tr>
+        <td>« Au moins l'un des deux (A ou B) »</td>
+        <td>Disjonction inclusive</td>
+        <td>{{ A \lor B }}</td>
+      </tr>
+      <tr>
+        <td>« Au plus l'un des deux (A ou B) »</td>
+        <td>Ils ne peuvent pas être vrais ensemble</td>
+        <td>{{ 
+eg(A \land B) \equiv 
+eg A \lor 
+eg B }}</td>
+      </tr>
+      <tr>
+        <td>« Exactement l'un des deux (OU exclusif) »</td>
+        <td>L'un est vrai mais pas les deux</td>
+        <td>{{ (A \lor B) \land 
+eg(A \land B) \equiv 
+eg(A \Leftrightarrow B) }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="sec7">7. Laboratoire interactif</h2>
+
+<div class="box tip">
+  <h4>Bac à sable de calcul propositionnel</h4>
+  <p>Saisissez n'importe quelle formule pour visualiser son arbre de syntaxe, sa table de vérité, et analyser ses propriétés sémantiques en temps réel.</p>
+</div>
+
+<div class="w-lab" data-formula="(p => q) & (q => r) => (p => r)"></div>

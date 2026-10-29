@@ -1,0 +1,103 @@
+
+<div class="box box-objectives">
+  <div class="box-title">اهداف آموزشی و خروجی‌های یادگیری — هفته ۵ (استنتاج طبیعی شهودگرایانه)</div>
+  <ul>
+    <li>درک معماری سیستم استنتاج طبیعی گنتزن و روش ساخت اثبات‌ها در پلتفرم ادوکرا (Édukera).</li>
+    <li>تسلط بر چرخه حیات فرضیه‌ها: باز کردن باکس فرضیه، استدلال محلی و <strong>رهاسازی (Décharge)</strong> به‌موقع.</li>
+    <li>به‌کارگیری دقیق قواعد معرفی و حذف رابط‌های گزاره‌ای: {{ \land, \lor, \Rightarrow, \neg, \bot }}.</li>
+    <li>درک تفاوت حیاتی قاعده شهودگرایانه {{ \bot E }} (خروج هر چیز از تناقض) با برهان خلف کلاسیک ({{ RAA }}).</li>
+    <li>نگارش تشریحی اثبات‌ها مطابق الگوی استاندارد سوربن: <em>فرض می‌کنیم... → نشان می‌دهیم... → قاعده اعمال می‌شود... → نتیجه‌گیری</em>.</li>
+  </ul>
+</div>
+
+<h2 id="w05-c-principes">۱. ساختار سیستم استنتاج طبیعی و باکس‌های فیتش (Édukera)</h2>
+<p>
+استنتاج طبیعی روشی است که نحوه استدلال منطقی ذهن ریاضیدانان را بدون نیاز به جدول درستی پیاده‌سازی می‌کند.
+</p>
+
+<div class="box box-definition">
+  <div class="box-title">تعریف ۵.۱ — حکم استنتاج و باکس‌های فرضیه</div>
+  <p>هر خط اثبات بیانگر یک حکم به صورت {{ \Gamma \vdash A }} است که در آن {{ \Gamma }} فرضیه‌های فعال و {{ A }} حکم اثبات‌شده است.</p>
+  <ul>
+    <li>برای اثبات یک شرطی مانند {{ A \Rightarrow B }}، یک باکس جدید باز کرده و {{ A }} را <strong>فرض</strong> می‌کنیم.</li>
+    <li>درون باکس با کمک {{ A }} تلاش می‌کنیم به {{ B }} برسیم.</li>
+    <li>به محض رسیدن به {{ B }}، باکس بسته می‌شود و فرضیه {{ A }} رهاسازی می‌گردد؛ در سطح بالاتر حکم {{ A \Rightarrow B }} ثبت می‌شود. دیگر در ادامه اثبات حق استفاده مستقیم از {{ A }} را نداریم!</li>
+  </ul>
+</div>
+
+<h2 id="w05-c-regles">۲. قواعد معرفی و حذف رابط‌ها در منطق شهودگرایانه</h2>
+
+<div class="box box-definition">
+  <div class="box-title">قواعد شرطی ({{ \Rightarrow }})</div>
+  <ul>
+    <li><strong>معرفی شرطی ({{ \Rightarrow I }}):</strong> برای اثبات {{ A \Rightarrow B }}، فرضیه {{ A }} را باز می‌کنیم و به {{ B }} می‌رسیم.</li>
+    <li><strong>حذف شرطی ({{ \Rightarrow E }} / قیاس استثنایی Modus Ponens):</strong> اگر {{ A \Rightarrow B }} و {{ A }} را داشته باشیم، {{ B }} نتیجه می‌شود.</li>
+  </ul>
+</div>
+
+<div class="box box-definition">
+  <div class="box-title">قاعده طلایی تناقض شهودگرایانه ({{ \bot E }})</div>
+  <p>در منطق شهودگرایانه نقیض {{ \neg A }} به صورت {{ A \Rightarrow \bot }} تعریف می‌شود.</p>
+  <p>اگر در فرآیند استدلال به تناقض یا گزاره ناممکن {{ \bot }} برسیم، طبق قاعده {{ \bot E }} (Ex Falso Quodlibet) <strong>می‌توانیم هر گزاره دلخواهی مانند {{ B }} را نتیجه بگیریم</strong>!</p>
+</div>
+
+<div class="box box-example">
+  <div class="box-title">مثال تشریحی گام‌به‌گام — اثبات فرمول $
+eg A \Rightarrow (A \Rightarrow B)$</div>
+  <ol>
+    <li>می‌خواهیم یک گزاره شرطی با مقدم {{ \neg A }} را اثبات کنیم.<br>
+    <strong>فرضیه ۱ را باز می‌کنیم: فرض کنیم {{ \neg A }}.</strong></li>
+    <li>هدف باقیمانده {{ A \Rightarrow B }} است که خود یک شرطی است.<br>
+    <strong>فرضیه ۲ را باز می‌کنیم: فرض کنیم {{ A }}.</strong></li>
+    <li>اکنون در باکس فعال هم {{ A }} و هم {{ \neg A }} را داریم.<br>
+    <strong>با اعمال قاعده {{ \neg E }}، تناقض {{ \bot }} به دست می‌آید.</strong></li>
+    <li>از تناقض {{ \bot }} با اعمال قاعده {{ \bot E }}، <strong>گزاره {{ B }} را نتیجه می‌گیریم!</strong></li>
+    <li>فرضیه ۲ را می‌بندیم: با قاعده {{ \Rightarrow I }}، <strong>گزاره {{ A \Rightarrow B }} اثبات می‌شود.</strong></li>
+    <li>فرضیه ۱ را می‌بندیم: با قاعده {{ \Rightarrow I }}، <strong>گزاره {{ \neg A \Rightarrow (A \Rightarrow B) }} به طور کامل اثبات شد!</strong></li>
+  </ol>
+</div>
+
+<div class="box box-info" style="display:none"></div>
+<div class="box box-info" style="display:none"></div>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>

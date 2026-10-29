@@ -1,0 +1,37 @@
+
+<div class="box box-objectives">
+  <div class="box-title">آزمایشگاه برنامه‌نویسی TP 4 — مدل‌سازی SAT، فرمت DIMACS و حل‌کننده گلوکز</div>
+  <p>منبع رسمی: جزوه <code>main_tp-etudiants.pdf</code> (صفحه ۷ تا ۱۵، تم ۴ و ۵، تمرین‌های ۶ تا ۱۲). کار با فرمت دیمکس، مدل‌سازی مسئله پیتزا، معمای کلوب اسکاتلندی و کلاه قرمزها با حل‌کننده گلوکز.</p>
+</div>
+
+<h2 id="w04-tp-pizzas">۱. تمرین ۷ — مدل‌سازی مسئله انتخاب پیتزا با DIMACS</h2>
+<p>متغیرها: {{ c=1 }} (قارچ)، {{ p=2 }} (فلفل)، {{ j=3 }} (ژامبون)، {{ o=4 }} (تخم‌مرغ).</p>
+<ul>
+  <li>وتوی ماری (نبود قارچ) : $
+eg c \implies$ بند <code>-1 0</code>.</li>
+  <li>وتوی نیکلا (نبود تخم‌مرغ و بودن ژامبون) : $
+eg o \land j \implies$ بندهای <code>-4 0</code> و <code>3 0</code>.</li>
+  <li>وتوی لور (ژامبون حتماً با قارچ باشد) : $j \Rightarrow c \equiv 
+eg j \lor c \implies$ بند <code>-3 1 0</code>.</li>
+</ul>
+
+<div class="box box-algorithm">
+  <div class="box-title">فایل DIMACS کامل pizza.cnf</div>
+  <pre><code>c فایل دیمکس برای انتخاب پیتزای مشترک
+p cnf 4 4
+-1 0
+-4 0
+3 0
+-3 1 0</code></pre>
+</div>
+<p>
+<strong>نتیجه اجرای گلوکز:</strong> انتشار تک‌عضوی روی بندهای ۱ و ۳ در بند چهارم تولید بند تهی {{ \Box }} می‌کند. پاسخ <strong>UNSAT (غیرممکن)</strong> است: هیچ پیتزایی وجود ندارد که هر سه دوست را راضی کند!
+</p>
+
+<span id="w04-tp-ecossais" class="anchor-sync" style="display:none"></span>
+<h2 style="display:none"></h2>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>

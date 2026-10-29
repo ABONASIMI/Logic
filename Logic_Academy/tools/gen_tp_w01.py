@@ -1,0 +1,594 @@
+#!/usr/bin/env python3
+"""Authoring generator for TP Week 1 (Thème 1).
+Full step-by-step tutorial and line-by-line coded solutions for:
+- Exercice 1: decompose, eval_TF
+- Exercice 2: genere_fa, eval_formule
+- Exercice 3: genere_sous_ensembles (powerset), genere_interpretations, cree_table
+"""
+import os
+
+W01 = '/home/mnasimi/sorbonne/Logic_Academy/content/w01'
+os.makedirs(W01, exist_ok=True)
+
+fr = """
+<div class="lesson-header">
+  <div class="badge">Sorbonne Université — L2 Informatique (UL2IN007)</div>
+  <h1>TP Thème 1 : Interpréteur Propositionnel en Python</h1>
+  <p class="lead">Travaux Pratiques officiels (2026-2027) : implémentation récursive d'un évaluateur de formules logiques, extraction d'atomes, génération de l'ensemble des parties et construction automatique de tables de vérité.</p>
+</div>
+
+<div class="toc-box">
+  <h3>Sommaire du TP</h3>
+  <ul>
+    <li><a href="#tp_intro">1. Spécification des formules et fonction decompose</a></li>
+    <li><a href="#tp_ex1">2. Exercice 1 – Évaluation des formules booléennes pures (eval_TF)</a></li>
+    <li><a href="#tp_ex2">3. Exercice 2 – Formules atomiques et valuations (genere_fa, eval_formule)</a></li>
+    <li><a href="#tp_ex3">4. Exercice 3 – Génération de tables de vérité complètes (cree_table)</a></li>
+  </ul>
+</div>
+
+<h2 id="tp_intro">1. Spécification des formules et fonction decompose</h2>
+
+<div class="box info">
+  <h4>Grammaire Python du sujet de TP</h4>
+  <p>Les formules traitées en machine sont représentées sous forme de chaînes de caractères parenthésées selon les règles suivantes :</p>
+  <ul>
+    <li><code>TRUE</code> et <code>FALSE</code> sont des formules logiques.</li>
+    <li>Toute formule atomique (chaîne de caractères alphanumérique comme <code>"p"</code>, <code>"bonjour"</code>) est une formule logique.</li>
+    <li>Si {{ F }} est une formule, alors <code>NOT F</code> est une formule.</li>
+    <li>Si {{ F_1 }} et {{ F_2 }} sont des formules, alors <code>F1 AND F2</code>, <code>F1 OR F2</code> et <code>F1 IMPLIES F2</code> sont des formules.</li>
+  </ul>
+</div>
+
+<div class="box method">
+  <h4>La fonction primitive : decompose(formule: str)</h4>
+  <p>L'université fournit (ou demande d'utiliser) la fonction <code>decompose</code> qui identifie le connecteur principal à la racine de l'AST et sépare les sous-formules :</p>
+  <pre><code>def decompose(formule: str) -> tuple[str, list[str]]:
+    \"\"\"Analyse syntaxique d'une formule parenthésée.
+    Renvoie le couple (connecteur_principal, [sous_formules]).\"\"\"
+    formule = formule.strip()
+    # Cas 1 : négation unaire NOT
+    if formule.startswith("NOT "):
+        return ("NOT", [formule[4:].strip()])
+    # Cas 2 : formule atomique ou constante (pas de connecteur binaire externe)
+    # On recherche les connecteurs binaires au niveau 0 de parenthèses
+    niveau = 0
+    for i, car in enumerate(formule):
+        if car == '(':
+            niveau += 1
+        elif car == ')':
+            niveau -= 1
+        elif niveau == 0:
+            for op in ["IMPLIES", "AND", "OR"]:
+                if formule[i:].startswith(op + " "):
+                    gauche = formule[:i].strip()
+                    droite = formule[i + len(op) + 1:].strip()
+                    # Retirer les parenthèses englobantes externes si besoin
+                    if gauche.startswith('(') and gauche.endswith(')'): gauche = gauche[1:-1].strip()
+                    if droite.startswith('(') and droite.endswith(')'): droite = droite[1:-1].strip()
+                    return (op, [gauche, droite])
+    # Si aucun connecteur externe n'a été trouvé, c'est une feuille atomique
+    return (formule, [])</code></pre>
+</div>
+
+<h2 id="tp_ex1">2. Exercice 1 – Évaluation des formules booléennes pures (eval_TF)</h2>
+
+<div class="q-card" id="q_eval_tf">
+  <div class="q-header">
+    <span class="q-num">Exercice 1</span>
+    <span class="q-title">Fonction récursive eval_TF(formule: str) &rarr; bool</span>
+  </div>
+  <div class="box def">
+    <h4>Énoncé officiel</h4>
+    <p>Écrivez une fonction récursive <code>eval_TF(formule: str) -> bool</code> qui prend en paramètre une formule construite uniquement à partir de <code>TRUE</code> et <code>FALSE</code> et qui calcule sa valeur de vérité booléenne.</p>
+    <p>Exemples exigés :</p>
+    <ul>
+      <li><code>eval_TF("TRUE AND FALSE")</code> doit renvoyer <code>False</code>.</li>
+      <li><code>eval_TF("(TRUE AND FALSE) OR (TRUE OR (TRUE AND FALSE))")</code> doit renvoyer <code>True</code>.</li>
+    </ul>
+  </div>
+
+  <details class="sol" open>
+    <summary>Implémentation et explication pas à pas</summary>
+    <div class="box method">
+      <h4>Code source complet et commenté</h4>
+      <pre><code>def eval_TF(formule: str) -> bool:
+    \"\"\"Évalue récursivement une formule composée exclusivement de TRUE et FALSE.\"\"\"
+    formule = formule.strip()
+    
+    # 1. Cas de base : feuilles constantes
+    if formule == "TRUE":
+        return True
+    if formule == "FALSE":
+        return False
+        
+    # 2. Décomposition de la formule par son connecteur principal
+    connecteur, sous_formules = decompose(formule)
+    
+    # Cas de la négation NOT (connecteur unaire)
+    if connecteur == "NOT":
+        return not eval_TF(sous_formules[0])
+        
+    # Cas des connecteurs binaires
+    if connecteur == "AND":
+        return eval_TF(sous_formules[0]) and eval_TF(sous_formules[1])
+        
+    if connecteur == "OR":
+        return eval_TF(sous_formules[0]) or eval_TF(sous_formules[1])
+        
+    if connecteur == "IMPLIES":
+        # A IMPLIES B est équivalent à (not A) or B
+        val_gauche = eval_TF(sous_formules[0])
+        val_droite = eval_TF(sous_formules[1])
+        return (not val_gauche) or val_droite
+        
+    raise ValueError(f"Connecteur inconnu ou formule mal formée : {connecteur}")</code></pre>
+      <p><strong>Complexité algorithmique :</strong> En notant {{ n }} le nombre de connecteurs dans la formule, l'arbre d'appels récursifs visite chaque nœud de l'AST exactement une fois. La complexité en temps est donc {{ O(n) }}, ce qui est optimal.</p>
+    </div>
+  </details>
+</div>
+
+<h2 id="tp_ex2">3. Exercice 2 – Formules atomiques et valuations (genere_fa, eval_formule)</h2>
+
+<!-- Question 2.1 -->
+<div class="q-card" id="q_genere_fa">
+  <div class="q-header">
+    <span class="q-num">Exercice 2 – Question 1</span>
+    <span class="q-title">Extraction des atomes : genere_fa(formule: str) &rarr; set[str]</span>
+  </div>
+  <div class="box def">
+    <h4>Énoncé officiel</h4>
+    <p>Écrivez la fonction <code>genere_fa(formule: str) -> set[str]</code> qui renvoie l'ensemble des formules atomiques contenues dans <code>formule</code> (en excluant <code>TRUE</code> et <code>FALSE</code>).</p>
+    <p>Exemples exigés :</p>
+    <ul>
+      <li><code>genere_fa("TRUE")</code> renvoie <code>set()</code></li>
+      <li><code>genere_fa("p AND FALSE")</code> renvoie <code>{'p'}</code></li>
+      <li><code>genere_fa("hello OR (aurevoir AND salut)")</code> renvoie <code>{'hello', 'aurevoir', 'salut'}</code></li>
+    </ul>
+  </div>
+
+  <details class="sol" open>
+    <summary>Implémentation récursive propre</summary>
+    <div class="box method">
+      <pre><code>def genere_fa(formule: str) -> set[str]:
+    \"\"\"Extrait récursivement l'ensemble des symboles de proposition d'une formule.\"\"\"
+    formule = formule.strip()
+    
+    # Décomposition syntaxique
+    connecteur, sous_formules = decompose(formule)
+    
+    # Si la liste des sous-formules est vide, c'est une feuille de l'AST
+    if len(sous_formules) == 0:
+        # Les constantes logiques TRUE et FALSE ne sont pas des variables atomiques
+        if connecteur in ("TRUE", "FALSE"):
+            return set()
+        return {connecteur}
+        
+    # Si c'est un connecteur (NOT, AND, OR, IMPLIES), on réunit les atomes de chaque sous-branche
+    atomes = set()
+    for sf in sous_formules:
+        atomes |= genere_fa(sf)
+    return atomes</code></pre>
+    </div>
+  </details>
+</div>
+
+<!-- Question 2.2 -->
+<div class="q-card" id="q_eval_formule">
+  <div class="q-header">
+    <span class="q-num">Exercice 2 – Question 2</span>
+    <span class="q-title">Évaluation avec dictionnaire : eval_formule(formule: str, valuation: dict) &rarr; bool</span>
+  </div>
+  <div class="box def">
+    <h4>Énoncé officiel</h4>
+    <p>Écrivez une fonction récursive <code>eval_formule(formule: str, valuation: dict) -> bool</code> qui prend en paramètre une formule et un dictionnaire associant une valeur booléenne à chaque atome (par exemple <code>{'p': True, 'q': False}</code>) et renvoie la valeur booléenne résultante.</p>
+  </div>
+
+  <details class="sol" open>
+    <summary>Implémentation et analyse</summary>
+    <div class="box method">
+      <pre><code>def eval_formule(formule: str, valuation: dict[str, bool]) -> bool:
+    \"\"\"Calcule [F]^I sous l'interprétation définie par le dictionnaire valuation.\"\"\"
+    formule = formule.strip()
+    connecteur, sous_formules = decompose(formule)
+    
+    # Cas de base : feuille de l'arbre
+    if len(sous_formules) == 0:
+        if connecteur == "TRUE":
+            return True
+        if connecteur == "FALSE":
+            return False
+        # Récupération de la valeur de vérité dans le dictionnaire I
+        if connecteur in valuation:
+            return valuation[connecteur]
+        raise KeyError(f"Variable atomique non définie dans la valuation : '{connecteur}'")
+        
+    # Cas unaire : NOT
+    if connecteur == "NOT":
+        return not eval_formule(sous_formules[0], valuation)
+        
+    # Cas binaires : AND, OR, IMPLIES
+    if connecteur == "AND":
+        return eval_formule(sous_formules[0], valuation) and eval_formule(sous_formules[1], valuation)
+        
+    if connecteur == "OR":
+        return eval_formule(sous_formules[0], valuation) or eval_formule(sous_formules[1], valuation)
+        
+    if connecteur == "IMPLIES":
+        gauche = eval_formule(sous_formules[0], valuation)
+        droite = eval_formule(sous_formules[1], valuation)
+        return (not gauche) or droite
+        
+    raise ValueError(f"Opérateur invalide : {connecteur}")</code></pre>
+    </div>
+  </details>
+</div>
+
+<h2 id="tp_ex3">4. Exercice 3 – Génération de tables de vérité complètes (cree_table)</h2>
+
+<div class="box info">
+  <h4>Principe de construction de l'ensemble des parties {{ \mathcal{P}(E) }}</h4>
+  <p>Pour tester toutes les interprétations possibles de {{ n }} variables propositionnelles, il faut construire l'ensemble des {{ 2^n }} parties de l'ensemble des atomes. L'énoncé prescrit l'algorithme inductif suivant :</p>
+  <ul>
+    <li>{{ \mathcal{P}(E_0) = \{\emptyset\} }}</li>
+    <li>{{ \mathcal{P}(E_{i+1}) = \mathcal{P}(E_i) \cup \{A \cup \{x_i\} \mid A \in \mathcal{P}(E_i)\} }}</li>
+  </ul>
+</div>
+
+<!-- Question 3.1, 3.2, 3.3 combinées -->
+<div class="q-card" id="q_cree_table">
+  <div class="q-header">
+    <span class="q-num">Exercice 3 – Questions 1, 2 et 3</span>
+    <span class="q-title">Génération des parties, des valuations et construction de la table</span>
+  </div>
+
+  <details class="sol" open>
+    <summary>Implémentation complète de genere_sous_ensembles, genere_interpretations et cree_table</summary>
+    <div class="box method">
+      <pre><code>def genere_sous_ensembles(ensemble: set) -> list[set]:
+    \"\"\"Calcule P(E) de manière inductive selon la spécification du TP.\"\"\"
+    liste_elements = list(ensemble)
+    parties = [set()]  # P(E_0) = {∅}
+    
+    for x in liste_elements:
+        nouvelles_parties = []
+        for s in parties:
+            nouvelles_parties.append(s | {x})
+        parties.extend(nouvelles_parties)
+        
+    return parties
+
+def genere_interpretations(fa: set[str]) -> list[dict[str, bool]]:
+    \"\"\"Associe à chaque partie P une valuation v_P où v_P(q) = True ssi q in P.\"\"\"
+    parties = genere_sous_ensembles(fa)
+    interpretations = []
+    
+    for P in parties:
+        val = {atome: (atome in P) for atome in fa}
+        interpretations.append(val)
+        
+    return interpretations
+
+def cree_table(formule: str) -> list[list]:
+    \"\"\"Construit la table de vérité complète sous forme d'une liste de listes.\"\"\"
+    atomes = sorted(list(genere_fa(formule)))
+    val_liste = genere_interpretations(set(atomes))
+    
+    # 1. En-tête de la table de vérité
+    table = [atomes + [formule]]
+    
+    # 2. Lignes d'évaluation pour chaque interprétation
+    for val in val_liste:
+        ligne = [val[a] for a in atomes]
+        res = eval_formule(formule, val)
+        ligne.append(res)
+        table.append(ligne)
+        
+    return table</code></pre>
+
+      <h4>Exemple de test direct en console Python</h4>
+      <pre><code>>>> cree_table("p AND q")
+[['p', 'q', 'p AND q'],
+ [False, False, False],
+ [True, False, False],
+ [False, True, False],
+ [True, True, True]]</code></pre>
+      <p>Le résultat obtenu est en stricte conformité avec l'exemple attendu du sujet officiel de Sorbonne Université !</p>
+    </div>
+  </details>
+</div>
+"""
+
+fa = """
+<div class="lesson-header">
+  <div class="badge">دانشگاه سوربن — دوره کارشناسی علوم کامپیوتر (UL2IN007)</div>
+  <h1>کارگاه عملی فصل ۱: مفسر منطق گزاره‌ای در پایتون</h1>
+  <p class="lead">تکلیف کارگاهی رسمی (سال تحصیلی ۲۰۲۶-۲۰۲۷): پیاده‌سازی بازگشتی ارزیاب فرمول‌های منطقی، استخراج اتم‌ها، تولید مجموعه توانی و ساخت خودکار جدول‌های درستی.</p>
+</div>
+
+<div class="toc-box">
+  <h3>فهرست مطالب کارگاه</h3>
+  <ul>
+    <li><a href="#tp_intro">۱. مشخصات فرمول‌ها و تابع پایه decompose</a></li>
+    <li><a href="#tp_ex1">۲. تمرین ۱ – ارزیابی فرمول‌های صرفاً بولی (eval_TF)</a></li>
+    <li><a href="#tp_ex2">۳. تمرین ۲ – فرمول‌های اتمی و ارزیابی‌ها (genere_fa, eval_formule)</a></li>
+    <li><a href="#tp_ex3">۴. تمرین ۳ – تولید جدول‌های درستی کامل (cree_table)</a></li>
+  </ul>
+</div>
+
+<h2 id="tp_intro">1. Spécification des formules et fonction decompose</h2>
+
+<div class="box info">
+  <h4>دستور زبان پایتون در صورت مسئله رسمی کارگاه</h4>
+  <p>فرمول‌های مورد پردازش در کامپیوتر به صورت رشته‌های پرانتزگذاری‌شده با قواعد زیر تعریف می‌شوند:</p>
+  <ul>
+    <li>مقادیر <code>TRUE</code> و <code>FALSE</code> فرمول‌های منطقی پایه هستند.</li>
+    <li>هر فرمول اتمی (رشته حروفی نظیر <code>"p"</code> یا <code>"bonjour"</code>) یک فرمول منطقی است.</li>
+    <li>اگر {{ F }} یک فرمول باشد، آنگاه <code>NOT F</code> نیز یک فرمول است.</li>
+    <li>اگر {{ F_1 }} و {{ F_2 }} فرمول باشند، عبارات <code>F1 AND F2</code> و <code>F1 OR F2</code> و <code>F1 IMPLIES F2</code> نیز فرمول هستند.</li>
+  </ul>
+</div>
+
+<div class="box method">
+  <h4>تابع زیربنایی: decompose(formule: str)</h4>
+  <p>دانشگاه تابع <code>decompose</code> را برای شناسایی رابط اصلی در ریشه درخت نحو انتزاعی و تفکیک زیرفرمول‌ها مشخص کرده است:</p>
+  <pre><code>def decompose(formule: str) -> tuple[str, list[str]]:
+    \"\"\"Analyse syntaxique d'une formule parenthésée.
+    Renvoie le couple (connecteur_principal, [sous_formules]).\"\"\"
+    formule = formule.strip()
+    # Cas 1 : négation unaire NOT
+    if formule.startswith("NOT "):
+        return ("NOT", [formule[4:].strip()])
+    # Cas 2 : formule atomique ou constante (pas de connecteur binaire externe)
+    # On recherche les connecteurs binaires au niveau 0 de parenthèses
+    niveau = 0
+    for i, car in enumerate(formule):
+        if car == '(':
+            niveau += 1
+        elif car == ')':
+            niveau -= 1
+        elif niveau == 0:
+            for op in ["IMPLIES", "AND", "OR"]:
+                if formule[i:].startswith(op + " "):
+                    gauche = formule[:i].strip()
+                    droite = formule[i + len(op) + 1:].strip()
+                    # Retirer les parenthèses englobantes externes si besoin
+                    if gauche.startswith('(') and gauche.endswith(')'): gauche = gauche[1:-1].strip()
+                    if droite.startswith('(') and droite.endswith(')'): droite = droite[1:-1].strip()
+                    return (op, [gauche, droite])
+    # Si aucun connecteur externe n'a été trouvé, c'est une feuille atomique
+    return (formule, [])</code></pre>
+</div>
+
+<h2 id="tp_ex1">2. Exercice 1 – Évaluation des formules booléennes pures (eval_TF)</h2>
+
+<div class="q-card" id="q_eval_tf">
+  <div class="q-header">
+    <span class="q-num">تمرین ۱</span>
+    <span class="q-title">تابع بازگشتی eval_TF(formule: str) &rarr; bool</span>
+  </div>
+  <div class="box def">
+    <h4>متن صورت مسئله رسمی</h4>
+    <p>تابع بازگشتی <code>eval_TF(formule: str) -> bool</code> را بنویسید که فرمولی متشکل از مقادیر <code>TRUE</code> و <code>FALSE</code> را دریافت کرده و ارزش بولی آن را محاسبه کند.</p>
+    <p>نمونه‌های الزامی:</p>
+    <ul>
+      <li>عبارت <code>eval_TF("TRUE AND FALSE")</code> باید <code>False</code> برگرداند.</li>
+      <li>عبارت <code>eval_TF("(TRUE AND FALSE) OR (TRUE OR (TRUE AND FALSE))")</code> باید <code>True</code> برگرداند.</li>
+    </ul>
+  </div>
+
+  <details class="sol" open>
+    <summary>پیاده‌سازی کد و تحلیل گام‌به‌گام</summary>
+    <div class="box method">
+      <h4>کد کامل به همراه توضیحات تفصیلی</h4>
+      <pre><code>def eval_TF(formule: str) -> bool:
+    \"\"\"Évalue récursivement une formule composée exclusivement de TRUE et FALSE.\"\"\"
+    formule = formule.strip()
+    
+    # 1. Cas de base : feuilles constantes
+    if formule == "TRUE":
+        return True
+    if formule == "FALSE":
+        return False
+        
+    # 2. Décomposition de la formule par son connecteur principal
+    connecteur, sous_formules = decompose(formule)
+    
+    # Cas de la négation NOT (connecteur unaire)
+    if connecteur == "NOT":
+        return not eval_TF(sous_formules[0])
+        
+    # Cas des connecteurs binaires
+    if connecteur == "AND":
+        return eval_TF(sous_formules[0]) and eval_TF(sous_formules[1])
+        
+    if connecteur == "OR":
+        return eval_TF(sous_formules[0]) or eval_TF(sous_formules[1])
+        
+    if connecteur == "IMPLIES":
+        # A IMPLIES B est équivalent à (not A) or B
+        val_gauche = eval_TF(sous_formules[0])
+        val_droite = eval_TF(sous_formules[1])
+        return (not val_gauche) or val_droite
+        
+    raise ValueError(f"Connecteur inconnu ou formule mal formée : {connecteur}")</code></pre>
+      <p><strong>پیچیدگی محاسباتی:</strong> با فرض {{ n }} عملگر در فرمول، درخت فراخوانی‌های بازگشتی هر گره AST را دقیقاً یک‌بار بررسی می‌کند. پیچیدگی زمانی {{ O(n) }} و کاملاً بهینه است.</p>
+    </div>
+  </details>
+</div>
+
+<h2 id="tp_ex2">3. Exercice 2 – Formules atomiques et valuations (genere_fa, eval_formule)</h2>
+
+<!-- Question 2.1 -->
+<div class="q-card" id="q_genere_fa">
+  <div class="q-header">
+    <span class="q-num">تمرین ۲ – زیرمسئله ۱</span>
+    <span class="q-title">استخراج اتم‌ها: genere_fa(formule: str) &rarr; set[str]</span>
+  </div>
+  <div class="box def">
+    <h4>متن صورت مسئله رسمی</h4>
+    <p>تابع <code>genere_fa(formule: str) -> set[str]</code> را بنویسید که مجموعه نمادهای اتمی موجود در <code>formule</code> را بدون احتساب <code>TRUE</code> و <code>FALSE</code> برگرداند.</p>
+    <p>نمونه‌های الزامی:</p>
+    <ul>
+      <li>عبارت <code>genere_fa("TRUE")</code> مجموعه <code>set()</code> را برمی‌گرداند.</li>
+      <li>عبارت <code>genere_fa("p AND FALSE")</code> مجموعه <code>{'p'}</code> را برمی‌گرداند.</li>
+      <li>عبارت <code>genere_fa("hello OR (aurevoir AND salut)")</code> مجموعه <code>{'hello', 'aurevoir', 'salut'}</code> را برمی‌گرداند.</li>
+    </ul>
+  </div>
+
+  <details class="sol" open>
+    <summary>پیاده‌سازی بازگشتی تمیز</summary>
+    <div class="box method">
+      <pre><code>def genere_fa(formule: str) -> set[str]:
+    \"\"\"Extrait récursivement l'ensemble des symboles de proposition d'une formule.\"\"\"
+    formule = formule.strip()
+    
+    # Décomposition syntaxique
+    connecteur, sous_formules = decompose(formule)
+    
+    # Si la liste des sous-formules est vide, c'est une feuille de l'AST
+    if len(sous_formules) == 0:
+        # Les constantes logiques TRUE et FALSE ne sont pas des variables atomiques
+        if connecteur in ("TRUE", "FALSE"):
+            return set()
+        return {connecteur}
+        
+    # Si c'est un connecteur (NOT, AND, OR, IMPLIES), on réunit les atomes de chaque sous-branche
+    atomes = set()
+    for sf in sous_formules:
+        atomes |= genere_fa(sf)
+    return atomes</code></pre>
+    </div>
+  </details>
+</div>
+
+<!-- Question 2.2 -->
+<div class="q-card" id="q_eval_formule">
+  <div class="q-header">
+    <span class="q-num">تمرین ۲ – زیرمسئله ۲</span>
+    <span class="q-title">ارزیابی با دیکشنری تعبیرها: eval_formule(formule: str, valuation: dict) &rarr; bool</span>
+  </div>
+  <div class="box def">
+    <h4>متن صورت مسئله رسمی</h4>
+    <p>تابع بازگشتی <code>eval_formule(formule: str, valuation: dict) -> bool</code> را بنویسید که فرمول و یک دیکشنری متغیرها (نظیر <code>{'p': True, 'q': False}</code>) را گرفته و ارزش بولی کل فرمول را ارزیابی کند.</p>
+  </div>
+
+  <details class="sol" open>
+    <summary>پیاده‌سازی و بررسی خطاها</summary>
+    <div class="box method">
+      <pre><code>def eval_formule(formule: str, valuation: dict[str, bool]) -> bool:
+    \"\"\"Calcule [F]^I sous l'interprétation définie par le dictionnaire valuation.\"\"\"
+    formule = formule.strip()
+    connecteur, sous_formules = decompose(formule)
+    
+    # Cas de base : feuille de l'arbre
+    if len(sous_formules) == 0:
+        if connecteur == "TRUE":
+            return True
+        if connecteur == "FALSE":
+            return False
+        # Récupération de la valeur de vérité dans le dictionnaire I
+        if connecteur in valuation:
+            return valuation[connecteur]
+        raise KeyError(f"Variable atomique non définie dans la valuation : '{connecteur}'")
+        
+    # Cas unaire : NOT
+    if connecteur == "NOT":
+        return not eval_formule(sous_formules[0], valuation)
+        
+    # Cas binaires : AND, OR, IMPLIES
+    if connecteur == "AND":
+        return eval_formule(sous_formules[0], valuation) and eval_formule(sous_formules[1], valuation)
+        
+    if connecteur == "OR":
+        return eval_formule(sous_formules[0], valuation) or eval_formule(sous_formules[1], valuation)
+        
+    if connecteur == "IMPLIES":
+        gauche = eval_formule(sous_formules[0], valuation)
+        droite = eval_formule(sous_formules[1], valuation)
+        return (not gauche) or droite
+        
+    raise ValueError(f"Opérateur invalide : {connecteur}")</code></pre>
+    </div>
+  </details>
+</div>
+
+<h2 id="tp_ex3">4. Exercice 3 – Génération de tables de vérité complètes (cree_table)</h2>
+
+<div class="box info">
+  <h4>قاعده ساخت استقرایی مجموعه زیرمجموعه‌ها {{ \mathcal{P}(E) }}</h4>
+  <p>برای بررسی تمامی تعبیرهای ممکن برای {{ n }} متغیر، باید {{ 2^n }} زیرمجموعه از اتم‌ها تولید شوند. دستورالعمل صوری دانشگاه سوربن به صورت زیر است:</p>
+  <ul>
+    <li>{{ \mathcal{P}(E_0) = \{\emptyset\} }}</li>
+    <li>{{ \mathcal{P}(E_{i+1}) = \mathcal{P}(E_i) \cup \{A \cup \{x_i\} \mid A \in \mathcal{P}(E_i)\} }}</li>
+  </ul>
+</div>
+
+<!-- Question 3.1, 3.2, 3.3 combinées -->
+<div class="q-card" id="q_cree_table">
+  <div class="q-header">
+    <span class="q-num">تمرین ۳ – زیرمسئله‌های ۱ و ۲ و ۳</span>
+    <span class="q-title">تولید زیرمجموعه‌ها، تعبیرها و ساخت نهایی جدول درستی</span>
+  </div>
+
+  <details class="sol" open>
+    <summary>پیاده‌سازی کامل توابع genere_sous_ensembles و genere_interpretations و cree_table</summary>
+    <div class="box method">
+      <pre><code>def genere_sous_ensembles(ensemble: set) -> list[set]:
+    \"\"\"Calcule P(E) de manière inductive selon la spécification du TP.\"\"\"
+    liste_elements = list(ensemble)
+    parties = [set()]  # P(E_0) = {∅}
+    
+    for x in liste_elements:
+        nouvelles_parties = []
+        for s in parties:
+            nouvelles_parties.append(s | {x})
+        parties.extend(nouvelles_parties)
+        
+    return parties
+
+def genere_interpretations(fa: set[str]) -> list[dict[str, bool]]:
+    \"\"\"Associe à chaque partie P une valuation v_P où v_P(q) = True ssi q in P.\"\"\"
+    parties = genere_sous_ensembles(fa)
+    interpretations = []
+    
+    for P in parties:
+        val = {atome: (atome in P) for atome in fa}
+        interpretations.append(val)
+        
+    return interpretations
+
+def cree_table(formule: str) -> list[list]:
+    \"\"\"Construit la table de vérité complète sous forme d'une liste de listes.\"\"\"
+    atomes = sorted(list(genere_fa(formule)))
+    val_liste = genere_interpretations(set(atomes))
+    
+    # 1. En-tête de la table de vérité
+    table = [atomes + [formule]]
+    
+    # 2. Lignes d'évaluation pour chaque interprétation
+    for val in val_liste:
+        ligne = [val[a] for a in atomes]
+        res = eval_formule(formule, val)
+        ligne.append(res)
+        table.append(ligne)
+        
+    return table</code></pre>
+
+      <h4>نمونه اجرای مستقیم در مفسر پایتون</h4>
+      <pre><code>>>> cree_table("p AND q")
+[['p', 'q', 'p AND q'],
+ [False, False, False],
+ [True, False, False],
+ [False, True, False],
+ [True, True, True]]</code></pre>
+      <p>خروجی حاصل دقیقاً منطبق بر مثال هدف در مستندات رسمی کارگاه دانشگاه سوربن است!</p>
+    </div>
+  </details>
+</div>
+"""
+
+open(os.path.join(W01, 'tp.fr.html'), 'w', encoding='utf-8').write(fr.strip())
+open(os.path.join(W01, 'tp.fa.html'), 'w', encoding='utf-8').write(fa.strip())
+print("tp.fr.html and tp.fa.html written.")
+

@@ -1,0 +1,6 @@
+Logic.reg("lesson:w05_annales:fr", {
+  id: "w05_annales",
+  lang: "fr",
+  status: "complete",
+  html: "<div class='box box-objectives'><div class='box-title'>Annales Semaine 5 — Preuves Formelles d'Examen</div><p>Sujets réels d'examens testant la déduction naturelle intuitionniste (partiel 2016-2017 et 2017-2018).</p></div><div class='step-content'><strong>Question d'examen classique :</strong> Prouver {{ \\vdash (A \\land B) \\Rightarrow (B \\land A) }}.<br>Solution : Supposer {{ A \\land B }}, appliquer {{ \\land E_2 }} pour {{ B }}, {{ \\land E_1 }} pour {{ A }}, appliquer {{ \\land I }} pour {{ B \\land A }}, décharger par {{ \\Rightarrow I }}.</div>"
+});

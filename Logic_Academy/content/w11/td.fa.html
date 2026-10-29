@@ -1,0 +1,57 @@
+
+<div class="box box-objectives">
+  <div class="box-title">حل تمرینات موضوع ۱۱ — لیست‌های پرولوگ و فرم‌های نرمال LPPO (تمرین‌های ۴۰ و ۴۱)</div>
+  <p>منبع رسمی: <code>main_td-etudiants.pdf</code>، صفحات ۲۳ و ۲۴. حل تشریحی گام‌به‌گام کار با لیست‌ها، یکسان‌سازی، فرم پیشوندی و اسکولم‌سازی.</p>
+</div>
+
+<h2 id="w11-td-ex40">تمرین ۴۰ — لیست‌ها در پرولوگ و یکسان‌سازی (صفحه ۲۳)</h2>
+<div class="box box-solution">
+  <div class="box-title">پاسخ تشریحی سؤال ۱</div>
+  <ol>
+    <li><code>?- [a, b, c] = [X].</code> {{ \implies }} <strong>شکست (false)</strong> چون تعداد اعضا همخوانی ندارد.</li>
+    <li><code>?- [a, b, c] = [X, Y, Z].</code> {{ \implies }} <strong>موفقیت: X = a, Y = b, Z = c.</strong></li>
+    <li><code>?- [a, b, c] = [X | Y].</code> {{ \implies }} <strong>موفقیت: X = a و Y = [b, c].</strong> (سر لیست {{ X }} و دم لیست {{ Y }}).</li>
+    <li><code>?- append(X, [c, Y], [a, b, c, d]).</code> {{ \implies }} <strong>موفقیت: X = [a, b] و Y = d.</strong></li>
+    <li><code>?- append(X, Y, [a, b, c, d]).</code> {{ \implies }} با زدن کلید <code>;</code> تمام ۵ افراز ممکن لیست تولید می‌شود.</li>
+  </ol>
+</div>
+
+<h2 id="w11-td-ex41">تمرین ۴۱ — فرم‌های نرمال در LPPO (صفحه ۲۴)</h2>
+<div class="box box-solution">
+  <div class="box-title">مراحل گام‌به‌گام اسکولم‌سازی و تفکیک</div>
+  <p>فرمول داده‌شده: $F = 
+eg ( (orall x(p(f(x)) \implies 
+eg q(x))) \implies 
+eg \exists x (p(f(x)) \land q(x)) )$.</p>
+  <ul>
+    <li><strong>مرحله ۱ (NNF):</strong> نقیض به داخل برده می‌شود: $(orall x(
+eg p(f(x)) \lor 
+eg q(x))) \land \exists x (p(f(x)) \land q(x))$.</li>
+    <li><strong>مرحله ۲ (تغییر نام و پیشوندی):</strong> متغیر سور وجودی را به {{ y }} تغییر می‌دهیم و سورها را بیرون می‌کشیم: $orall x \exists y [(
+eg p(f(x)) \lor 
+eg q(x)) \land p(f(y)) \land q(y)]$.</li>
+    <li><strong>مرحله ۳ (اسکولم‌سازی):</strong> چون {{ \exists y }} بعد از {{ orall x }} است، متغیر {{ y }} با تابع اسکولم {{ g(x) }} جایگزین می‌شود.</li>
+    <li><strong>مرحله ۴ (بندها):</strong> سه بند {{ C_1, C_2, C_3 }} استخراج می‌گردد.</li>
+    <li><strong>مرحله ۵ (تفکیک):</strong> با تفکیک متوالی، بند پوچ {{ \Box }} حاصل می‌شود؛ بنابراین فرمول {{ F }} <strong>ناسازگار (Insatisfiable)</strong> است.</li>
+  </ul>
+</div>
+
+<div class="box box-info" style="display:none"></div>
+<pre style="display:none"><code></code></pre>
+<pre style="display:none"><code></code></pre>
+<pre style="display:none"><code></code></pre>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>

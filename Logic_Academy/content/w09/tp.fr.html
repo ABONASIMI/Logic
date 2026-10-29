@@ -1,0 +1,19 @@
+
+<div class="box box-objectives">
+  <div class="box-title">TP Thème 9 — Déduction Naturelle sous Édukera (Exercice 13)</div>
+  <p>Source : <code>main_tp-etudiants.pdf</code>, page 12. Guide pratique pour manipuler les quantificateurs dans le prouveur interactif Édukera.</p>
+</div>
+
+<h2 id="w09-tp-edukera">1. Manipulation des Règles Quantificateurs dans Édukera</h2>
+<p>Dans Édukera, chaque règle est représentée par un bloc graphique :</p>
+<ul>
+  <li><strong>Pour {{ orall I }} :</strong> Édukera crée automatiquement une boîte indentée étiquetée avec un nom de variable fraîche (ex: <code>x_0</code>). Il est impossible de faire référence à une variable déjà liée ou libre dans le contexte !</li>
+  <li><strong>Pour {{ orall E }} :</strong> Vous devez fournir au système le terme exact avec lequel instancier la variable quantifiée (ex: <code>c</code>, <code>f(a)</code>, etc.).</li>
+  <li><strong>Pour {{ \exists I }} :</strong> Vous devez glisser le témoin dans le slot d'entrée de la règle.</li>
+  <li><strong>Pour {{ \exists E }} :</strong> Édukera ouvre une sous-boîte en introduisant une nouvelle constante de Skolem locale. Toute tentative de faire fuiter cette variable hors de la boîte déclenche une erreur de validité logique.</li>
+</ul>
+
+<div class="box box-consigne">
+  <div class="box-title">Règle de l'échiquier Édukera pour les contre-modèles</div>
+  <p>Pour chaque formule non valide proposée par Édukera, vous devez poser au moins une pièce de chaque type sur l'échiquier pour construire un <strong>contre-modèle fini</strong>.</p>
+</div>

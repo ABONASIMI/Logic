@@ -1,0 +1,106 @@
+
+<div class="box box-objectives">
+  <div class="box-title">Objectifs d'apprentissage — Semaine 4</div>
+  <ul>
+    <li>Comprendre la formulation clausale du problème SAT et le rôle de la clause vide {{ \Box }}.</li>
+    <li>Maîtriser la règle de <strong>propagation unitaire (UP)</strong> et savoir simplifier rigoureusement un ensemble de clauses.</li>
+    <li>Appliquer la règle du <strong>littéral pur (PL)</strong> et comprendre sa justification sémantique.</li>
+    <li>Exécuter l'algorithme <strong>DPLL</strong> en construisant son arbre de recherche complet avec retours sur trace (backtracking).</li>
+    <li>Calculer rigoureusement l'<strong>heuristique {{ h_k }}</strong> de sélection de variables et respecter l'ordre d'exploration (faux en premier).</li>
+    <li>Modéliser des contraintes du monde réel (ex: garnitures de pizzas) en clauses propositionnelles au format <strong>DIMACS</strong>.</li>
+  </ul>
+</div>
+
+<h2 id="w04-c-sat">1. Le Problème SAT et la Forme Clausale</h2>
+<p>
+Le problème <strong>SAT (Satisfiabilité Booléenne)</strong> consiste à déterminer s'il existe une valuation satisfaisant simultanément un ensemble de clauses. C'est le premier problème historiquement prouvé <strong>NP-complet</strong> (théorème de Cook-Levin, 1971).
+</p>
+
+<div class="box box-definition">
+  <div class="box-title">Définition 4.1 — Théorie Clausale et Clause Vide</div>
+  <p>Une formule en FNC est représentée comme un <strong>ensemble fini de clauses</strong> {{ \Sigma = \{C_1, C_2, \dots, C_m\} }}, où chaque clause {{ C_i }} est un ensemble fini de littéraux :</p>
+  {{ C_i = \{l_{i,1}, l_{i,2}, \dots, l_{i,k}\} \quad \text{représentant} \quad l_{i,1} \lor l_{i,2} \lor \dots \lor l_{i,k} }}
+  <ul>
+    <li>Une clause est satisfaite par une valuation {{ v }} si <em>au moins un</em> de ses littéraux vaut 1 sous {{ v }}.</li>
+    <li>L'ensemble {{ \Sigma }} est satisfait si <em>toutes</em> ses clauses sont satisfaites simultanément.</li>
+    <li><strong>La clause vide {{ \Box }} (notée {{ \{\} }}) :</strong> C'est une disjonction sans aucun littéral. Par définition, elle est <strong>toujours fausse</strong> (neutre pour {{ \lor }}). Si un ensemble de clauses contient {{ \Box }}, il est immédiatement <strong>insatisfiable</strong>.</li>
+    <li><strong>L'ensemble vide {{ \emptyset }} :</strong> C'est une conjonction de zéro clause. Il est <strong>toujours vrai</strong> (neutre pour {{ \land }}). S'il ne reste plus aucune clause à satisfaire, la formule est <strong>satisfiable</strong> !</li>
+  </ul>
+</div>
+
+<h2 id="w04-c-regles">2. Les Règles de Réduction Fondamentales de DPLL</h2>
+
+<div class="box box-definition">
+  <div class="box-title">Règle 1 — Règle de la Clause Unitaire & Propagation Unitaire (UP)</div>
+  <p>Si {{ \Sigma }} contient une clause unitaire {{ C = \{l\} }} (réduite à un seul littéral {{ l }}) :</p>
+  <p>Pour que {{ \Sigma }} soit satisfiable, il est <strong>obligatoire</strong> que {{ l }} soit vrai (affectation {{ v(l) = 1 }}). On applique alors la simplification suivante à {{ \Sigma }} :</p>
+  <ol>
+    <li>On supprime toutes les clauses contenant le littéral {{ l }} (car elles sont déjà satisfaites).</li>
+    <li>On supprime le littéral complémentaire {{ \neg l }} de toutes les autres clauses (car {{ \neg l = 0 }}, donc il ne peut pas aider à satisfaire ces clauses).</li>
+  </ol>
+  <p>Cette simplification est répétée en cascade jusqu'à ce qu'il n'y ait plus aucune clause unitaire : c'est la <strong>propagation unitaire</strong>.</p>
+</div>
+
+<div class="box box-definition">
+  <div class="box-title">Règle 2 — Règle du Littéral Pur (PL)</div>
+  <p>Un littéral {{ l }} est dit <strong>pur</strong> dans {{ \Sigma }} s'il apparaît dans au moins une clause, mais que son complément {{ \neg l }} n'apparaît dans <em>aucune</em> clause de {{ \Sigma }}.</p>
+  <p><strong>Justification sémantique :</strong> Poser {{ l = 1 }} satisfait immédiatement toutes les clauses contenant {{ l }}, sans risquer de falsifier aucune autre clause puisque {{ \neg l }} n'existe nulle part ! On peut donc éliminer toutes les clauses contenant {{ l }}.</p>
+</div>
+
+<h2 id="w04-c-dpll">3. L'Algorithme DPLL Classique</h2>
+<div class="box box-algorithm">
+  <div class="box-title">Algorithme DPLL(Σ)</div>
+  <ol>
+    <li><strong>Propagation unitaire :</strong> Tant que {{ \Sigma }} contient une clause unitaire {{ \{l\} }}, simplifier {{ \Sigma }} par {{ l \leftarrow 1 }}.</li>
+    <li><strong>Test de terminaison immédiat :</strong>
+      <ul>
+        <li>Si {{ \Box \in \Sigma }} (clause vide générée) : <strong>Conflit ! Renvoyer UNSAT</strong> (retour arrière).</li>
+        <li>Si {{ \Sigma = \emptyset }} (toutes les clauses éliminées) : <strong>Succès ! Renvoyer SAT</strong> (modèle trouvé).</li>
+      </ul>
+    </li>
+    <li><strong>Élimination des littéraux purs :</strong> Pour tout littéral pur {{ l }}, affecter {{ l \leftarrow 1 }} et supprimer les clauses le contenant.</li>
+    <li><strong>Branchement heuristique :</strong> Choisir une variable non encore affectée {{ p }} selon une heuristique (ex: {{ h_k }}).
+      <ul>
+        <li>Explorer la première branche : {{ DPLL(\Sigma \cup \{\neg p\}) }} (branche <strong>Faux</strong> en premier).</li>
+        <li>Si cette branche renvoie SAT, terminer avec succès.</li>
+        <li>Sinon (retour arrière / backtracking), explorer la seconde branche : {{ DPLL(\Sigma \cup \{p\}) }} (branche <strong>Vrai</strong>).</li>
+      </ul>
+    </li>
+  </ol>
+</div>
+
+<h2 id="w04-c-hk">4. L'Heuristique {{ h_k }} (Sorbonne)</h2>
+<p>
+Lorsqu'aucune clause unitaire ni littéral pur n'est disponible, le choix de la variable de branchement est crucial. À la Sorbonne, le cours utilise l'heuristique {{ h_k }} :
+</p>
+
+<div class="box box-definition">
+  <div class="box-title">Définition 4.2 — Heuristique {{ h_k(p) }}</div>
+  <p>Pour {{ k \ge 2 }} (taille de clause) et {{ p }} une variable propositionnelle :</p>
+  {{ h_k(p) = \text{nbocc}(k, \Sigma, p) + \text{nbocc}(k, \Sigma, \neg p) }}
+  <p>où {{ \text{nbocc}(k, \Sigma, l) }} est le nombre d'occurrences du littéral {{ l }} dans les clauses de taille {{ k }}.</p>
+  <p><strong>Règle de sélection :</strong></p>
+  <ol>
+    <li>On sélectionne la variable qui maximise {{ h_2(p) }} (les clauses de taille 2 sont les plus faciles à transformer en clauses unitaires !).</li>
+    <li>En cas d'égalité, on départage avec {{ h_3(p) }}, puis {{ h_4(p) }}, etc.</li>
+    <li>Si l'égalité persiste, on départage par <strong>ordre alphabétique</strong> du nom de la variable.</li>
+    <li><strong>Convention de branchement :</strong> On teste toujours la branche <strong>{{ p = 0 }} (Faux) en premier</strong> !</li>
+  </ol>
+</div>
+
+<h2 id="w04-c-dimacs">5. Format Standard DIMACS et Solveur Glucose</h2>
+<p>
+Les solveurs SAT industriels (comme <strong>Glucose</strong>) utilisent le format de fichier texte normalisé <strong>DIMACS</strong> :
+</p>
+<pre><code>c Fichier DIMACS exemple
+p cnf 3 4
+1 2 0
+-1 3 0
+-2 -3 0
+1 -3 0</code></pre>
+<ul>
+  <li>Les lignes commençant par <code>c</code> sont des commentaires.</li>
+  <li>La ligne d'en-tête est <code>p cnf n m</code> où {{ n }} est le nombre de variables et {{ m }} le nombre de clauses.</li>
+  <li>Chaque clause est écrite sur une ligne, séparée par des espaces et <strong>terminée par un 0</strong>.</li>
+  <li>La variable {{ x_i }} est codée par l'entier {{ i }} ; sa négation {{ \neg x_i }} par l'entier négatif {{ -i }}.</li>
+</ul>

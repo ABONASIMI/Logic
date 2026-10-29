@@ -1,0 +1,39 @@
+
+<div class="box box-objectives">
+  <div class="box-title">Laboratoire TP 4 — Modélisation SAT, DIMACS & Glucose</div>
+  <p>Source officielle : <code>main_tp-etudiants.pdf</code> (p. 7–15, Thèmes 4 & 5, Exercices 6 à 12). Prise en main du solveur Glucose, modélisation du Club Écossais, des chapeaux rouges et générateur de DIMACS en Python.</p>
+</div>
+
+<h2 id="w04-tp-pizzas">1. Exercice 7 — Modélisation SAT des Pizzas (Glucose)</h2>
+<p>Variables : {{ c=1 }} (champignons), {{ p=2 }} (poivrons), {{ j=3 }} (jambon), {{ o=4 }} (œuf).</p>
+<ul>
+  <li>Veto Marie (pas de champignons) : $
+eg c \implies$ clause <code>-1 0</code>.</li>
+  <li>Veto Nicolas (pas d'œuf et du jambon) : $
+eg o \land j \implies$ clauses <code>-4 0</code> et <code>3 0</code>.</li>
+  <li>Veto Laure (jambon implique champignons) : $j \Rightarrow c \equiv 
+eg j \lor c \implies$ clause <code>-3 1 0</code>.</li>
+</ul>
+
+<div class="box box-algorithm">
+  <div class="box-title">Fichier DIMACS pizza.cnf</div>
+  <pre><code>c Fichier DIMACS pour le choix de pizza commune
+p cnf 4 4
+-1 0
+-4 0
+3 0
+-3 1 0</code></pre>
+</div>
+<p>
+<strong>Résultat avec Glucose :</strong> En propageant <code>-1 0</code> ({{ c=0 }}) et <code>3 0</code> ({{ j=1 }}) dans la clause <code>-3 1 0</code>, on obtient la clause vide {{ \Box }}. <strong>UNSATISFIABLE</strong> : aucune pizza ne peut satisfaire les trois amis simultanément !
+</p>
+
+<h2 id="w04-tp-ecossais">2. Exercice 8 — L'Énigme du Club Écossais</h2>
+<p>Contraintes du club modélisées en SAT :</p>
+<ol>
+  <li>Chaque membre porte une jupe écossaise ({{ j }}) ou ne boit pas de whisky ({{ w }}).</li>
+  <li>S'il est marié ({{ m }}), il ne porte pas de jupe écossaise.</li>
+  <li>S'il boit du whisky, il est marié.</li>
+  <li>S'il porte une jupe écossaise, il boit du whisky et est un homme.</li>
+</ol>
+<p>Résolution par Glucose : prouve qu'aucun membre ne peut exister respectant toutes les règles sauf s'il est célibataire et abstème.</p>

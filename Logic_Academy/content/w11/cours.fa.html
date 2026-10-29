@@ -1,0 +1,61 @@
+
+<div class="box box-objectives">
+  <div class="box-title">اهداف یادگیری — هفته ۱۱ (پرولوگ پیشرفته، فرم‌های نرمال و اسکولم‌سازی)</div>
+  <ul>
+    <li>تسلط بر بازگشت روی لیست‌ها در پرولوگ با ساختار <code>[سر | دم]</code>.</li>
+    <li>درک عملکرد دوطرفه و شگفت‌انگیز محمول <code>append/3</code>.</li>
+    <li>تبدیل فرمول مرتبه اول به <strong>فرم نرمال منفی (NNF)</strong> و <strong>فرم پیشوندی (Prenex Form)</strong>.</li>
+    <li>تسلط بر فرایند <strong>اسکولم‌سازی (Skolemization)</strong> برای حذف سورهای وجودی با توابع اسکولم.</li>
+    <li>درک مفهوم بنیادی <strong>هم‌پذیرش‌پذیری (Equisatisfiability)</strong> و <strong>قضیه هربراند (Herbrand's Theorem)</strong>.</li>
+  </ul>
+</div>
+
+<h2 id="w11-c-listes-prolog">۱. لیست‌ها در پرولوگ و محمول <code>append</code></h2>
+<div class="box box-definition">
+  <div class="box-title">تعریف ۱۱.۱ — ساختار بازگشتی لیست</div>
+  <p>در زبان پرولوگ، لیست ساختاری است که به صورت بازگشتی تعریف می‌شود:</p>
+  <ul>
+    <li>لیست تهی: <code>[]</code></li>
+    <li>عملگر سازنده لیست: <code>[T | Q]</code> که در آن <code>T</code> اولین عنصر (Head) و <code>Q</code> باقی‌مانده لیست (Tail) است.</li>
+  </ul>
+</div>
+
+<div class="box box-method">
+  <div class="box-title">قوانین محمول بنیادین <code>append/3</code></div>
+  <pre><code>append([], L, L).
+append([X | L1], L2, [X | L3]) :- append(L1, L2, L3).</code></pre>
+  <p>این محمول به دلیل ماهیت رابطه‌ای پرولوگ، هم برای چسباندن لیست‌ها و هم برای قطعه‌قطعه کردن و تجزیه لیست‌ها با مکانیزم عقب‌گرد عمل می‌کند.</p>
+</div>
+
+<h2 id="w11-c-formes-normales-lppo">۲. فرم‌های نرمال در LPPO: فرم پیشوندی و اسکولم‌سازی</h2>
+<div class="box box-method">
+  <div class="box-title">چهار مرحله استاندارد تبدیل به فرم بندی</div>
+  <ol>
+    <li><strong>فرم نرمال منفی (NNF):</strong> رساندن نقیض به پشت اتم‌ها با قوانین دمورگان سورها:
+    {{ 
+eg orall x A \equiv \exists x 
+eg A \quad , \quad 
+eg \exists x A \equiv orall x 
+eg A }}</li>
+    <li><strong>تغییر نام متغیرها:</strong> برای هر سور نام متغیر جداگانه می‌گذاریم تا تداخل حوزه رخ ندهد.</li>
+    <li><strong>فرم پیشوندی (Prenex):</strong> بیرون کشیدن تمام سورها به ابتدای عبارت:
+    {{ Q_1 x_1 Q_2 x_2 \dots Q_k x_k \; M(x_1, \dots, x_k) }}</li>
+    <li><strong>اسکولم‌سازی (Skolemization):</strong> حذف سورهای وجود ({{ \exists }}):
+      <ul>
+        <li>اگر پشت سور وجود هیچ سور کلی ({{ orall }}) نباشد، با یک ثابت اسکولم {{ c }} جایگزین می‌شود.</li>
+        <li>اگر پشت سور وجود، سورهای کلی {{ orall x_1 \dots orall x_n }} قرار داشته باشند، آن متغیر با تابع اسکولم {{ f(x_1, \dots, x_n) }} جایگزین می‌گردد.</li>
+      </ul>
+    </li>
+  </ol>
+</div>
+
+<div class="box box-pourquoi">
+  <div class="box-title">نکته حیاتی: هم‌ارزی منطقی در برابر هم‌پذیرش‌پذیری</div>
+  <p>فرمول اسکولم‌شده {{ F_{sk} }} با فرمول اولیه {{ F }} <strong>هم‌ارز منطقی نیست</strong>؛ اما این دو فرمول <strong>هم‌پذیرش‌پذیر (Equisatisfiable)</strong> هستند؛ یعنی {{ F }} سازگار و مدل‌دار است اگر و تنها اگر {{ F_{sk} }} مدل‌دار باشد. و این برای اثبات به روش تفکیک و تناقض کاملاً کافی است!</p>
+</div>
+
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>

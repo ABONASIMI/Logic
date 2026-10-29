@@ -1,0 +1,30 @@
+
+<div class="box box-objectives">
+  <div class="box-title">نمونه سؤالات آزمون‌های نهایی سوربن — هفته ۴</div>
+  <p>اجرای تشریحی الگوریتم DPLL برگرفته از امتحانات میان‌ترم دانشگاه سوربن.</p>
+</div>
+
+<div class="exo-card">
+  <div class="exo-header">
+    <div>
+      <h3 class="exo-title">امتحان میان‌ترم ۲۰۱۸–۲۰۱۹ — تمرین ۲ (اجرای صوری DPLL)</h3>
+      <span style="font-size:0.8rem; color:var(--muted);">منبع رسمی: partiel_2018_2019.pdf (صفحه ۲)</span>
+    </div>
+    <div class="exo-meta-badges"><span class="badge badge-accent">هفته ۴</span><span class="badge">امتحان Partiel</span></div>
+  </div>
+  <div class="exo-statement">
+    <p>الگوریتم DPLL را بر روی مجموعه بندهای زیر اجرا کنید: {{ \Sigma = \{\{p, q\}, \{\neg p, r\}, \{\neg q, \neg r\}, \{p, \neg r\}\} }}</p>
+  </div>
+  <div class="step-content">
+    <strong>پاسخ تشریحی مطابق کلید تصحیح سوربن :</strong><br>
+    در ابتدا هیچ بند تک‌عضوی یا لیترال خالصی نیست.<br>
+    ۱. <strong>انشعاب روی {{ p = 0 }} (شاخه نادرست اول) :</strong><br>
+    مجموعه بندها ساده می‌شود به : {{ \Sigma_{p=0} = \{\{q\}, \{\neg q, \neg r\}, \{\neg r\}\} }}.<br>
+    انتشار تک‌عضوی {{ q=1 }} و {{ r=0 }} : بند دوم با {{ \neg r }} ارضا می‌شود.<br>
+    تمامی بندها حذف می‌شوند و مجموعه خالی {{ \emptyset }} حاصل می‌شود.<br>
+    <strong>نتیجه: SAT !</strong> مدل ارضاکننده: {{ p=0, q=1, r=0 }}.
+  </div>
+</div>
+
+<span style="display:none">{{ }}</span>
+<span style="display:none">{{ }}</span>

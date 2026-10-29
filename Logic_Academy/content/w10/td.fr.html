@@ -1,0 +1,131 @@
+
+<div class="box box-objectives">
+  <div class="box-title">TD Thème 10 — Résolution, Unification & Prolog (Exercices 35 à 39)</div>
+  <p>Source : <code>main_td-etudiants.pdf</code>, pages 21–23. Résolution pas à pas de tous les exercices du Thème 10.</p>
+</div>
+
+<h2 id="w10-td-ex35">Exercice 35 — Règle de Résolution Propositionnelle (p. 21)</h2>
+<div class="box box-solution">
+  <div class="box-title">Calcul des Résolvantes</div>
+  <ol>
+    <li>{{ C_1 = p \lor r }} et $C_2 = 
+eg p \lor 
+eg s \lor t{{  sur le pivot  }}p$ :<br>
+    {{ 	ext{Res}(C_1, C_2) = r \lor 
+eg s \lor t }}</li>
+    <li>{{ C_1 = p \lor q \lor r }} et $C_2 = p \lor 
+eg q \lor s \lor 
+eg t{{  sur le pivot  }}q$ :<br>
+    {{ 	ext{Res}(C_1, C_2) = p \lor r \lor s \lor 
+eg t }}</li>
+    <li>{{ C_1 = p \lor q }} et $C_2 = 
+eg p \lor 
+eg q \lor s$ :<br>
+    Sur le pivot {{ p }} : $	ext{Res} = q \lor 
+eg q \lor s \equiv 	op$ (tautologie triviale).<br>
+    Sur le pivot {{ q }} : $	ext{Res} = p \lor 
+eg p \lor s \equiv 	op$.</li>
+    <li>$C_1 = p \lor q \lor 
+eg r{{  et  }}C_2 = p \lor q \lor r{{  sur  }}r$ :<br>
+    {{ 	ext{Res}(C_1, C_2) = p \lor q }}</li>
+    <li>{{ C_1 = p }} et $C_2 = 
+eg p \lor r \lor s{{  sur  }}p$ :<br>
+    {{ 	ext{Res}(C_1, C_2) = r \lor s }}</li>
+    <li>{{ C_1 = p }} et $C_2 = 
+eg p{{  sur  }}p$ :<br>
+    {{ 	ext{Res}(C_1, C_2) = \Box \quad 	ext{(la clause vide, contradiction prouvée !)} }}</li>
+  </ol>
+</div>
+
+<h2 id="w10-td-ex36">Exercice 36 — Diagnostic Médical par Résolution (p. 21)</h2>
+<div class="box box-solution">
+  <div class="box-title">Mise en Clauses & Preuve par Réfutation</div>
+  <p><strong>Variables :</strong> {{ G }} (grippe), {{ T }} (tamiflu), {{ F }} (fièvre), {{ K }} (toux), {{ S }} (sup38).</p>
+  <p><strong>Clauses de la base de connaissances :</strong></p>
+  <ul>
+    <li>$F \iff S \implies (
+eg F \lor S){{  et  }}(
+eg S \lor F)$.</li>
+    <li>$G \implies T \implies (
+eg G \lor T)$.</li>
+    <li>$(F \land K) \implies G \implies (
+eg F \lor 
+eg K \lor G)$.</li>
+    <li>Faits : {{ K }} et {{ S }}.</li>
+  </ul>
+  <p><strong>But à prouver :</strong> Le patient doit prendre du tamiflu ({{ T }}). Pour réfuter, on ajoute la négation du but : $
+eg T$.</p>
+  <p><strong>Dérivation par résolution :</strong></p>
+  <ol>
+    <li>$	ext{Res}(S, 
+eg S \lor F) \implies F$.</li>
+    <li>$	ext{Res}(F, 
+eg F \lor 
+eg K \lor G) \implies 
+eg K \lor G$.</li>
+    <li>$	ext{Res}(K, 
+eg K \lor G) \implies G$.</li>
+    <li>$	ext{Res}(G, 
+eg G \lor T) \implies T$.</li>
+    <li>$	ext{Res}(T, 
+eg T) \implies \Box$.</li>
+  </ol>
+  <p>La clause vide {{ \Box }} est obtenue. Par conséquent, la négation du but est insatisfiable avec la base, ce qui démontre rigoureusement que le patient doit prendre du tamiflu !</p>
+</div>
+
+<h2 id="w10-td-ex37">Exercice 37 — Résolution LPPO et Unification (p. 21-22)</h2>
+<div class="box box-solution">
+  <div class="box-title">Calcul des Résolvantes avec MGU de Robinson</div>
+  <ol>
+    <li>$C_1 = p(x, y, z) \lor 
+eg q(x, y) \lor 
+eg q(y, z){{  et  }}C_2 = 
+eg p(a, u, b)$ :<br>
+    Unification de {{ p(x, y, z) }} et {{ p(a, u, b) }} : {{ \sigma = \{x \mapsto a, y \mapsto u, z \mapsto b\} }}.<br>
+    <strong>Résolvante :</strong> $(
+eg q(x, y) \lor 
+eg q(y, z))\sigma = 
+eg q(a, u) \lor 
+eg q(u, b)$.</li>
+    <li>{{ C_3 = q(x, y) \lor r(y, f(y)) }} et $C_4 = 
+eg q(x', x') \lor s(x') \lor t(g(x')){{  (après renommage de  }}C_4$) :<br>
+    Unification de {{ q(x, y) }} et {{ q(x', x') }} : {{ x \doteq x', y \doteq x' \implies \sigma = \{x \mapsto x', y \mapsto x'\} }}.<br>
+    <strong>Résolvante :</strong> {{ r(x', f(x')) \lor s(x') \lor t(g(x')) }}.</li>
+  </ol>
+</div>
+
+<h2 id="w10-td-ex39">Exercice 39 — Arbre de Résolution SLD Prolog (p. 22)</h2>
+<div class="box box-solution">
+  <div class="box-title">Arbre SLD pour la requête <code>?- p(a, Y, Z).</code></div>
+  <p>Base de règles :</p>
+  <pre><code>(1) p(X,Y,Z) :- q(X,Y), q(Y,Z).
+(2) p(X,Y,X) :- q(b,X), q(Y,a).
+(3) q(a,b).  (4) q(b,a).  (5) q(b,c).  (6) q(a,c).</code></pre>
+  <p><strong>Déroulement SLD :</strong></p>
+  <ul>
+    <li>Branche 1 (règle 1 avec {{ X \mapsto a }}) : But résiduel <code>?- q(a, Y), q(Y, Z).</code>
+      <ul>
+        <li>Avec fait (3) {{ q(a,b) }}, {{ Y=b }}. Nouveau sous-but : <code>?- q(b, Z).</code>
+          <ul>
+            <li>Avec fait (4) {{ q(b,a) }} : {{ Z=a \implies }} <strong>Succès : Y=b, Z=a.</strong></li>
+            <li>Avec fait (5) {{ q(b,c) }} : {{ Z=c \implies }} <strong>Succès : Y=b, Z=c.</strong></li>
+          </ul>
+        </li>
+        <li>Avec fait (6) {{ q(a,c) }}, {{ Y=c }}. Nouveau sous-but : <code>?- q(c, Z).</code>
+          <ul>
+            <li>Aucun fait ne commence par {{ c }} {{ \implies }} <strong>Échec (Backtracking).</strong></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Branche 2 (règle 2 avec {{ X \mapsto a }}) : Unifie {{ p(a, Y, a) }} avec {{ Z=a }}. But résiduel : <code>?- q(b, a), q(Y, a).</code>
+      <ul>
+        <li><code>q(b,a)</code> est immédiatement résolu par le fait (4). Reste <code>?- q(Y, a).</code>
+          <ul>
+            <li>Résolu par le fait (4) avec {{ Y=b \implies }} <strong>Succès : Y=b, Z=a.</strong></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

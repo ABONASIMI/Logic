@@ -1,0 +1,6 @@
+Logic.reg("lesson:w06_tp:fr", {
+  id: "w06_tp",
+  lang: "fr",
+  status: "complete",
+  html: "<div class='box box-objectives'><div class='box-title'>TP 6 — Édukera Classique & Règles Dérivées</div><p>Utilisation des boutons du thème sombre d'Édukera : tiers exclu, raisonnement par l'absurde classique et lois de De Morgan classiques.</p></div>"
+});

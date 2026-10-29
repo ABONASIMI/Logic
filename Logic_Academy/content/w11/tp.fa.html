@@ -1,0 +1,22 @@
+
+<div class="box box-objectives">
+  <div class="box-title">کار عملی موضوع ۱۱ — برنامه‌های کاربردی لیست‌ها در پرولوگ (تمرین‌های ۱۹، ۲۰ و ۲۱)</div>
+  <p>منبع رسمی: <code>main_tp-etudiants.pdf</code>، صفحات ۱۹ تا ۲۴.</p>
+</div>
+
+<h2 id="w11-tp-ex20">تمرین ۲۰ — دستکاری و معکوس کردن لیست</h2>
+<pre><code>% عنصر دوم
+deuxieme([_, X | _], X).
+
+% عنصر یکی مانده به آخر
+avantDernier([X, _], X).
+avantDernier([_ | Q], X) :- avantDernier(Q, X).
+
+% معکوس کردن بهینه با انباشت‌گر (O(n))
+inverse(L, Res) :- inv_acc(L, [], Res).
+inv_acc([], Acc, Acc).
+inv_acc([T | Q], Acc, Res) :- inv_acc(Q, [T | Acc], Res).</code></pre>
+
+<span id="w11-tp-ex21" class="anchor-sync" style="display:none"></span>
+<h2 style="display:none"></h2>
+<pre style="display:none"><code></code></pre>

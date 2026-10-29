@@ -1,0 +1,60 @@
+
+<div class="box box-objectives">
+  <div class="box-title">اهداف یادگیری — هفته ۱۰ (روش تفکیک، یکسان‌سازی رابینسون و پرولوگ)</div>
+  <ul>
+    <li>درک <strong>قاعده تفکیک (Resolution Principle)</strong> در منطق گزاره‌ای و اثبات با نقیض برای رسیدن به بند پوچ ({{ \Box }}).</li>
+    <li>تسلط بر <strong>الگوریتم یکسان‌سازی رابینسون (Robinson's MGU)</strong> با تبدیل گام‌به‌گام سیستم معادلات.</li>
+    <li>فهم عمیق بررسی رخداد (<strong>Occurs Check</strong>) و علت بروز حلقه‌های بی‌نهایت در صورت غفلت از آن.</li>
+    <li>اجرای تفکیک در منطق مرتبه اول LPPO همراه با تغییر نام متغیرهای هر بند (Standardizing apart).</li>
+    <li>آشنایی با برنامه‌نویسی منطقی با <strong>Prolog</strong>، بندهای هورن (Horn Clauses) و درخت‌های تفکیک <strong>SLD</strong>.</li>
+  </ul>
+</div>
+
+<h2 id="w10-c-resolution-prop">۱. قاعده تفکیک در منطق گزاره‌ای</h2>
+<div class="box box-definition">
+  <div class="box-title">تعریف ۱۰.۱ — قاعده تفکیک (Resolution)</div>
+  <p>فرض کنیم دو بند {{ C_1 = A \lor p }} و $C_2 = B \lor 
+eg p$ داشته باشیم. <strong>تفکیک‌یافته (Resolvent)</strong> این دو روی لیترال مکمل {{ p }} برابر است با:</p>
+  {{ \text{Res}(C_1, C_2) = A \lor B }}
+  <p>اگر {{ C_1 = p }} و $C_2 = 
+eg p$ باشد، تفکیک‌یافته یک <strong>بند پوچ یا خالی</strong> است که با {{ \Box }} نمایش داده می‌شود و ذاتاً ناسازگار (معادل {{ \bot }}) است.</p>
+</div>
+
+<div class="box box-pourquoi">
+  <div class="box-title">چرا اشتباه می‌کنم؟ — حذف همزمان دو حرف مکمل!</div>
+  <p><strong>هشدار مهم:</strong> اگر {{ C_1 = p \lor q }} و $C_2 = 
+eg p \lor 
+eg q{{  باشد، تفکیک روی  }}p{{  عبارت  }}q \lor 
+eg q \equiv \top$ را می‌دهد. <strong>اکیداً مجاز نیستید</strong> هر دو متغیر {{ p }} و {{ q }} را هم‌زمان حذف کنید و بنویسید {{ \Box }}! زیرا ارزش‌دهی {{ v(p)=1, v(q)=0 }} هر دو بند را صادق می‌کند، پس این دو بند به هیچ وجه ناسازگار نیستند!</p>
+</div>
+
+<h2 id="w10-c-unification-robinson">۲. الگوریتم یکسان‌سازی رابینسون (MGU)</h2>
+<div class="box box-definition">
+  <div class="box-title">تعریف ۱۰.۲ — جایگزینی یکسان‌ساز و MGU</div>
+  <p>دو ترم {{ t_1 }} و {{ t_2 }} یکسان‌پذیرند اگر جانشانی {{ \sigma }} وجود داشته باشد به طوری که {{ t_1\sigma = t_2\sigma }}. فراگیرترین یکسان‌ساز (mgu) جانشانی پایه‌ای است که هر جانشانی یکسان‌ساز دیگر، نمونه‌ای از آن باشد.</p>
+</div>
+
+<div class="box box-method">
+  <div class="box-title">قواعد سیستم معادلات الگوریتم رابینسون</div>
+  <ul>
+    <li><strong>حذف اتحاد (Delete):</strong> معادله تکراری {{ \{t \doteq t\} }} بدون اثر حذف می‌شود.</li>
+    <li><strong>تجزیه (Decomposition):</strong> {{ \{f(u_1, \dots, u_n) \doteq f(v_1, \dots, v_n)\} \implies \{u_1 \doteq v_1, \dots, u_n \doteq v_n\} }}.</li>
+    <li><strong>تضاد نماد (Clash):</strong> {{ \{f(\dots) \doteq g(\dots)\} \implies }} <strong>شکست قطعی</strong>.</li>
+    <li><strong>جهت‌دهی (Orient):</strong> تبدیل {{ \{t \doteq x\} }} به {{ \{x \doteq t\} }} در حالتی که {{ t }} متغیر نباشد.</li>
+    <li><strong>بررسی رخداد (Occurs Check):</strong> در {{ \{x \doteq t\} }}، اگر متغیر {{ x }} درون {{ t }} آمده باشد و $x 
+eq t$، بلافاصله <strong>شکست</strong> رخ می‌دهد! مثلاً معادله {{ x \doteq f(x) }} هیچ جواب محدودی ندارد. در غیر این صورت، در تمام معادلات دیگر به جای {{ x }} عبارت {{ t }} را قرار می‌دهیم.</li>
+  </ul>
+</div>
+
+<h2 id="w10-c-prolog-intro">۳. برنامه‌نویسی منطقی پرولوگ و بندهای هورن</h2>
+<div class="box box-definition">
+  <div class="box-title">تعریف ۱۰.۳ — بندهای هورن در پرولوگ</div>
+  <p>یک <strong>بند هورن (Horn Clause)</strong> حداکثر شامل یک لیترال مثبت است:</p>
+  <ul>
+    <li><strong>واقعیت (Fact):</strong> {{ P(t) \leftarrow }} (بدون لیترال منفی). در پرولوگ: <code>p(t).</code></li>
+    <li><strong>قاعده (Rule):</strong> {{ P(t) \leftarrow Q_1 \land \dots \land Q_n }}. در پرولوگ: <code>p(t) :- q1, ..., qn.</code></li>
+    <li><strong>پرسش یا هدف (Query/Goal):</strong> {{ \leftarrow Q_1 \land \dots \land Q_n }}. در پرولوگ: <code>?- q1, ..., qn.</code></li>
+  </ul>
+</div>
+
+<span style="display:none">{{ }}</span>

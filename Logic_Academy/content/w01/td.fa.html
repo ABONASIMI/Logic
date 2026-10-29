@@ -1,0 +1,485 @@
+<div class="lesson-header">
+  <div class="badge">دانشگاه سوربن — دوره کارشناسی علوم کامپیوتر (UL2IN007)</div>
+  <h1>تمرین‌های عملی فصل ۱: نحو، جدول‌های درستی و معماهای منطقی</h1>
+  <p class="lead">حل کامل، دقیق و خط‌به‌خط هر ۳ تمرین رسمی جزوه TD دانشگاه سوربن (سال تحصیلی ۲۰۲۶-۲۰۲۷)، همراه با تفکیک تمام زیرمسئله‌ها، رسم درخت‌های نحو انتزاعی، جدول‌های درستی کامل و تحلیل استدلال‌ها.</p>
+</div>
+
+<div class="toc-box">
+  <h3>فهرست مطالب تمرین‌ها</h3>
+  <ul>
+    <li><a href="#ex1">تمرین ۱ – درخت نحو انتزاعی و نمادگذاری پیشوندی</a></li>
+    <li><a href="#ex2">تمرین ۲ – استلزام و مدل‌سازی صوری زبان طبیعی</a></li>
+    <li><a href="#ex3">تمرین ۳ – جدول‌های درستی و معماهای منطقی</a></li>
+  </ul>
+</div>
+
+<h2 id="ex1">Exercice 1 – Arbre de syntaxe abstraite et notation préfixe</h2>
+
+<div class="box info">
+  <h4>زمینه مسئله و مهارت‌های مورد سنجش</h4>
+  <p>این تمرین تسلط بر ساختار درختی فرمول‌ها (AST)، تشخیص عملگر اصلی در فرمول‌های پیچیده، تبدیل به نمادگذاری پیشوندی (لهستانی لوکاسیویچ) و اجرای دقیق قواعد اولویت دانشگاه سوربن (کاهش اولویت و شرکت‌پذیری از راست) را مورد ارزیابی قرار می‌دهد.</p>
+</div>
+
+<!-- Question 1.1 -->
+<div class="q-card" id="q1_1">
+  <div class="q-header">
+    <span class="q-num">زیرمسئله ۱.۱</span>
+    <span class="q-title">درخت نحو انتزاعی و نمادگذاری پیشوندی {{ F_1 = 
+eg(p \land (q \Rightarrow ((q \lor r) \land q))) }}</span>
+  </div>
+  <div class="box def">
+    <h4>متن اصلی صورت مسئله</h4>
+    <p>برای فرمول زیر که در آن {{ p, q }} و {{ r }} نمادهای گزاره‌ای هستند:</p>
+    <ul>
+      <li>درخت نحو انتزاعی (AST) آن را رسم کنید.</li>
+      <li>فرمول را در نمادگذاری پیشوندی بنویسید.</li>
+    </ul>
+    <p style="text-align:center; font-weight:bold; font-size:1.1em;" dir="ltr">{{ F_1 = 
+eg(p \land (q \Rightarrow ((q \lor r) \land q))) }}</p>
+  </div>
+
+  <div class="box tip">
+    <h4>راهبرد و گام‌های تجزیه</h4>
+    <p>فرمول کاملاً پرانتزگذاری شده است. برای یافتن ریشه، قواعد استقرایی را از بیرون به درون دنبال می‌کنیم:</p>
+    <ol>
+      <li>بیرونی‌ترین عملگر نقیض {{ 
+eg }} است که بر کل پرانتز اثر می‌کند؛ بنابراین ریشه درخت {{ 
+eg }} است.</li>
+      <li>تنها فرزند آن عطف {{ \land }} میان اتم {{ p }} و زیرفرمول {{ (q \Rightarrow ((q \lor r) \land q)) }} است.</li>
+      <li>فرزند راست {{ \land }}، عملگر شرطی {{ \Rightarrow }} با فرزند چپ {{ q }} و فرزند راست عطف دوتایی {{ \land }} است.</li>
+      <li>این عطف اخیر دارای فرزند چپ فصل {{ (q \lor r) }} و فرزند راست برگ اتمی {{ q }} است.</li>
+    </ol>
+  </div>
+
+  <div class="w-ast" data-formula="~(p & (q => ((q | r) & q)))"></div>
+
+  <details class="sol" open>
+    <summary>پاسخ تشریحی و نمادگذاری پیشوندی</summary>
+    <div class="box method">
+      <h4>پیمایش پیشوندی (ریشه &larr; زیردرخت چپ &larr; زیردرخت راست)</h4>
+      <p>الگوریتم پیمایش پیشوندی را به روش بازگشتی پیاده می‌کنیم:</p>
+      <ul>
+        <li>سطح ۱: عملگر <code>&not;</code> به همراه پیمایش زیردرخت آن.</li>
+        <li>سطح ۲: عملگر <code>&and;</code> به همراه برگ <code>p</code> و سپس زیردرخت راست.</li>
+        <li>سطح ۳: عملگر <code>&rArr;</code> به همراه برگ <code>q</code> و زیردرخت راست.</li>
+        <li>سطح ۴: عملگر <code>&and;</code> به همراه زیردرخت چپ و برگ <code>q</code>.</li>
+        <li>سطح ۵: عملگر <code>&or;</code> به همراه برگ‌های <code>q</code> و <code>r</code>.</li>
+      </ul>
+      <p>با کنار هم قرار دادن تمام نمادها بدون نیاز به حتی یک پرانتز، فرمول پیشوندی نهایی برابر است با:</p>
+      <pre><code>¬ ∧ p ⇒ q ∧ ∨ q r q</code></pre>
+      <p><strong>بررسی درستی:</strong> ۴ عملگر دوتایی + ۱ عملگر یکتایی = ۵ عملگر. تعداد برگ‌ها ۵ تاست (p, q, q, r, q). رشته پیشوندی حاصل دقیقاً دارای ۱۰ نماد معتبر است.</p>
+    </div>
+  </details>
+</div>
+
+<!-- Question 1.2 -->
+<div class="q-card" id="q1_2">
+  <div class="q-header">
+    <span class="q-num">زیرمسئله ۱.۲</span>
+    <span class="q-title">درخت نحو انتزاعی و نمادگذاری پیشوندی {{ F_2 = 
+eg p \land q \Rightarrow q \lor r \land q }}</span>
+  </div>
+  <div class="box def">
+    <h4>متن اصلی صورت مسئله</h4>
+    <p>برای فرمول {{ F_2 = 
+eg p \land q \Rightarrow q \lor r \land q }} :</p>
+    <ul>
+      <li>درخت نحو انتزاعی آن را رسم کنید.</li>
+      <li>فرمول را در نمادگذاری پیشوندی بنویسید.</li>
+    </ul>
+  </div>
+
+  <div class="box warn">
+    <h4>بازسازی پرانتزهای ناپیدا طبق قواعد رسمی سوربن</h4>
+    <p>فرمول {{ F_2 }} فاقد پرانتز است. قاعده اولویت {{ 
+eg > \land > \lor > \Rightarrow }} را اعمال می‌کنیم:</p>
+    <ol>
+      <li>نقیض {{ 
+eg }} بالاترین اولویت را دارد: {{ (
+eg p) }}.</li>
+      <li>عطف {{ \land }} بر فصل {{ \lor }} و استلزام {{ \Rightarrow }} اولویت دارد:
+        <ul>
+          <li>در سمت چپ: {{ ((
+eg p) \land q) }}.</li>
+          <li>در سمت راست: {{ (r \land q) }}.</li>
+        </ul>
+      </li>
+      <li>فصل {{ \lor }} بر استلزام {{ \Rightarrow }} اولویت دارد: سمت راست تبدیل می‌شود به {{ (q \lor (r \land q)) }}.</li>
+      <li>ضعیف‌ترین عملگر، استلزام میانی {{ \Rightarrow }} است که بنابراین <strong>عملگر اصلی و ریشه نهایی درخت</strong> خواهد بود!</li>
+    </ol>
+    <p>شکل کاملاً پرانتزگذاری‌شده: {{ ((
+eg p) \land q) \Rightarrow (q \lor (r \land q)) }}.</p>
+  </div>
+
+  <div class="w-ast" data-formula="(~p & q) => (q | (r & q))"></div>
+
+  <details class="sol" open>
+    <summary>پاسخ تشریحی و نمادگذاری پیشوندی</summary>
+    <div class="box method">
+      <h4>نمادگذاری پیشوندی فرمول {{ F_2 }}</h4>
+      <p>ریشه درخت {{ \Rightarrow }} است:</p>
+      <ul>
+        <li>زیردرخت چپ: <code>&and; &not; p q</code></li>
+        <li>زیردرخت راست: <code>&or; q &and; r q</code></li>
+      </ul>
+      <p>نتیجه نهایی در نمادگذاری پیشوندی:</p>
+      <pre><code>⇒ ∧ ¬ p q ∨ q ∧ r q</code></pre>
+    </div>
+  </details>
+</div>
+
+<!-- Question 2.1 -->
+<div class="q-card" id="q2_1">
+  <div class="q-header">
+    <span class="q-num">زیرمسئله ۲.۱</span>
+    <span class="q-title">پرانتزگذاری دقیق فرمول {{ F_3 = p \land q \land r \land s }}</span>
+  </div>
+  <div class="box def">
+    <h4>متن اصلی صورت مسئله</h4>
+    <p>فرمول زیر را با رعایت دقیق اولویت عملگرها پرانتزگذاری کنید:</p>
+    <p style="text-align:center; font-weight:bold; font-size:1.1em;" dir="ltr">{{ F_3 = p \land q \land r \land s }}</p>
+  </div>
+
+  <details class="sol" open>
+    <summary>پاسخ تشریحی و توجیه طبق ضوابط دانشگاه سوربن</summary>
+    <div class="box method">
+      <h4>قاعده شرکت‌پذیری از راست (اسلاید ۱۱ درس ۱)</h4>
+      <p>همه عملگرها یکسان ({{ \land }}) هستند و بنابراین اولویت برابری دارند. قاعده رسمی درس سوربن صراحتاً اعلام می‌کند:</p>
+      <p><em>«در صورت اولویت برابر: زیرفرمول سمت راست همیشه اولویت دارد.»</em></p>
+      <p>مراحل پرانتزگذاری گام‌به‌گام از راست به چپ:</p>
+      <ol>
+        <li>دسته‌بندی دو اتم انتهایی راست: {{ (r \land s) }}.</li>
+        <li>دسته‌بندی با اتم ماقبل: {{ (q \land (r \land s)) }}.</li>
+        <li>دسته‌بندی نهایی با اتم نخست {{ p }}: {{ (p \land (q \land (r \land s))) }}.</li>
+      </ol>
+      <p><strong>پاسخ نهایی مورد قبول در برگه امتحان:</strong></p>
+      <p style="text-align:center; font-weight:bold; font-size:1.15em;" dir="ltr">{{ (p \land (q \land (r \land s))) }}</p>
+      <p><strong>اشتباه رایج و مرگبار در آزمون:</strong> نوشتن <code>(((p &and; q) &and; r) &and; s)</code>. هرچند از نظر معنایی عطف در جبر بولی شرکت‌پذیر است، اما از دیدگاه <em>نحوی</em> در درس سوربن، درخت متناظر با پرانتزگذاری از چپ کاملاً غلط محسوب می‌شود!</p>
+    </div>
+  </details>
+</div>
+
+<!-- Question 2.2 -->
+<div class="q-card" id="q2_2">
+  <div class="q-header">
+    <span class="q-num">زیرمسئله ۲.۲</span>
+    <span class="q-title">پرانتزگذاری دقیق فرمول {{ F_4 = p \Rightarrow q \land 
+eg r \Rightarrow p \lor q }}</span>
+  </div>
+  <div class="box def">
+    <h4>متن اصلی صورت مسئله</h4>
+    <p>فرمول زیر را با رعایت دقیق اولویت عملگرها پرانتزگذاری کنید:</p>
+    <p style="text-align:center; font-weight:bold; font-size:1.1em;" dir="ltr">{{ F_4 = p \Rightarrow q \land 
+eg r \Rightarrow p \lor q }}</p>
+  </div>
+
+  <details class="sol" open>
+    <summary>پاسخ تشریحی گام‌به‌گام</summary>
+    <div class="box method">
+      <h4>اعمال دقیق سلسله‌مراتب {{ 
+eg > \land > \lor > \Rightarrow }}</h4>
+      <ol>
+        <li><strong>گام ۱ ({{ 
+eg }}):</strong> نقیض بر اتم {{ r }} اثر دارد: <code>(&not; r)</code>.</li>
+        <li><strong>گام ۲ ({{ \land }}):</strong> عطف <code>q &and; (&not; r)</code> اتصال می‌یابد: <code>(q &and; (&not; r))</code>.</li>
+        <li><strong>گام ۳ ({{ \lor }}):</strong> فصل <code>p &or; q</code> پرانتز می‌گیرد: <code>(p &or; q)</code>.</li>
+        <li>دو عملگر شرطی باقی می‌ماند: <code>p &rArr; (q &and; (&not; r)) &rArr; (p &or; q)</code>.</li>
+        <li><strong>گام ۴ (شرکت‌پذیری از راست عملگر {{ \Rightarrow }}):</strong> برای زنجیره شرطی، زیرفرمول سمت <em>راست</em> در اولویت قرار دارد!
+          <br/>ابتدا بخش راست پرانتز می‌گیرد: <code>((q &and; (&not; r)) &rArr; (p &or; q))</code>.
+          <br/>سپس کل عبارت با گزاره <code>p</code> شرطی می‌شود:
+        </li>
+      </ol>
+      <p><strong>پاسخ نهایی تشریحی برای آزمون:</strong></p>
+      <p style="text-align:center; font-weight:bold; font-size:1.15em;" dir="ltr">{{ (p \Rightarrow ((q \land (
+eg r)) \Rightarrow (p \lor q))) }}</p>
+    </div>
+  </details>
+</div>
+
+<h2 id="ex2">Exercice 2 – Implication et formalisation du langage naturel</h2>
+
+<div class="box info">
+  <h4>مقدمه و داده‌های مسئله</h4>
+  <p>گزاره‌های اتمی زیر را در نظر بگیرید:</p>
+  <ul>
+    <li>{{ p_1 }}: «هوا خوب است»</li>
+    <li>{{ p_2 }}: «من پیاده‌روی می‌کنم»</li>
+  </ul>
+  <p>وضعیت واقعی مورد بررسی این است که <strong>هوا خوب نیست ولی من پیاده‌روی می‌کنم</strong>، که نشان‌دهنده تعبیر صوری زیر است:</p>
+  <p style="text-align:center; font-weight:bold; font-size:1.1em;" dir="ltr">{{ I(p_1) = 0 \quad 	ext{et} \quad I(p_2) = 1 }}</p>
+</div>
+
+<!-- Question 2.1 & 2.2 combinées pour clarté -->
+<div class="q-card" id="q_imp">
+  <div class="q-header">
+    <span class="q-num">سوالات ۱ و ۲</span>
+    <span class="q-title">ترجمه صوری و ارزیابی درستی هر ۶ عبارت</span>
+  </div>
+
+  <details class="sol" open>
+    <summary>تحلیل جامع هر ۶ عبارت زبانی تحت تعبیر {{ I(p_1)=0, I(p_2)=1 }}</summary>
+    <div class="box method">
+      <table class="logic-table" style="width:100%;">
+        <thead>
+          <tr>
+            <th>شماره</th>
+            <th>عبارت در زبان طبیعی</th>
+            <th>فرمول منطقی صوری</th>
+            <th>محاسبه {{ [F]^I }} تحت {{ I(p_1)=0, I(p_2)=1 }}</th>
+            <th>وضعیت درستی</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>۱</strong></td>
+            <td>«اگر هوا خوب باشد، پیاده‌روی می‌کنم»</td>
+            <td>{{ p_1 \Rightarrow p_2 }}</td>
+            <td>{{ 0 \Rightarrow 1 = 1 }}</td>
+            <td><span class="badge" style="background:#2ecc71; color:#fff;">صادق است (درست)</span></td>
+          </tr>
+          <tr>
+            <td><strong>۲</strong></td>
+            <td>«برای پیاده‌روی من، لازم است که هوا خوب باشد»</td>
+            <td>{{ p_2 \Rightarrow p_1 }}</td>
+            <td>{{ 1 \Rightarrow 0 = 0 }}</td>
+            <td><span class="badge" style="background:#e74c3c; color:#fff;">کاذب است (نادرست)</span></td>
+          </tr>
+          <tr>
+            <td><strong>۳</strong></td>
+            <td>«من پیاده‌روی نمی‌کنم مگر آن‌که هوا خوب باشد»</td>
+            <td>{{ p_2 \Rightarrow p_1 }}</td>
+            <td>{{ 1 \Rightarrow 0 = 0 }}</td>
+            <td><span class="badge" style="background:#e74c3c; color:#fff;">کاذب است (نادرست)</span></td>
+          </tr>
+          <tr>
+            <td><strong>۴</strong></td>
+            <td>«به محض این‌که هوا خوب شود، پیاده‌روی می‌کنم»</td>
+            <td>{{ p_1 \Rightarrow p_2 }}</td>
+            <td>{{ 0 \Rightarrow 1 = 1 }}</td>
+            <td><span class="badge" style="background:#2ecc71; color:#fff;">صادق است (درست)</span></td>
+          </tr>
+          <tr>
+            <td><strong>۵</strong></td>
+            <td>«من پیاده‌روی می‌کنم تنها در صورتی که هوا خوب باشد»</td>
+            <td>{{ p_2 \Rightarrow p_1 }}</td>
+            <td>{{ 1 \Rightarrow 0 = 0 }}</td>
+            <td><span class="badge" style="background:#e74c3c; color:#fff;">کاذب است (نادرست)</span></td>
+          </tr>
+          <tr>
+            <td><strong>۶</strong></td>
+            <td>«برای پیاده‌روی من، کافی است که هوا خوب باشد»</td>
+            <td>{{ p_1 \Rightarrow p_2 }}</td>
+            <td>{{ 0 \Rightarrow 1 = 1 }}</td>
+            <td><span class="badge" style="background:#2ecc71; color:#fff;">صادق است (درست)</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 style="margin-top:15px;">جمع‌بندی نظری فوق‌العاده مهم برای امتحانات</h4>
+      <ul>
+        <li><strong>شرط کافی («کافی است»، «اگر»، «به محض»):</strong> خوب بودن هوا برای پیاده‌روی کفایت می‌کند &larr; {{ p_1 \Rightarrow p_2 }}. از آنجا که {{ p_1 }} نادرست است ({{ 0 }})، گزاره شرطی طبق اصل انفجار به طور خودکار <em>درست</em> است! بنابراین گزاره‌های ۱، ۴ و ۶ صادق‌اند.</li>
+        <li><strong>شرط لازم («لازم است»، «تنها اگر»، «مگر این‌که»):</strong> خوب بودن هوا پیش‌نیاز اجباری پیاده‌روی است &larr; {{ p_2 \Rightarrow p_1 }}. اما من پیاده‌روی می‌کنم ({{ p_2=1 }}) در حالی که هوا خوب نیست ({{ p_1=0 }}). ارزش {{ 1 \Rightarrow 0 }} برابر با <em>نادرست</em> است؛ بنابراین جملات ۲، ۳ و ۵ کاذب هستند.</li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+<h2 id="ex3">Exercice 3 – Tables de vérité et énigmes logiques</h2>
+
+<!-- Question 3.1 -->
+<div class="q-card" id="q3_1">
+  <div class="q-header">
+    <span class="q-num">سوال ۱</span>
+    <span class="q-title">جدول درستی فرمول {{ F = (p \land q) \land ((q \Rightarrow p) \lor 
+eg(p \lor q)) }}</span>
+  </div>
+  <div class="box def">
+    <h4>متن اصلی صورت مسئله</h4>
+    <p>برای فرمول {{ F = (p \land q) \land ((q \Rightarrow p) \lor 
+eg(p \lor q)) }} که در آن {{ p }} و {{ q }} گزاره هستند، جدول درستی کامل {{ F }} را محاسبه کنید.</p>
+  </div>
+
+  <div class="w-tt" data-formula="(p & q) & ((q => p) | ~(p | q))"></div>
+
+  <details class="sol" open>
+    <summary>محاسبه سطر به سطر با تمامی ستون‌های میانی</summary>
+    <div class="box method">
+      <p>فرمول دارای {{ 2 }} متغیر است، بنابراین شامل {{ 2^2 = 4 }} سطر تعبیر ممکن است:</p>
+      <table class="logic-table" style="width:100%;">
+        <thead>
+          <tr>
+            <th>{{ p }}</th>
+            <th>{{ q }}</th>
+            <th>{{ p \land q }}</th>
+            <th>{{ q \Rightarrow p }}</th>
+            <th>{{ p \lor q }}</th>
+            <th>{{ 
+eg(p \lor q) }}</th>
+            <th>{{ (q \Rightarrow p) \lor 
+eg(p \lor q) }}</th>
+            <th>{{ F }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td><strong>0</strong></td></tr>
+          <tr><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+          <tr><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td><strong>0</strong></td></tr>
+          <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td><strong>1</strong></td></tr>
+        </tbody>
+      </table>
+      <p><strong>نتیجه‌گیری معنایی:</strong> فرمول {{ F }} تنها و تنها در تعبیر {{ I(p)=1, I(q)=1 }} درست است. بنابراین این فرمول <strong>صدق‌پذیر (Satisfiable)</strong> است، اما <strong>معتبر (توتولوژی) نیست</strong>.</p>
+    </div>
+  </details>
+</div>
+
+<!-- Question 3.2 -->
+<div class="q-card" id="q3_2">
+  <div class="q-header">
+    <span class="q-num">سوال ۲</span>
+    <span class="q-title">معمای بازجویی جنایی: آنا و ژولی</span>
+  </div>
+  <div class="box def">
+    <h4>متن اصلی صورت مسئله</h4>
+    <p>آنا و ژولی درباره یک پرونده قتل مورد بازجویی قرار گرفته و این ادعاها را مطرح می‌کنند:</p>
+    <ul>
+      <li><strong>آنا:</strong> «ژولی گناهکار است.»</li>
+      <li><strong>ژولی:</strong> «اگر من گناهکار باشم، آنگاه آنا هم گناهکار است.»</li>
+    </ul>
+    <p>گزاره‌ها: {{ A }}: «آنا گناهکار است»، {{ J }}: «ژولی گناهکار است».</p>
+    <ol>
+      <li>فرمول {{ F_1 }} (ادعای آنا) و {{ F_2 }} (ادعای ژولی) را بنویسید.</li>
+      <li>فرض کنید {{ F_3 = F_1 \lor F_2 }} باشد: (الف) جدول درستی آن را حساب کنید، (ب) چه نتیجه‌ای می‌گیرید؟</li>
+      <li>فرض کنید {{ F_4 = F_1 \land F_2 }} باشد: (الف) جدول درستی آن را حساب کنید، (ب) چه نتیجه‌ای می‌گیرید؟</li>
+    </ol>
+  </div>
+
+  <details class="sol" open>
+    <summary>پاسخ گام‌به‌گام و تحلیل‌های رسمی</summary>
+    <div class="box method">
+      <h4>۱. فرمول‌بندی صوری</h4>
+      <ul>
+        <li>ادعای آنا: {{ F_1 = J }}</li>
+        <li>ادعای ژولی: {{ F_2 = J \Rightarrow A }}</li>
+      </ul>
+
+      <h4>۲. بررسی فصل ادعاها: {{ F_3 = F_1 \lor F_2 = J \lor (J \Rightarrow A) }}</h4>
+      <table class="logic-table" style="width:100%;">
+        <thead>
+          <tr>
+            <th>{{ A }}</th>
+            <th>{{ J }}</th>
+            <th>{{ F_1 = J }}</th>
+            <th>{{ F_2 = J \Rightarrow A }}</th>
+            <th>{{ F_3 = F_1 \lor F_2 }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>0</td><td>0</td><td>0</td><td>1</td><td><strong>1</strong></td></tr>
+          <tr><td>0</td><td>1</td><td>1</td><td>0</td><td><strong>1</strong></td></tr>
+          <tr><td>1</td><td>0</td><td>0</td><td>1</td><td><strong>1</strong></td></tr>
+          <tr><td>1</td><td>1</td><td>1</td><td>1</td><td><strong>1</strong></td></tr>
+        </tbody>
+      </table>
+      <p><strong>نتیجه‌گیری برای {{ F_3 }} :</strong> فرمول {{ F_3 }} یک <strong>توتولوژی (فرمول همواره معتبر)</strong> است، زیرا در تمامی سطرها مقدار ۱ دارد. بنابراین نتیجه می‌گیریم که با اطمینان مطلق <strong>حداقل یکی از این دو نفر همیشه راست می‌گوید</strong>، فارغ از این‌که حقیقت جنایت چه باشد!</p>
+
+      <h4>۳. بررسی عطف ادعاها: {{ F_4 = F_1 \land F_2 = J \land (J \Rightarrow A) }}</h4>
+      <table class="logic-table" style="width:100%;">
+        <thead>
+          <tr>
+            <th>{{ A }}</th>
+            <th>{{ J }}</th>
+            <th>{{ F_1 = J }}</th>
+            <th>{{ F_2 = J \Rightarrow A }}</th>
+            <th>{{ F_4 = F_1 \land F_2 }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>0</td><td>0</td><td>0</td><td>1</td><td><strong>0</strong></td></tr>
+          <tr><td>0</td><td>1</td><td>1</td><td>0</td><td><strong>0</strong></td></tr>
+          <tr><td>1</td><td>0</td><td>0</td><td>1</td><td><strong>0</strong></td></tr>
+          <tr><td>1</td><td>1</td><td>1</td><td>1</td><td><strong>1</strong></td></tr>
+        </tbody>
+      </table>
+      <p><strong>نتیجه‌گیری برای {{ F_4 }} :</strong> فرمول {{ F_4 }} تنها و تنها یک مدل دارد: {{ A=1, J=1 }}. در نتیجه، <strong>اگر هر دو نفر راست بگویند، الزاماً آنا و ژولی هر دو گناهکار هستند</strong>.</p>
+    </div>
+  </details>
+</div>
+
+<!-- Question 3.3 -->
+<div class="q-card" id="q3_3">
+  <div class="q-header">
+    <span class="q-num">سوال ۳</span>
+    <span class="q-title">معمای امتحان منطق: انیسا، خاویر و جنیفر</span>
+  </div>
+  <div class="box def">
+    <h4>متن اصلی صورت مسئله</h4>
+    <p>انیسا، خاویر و جنیفر قرار است در امتحان منطق شرکت کنند. می‌دانیم که:</p>
+    <ul>
+      <li>{{ H_1 }} : حداقل یکی از این سه نفر برای امتحان درس می‌خواند.</li>
+      <li>{{ H_2 }} : اگر انیسا درس نخواند، آنگاه خاویر هم درس نخواهد خواند.</li>
+      <li>{{ H_3 }} : اگر انیسا درس بخواند، آنگاه جنیفر هم درس خواهد خواند.</li>
+    </ul>
+    <p>گزاره‌ها: {{ A }}: «انیسا درس می‌خواند»، {{ X }}: «خاویر درس می‌خواند»، {{ J }}: «جنیفر درس می‌خواند».</p>
+    <ol>
+      <li>این سه فرض را فرمول‌بندی کنید.</li>
+      <li>آیا می‌توان مشخص کرد چه کسی قطعاً درس می‌خواند و چه کسی درس نمی‌خواند؟</li>
+    </ol>
+  </div>
+
+  <details class="sol" open>
+    <summary>حل دقیق معناشناسی و تحلیل کامل مدل‌ها</summary>
+    <div class="box method">
+      <h4>۱. فرمول‌بندی ریاضی صوری</h4>
+      <ul>
+        <li>{{ H_1 : A \lor X \lor J }} (حداقل یکی از سه نفر)</li>
+        <li>{{ H_2 : 
+eg A \Rightarrow 
+eg X }} (که با عکس نقیض دقیقاً معادل است با {{ X \Rightarrow A }})</li>
+        <li>{{ H_3 : A \Rightarrow J }}</li>
+      </ul>
+
+      <h4>۲. جستجوی مدل‌های نظریه {{ \mathcal{T} = \{H_1, H_2, H_3\} }}</h4>
+      <p>جدول درستی هر سه فرض را در تمام {{ 2^3 = 8 }} تعبیر ممکن تشکیل می‌دهیم:</p>
+      <table class="logic-table" style="width:100%;">
+        <thead>
+          <tr>
+            <th>{{ A }}</th>
+            <th>{{ X }}</th>
+            <th>{{ J }}</th>
+            <th>{{ H_1 }}</th>
+            <th>{{ H_2 : 
+eg A \Rightarrow 
+eg X }}</th>
+            <th>{{ H_3 : A \Rightarrow J }}</th>
+            <th>{{ H_1 \land H_2 \land H_3 }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+          <tr><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td><strong style="color:#27ae60;">1 (مدل I1)</strong></td></tr>
+          <tr><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+          <tr><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+          <tr><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+          <tr><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td><strong style="color:#27ae60;">1 (مدل I2)</strong></td></tr>
+          <tr><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+          <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td><strong style="color:#27ae60;">1 (مدل I3)</strong></td></tr>
+        </tbody>
+      </table>
+
+      <h4>۳. استنتاج‌های قطعی منطقی</h4>
+      <p>دقیقاً ۳ تعبیر وجود دارند که هر سه فرض را به طور هم‌زمان ارضا می‌کنند:</p>
+      <ul>
+        <li>{{ I_1 = \{A=0, X=0, J=1\} }}</li>
+        <li>{{ I_2 = \{A=1, X=0, J=1\} }}</li>
+        <li>{{ I_3 = \{A=1, X=1, J=1\} }}</li>
+      </ul>
+      <p><strong>نتیجه‌گیری دانشگاهی نهایی:</strong></p>
+      <ul>
+        <li>در هر ۳ مدل بدون استثنا مقدار {{ J = 1 }} است. <strong>بنابراین با قطعیت ۱۰۰٪ می‌توان گفت که جنیفر قطعاً درس خواهد خواند</strong> ({{ \mathcal{T} \models J }}).</li>
+        <li>درباره انیسا: در دو مدل {{ I_2 }} و {{ I_3 }} مقدارش ۱ است ({{ A=1 }})، اما در مدل {{ I_1 }} درس نمی‌خواند ({{ A=0 }}). <strong>بنابراین بدون اطلاعات بیشتر، نمی‌توان با قطعیت گفت که انیسا درس می‌خواند یا خیر.</strong></li>
+        <li>درباره خاویر: در مدل {{ I_3 }} مقدارش ۱ است ({{ X=1 }})، ولی در دو مدل {{ I_1 }} و {{ I_2 }} درس نمی‌خواند ({{ X=0 }}). <strong>بنابراین بدون اطلاعات بیشتر، نمی‌توان با قطعیت گفت که خاویر درس می‌خواند یا خیر.</strong></li>
+        <li>تنها می‌توان افزود: اگر خاویر درس بخواند، الزاماً انیسا نیز درس می‌خواند (مطابق مدل {{ I_3 }}).</li>
+      </ul>
+    </div>
+  </details>
+</div>

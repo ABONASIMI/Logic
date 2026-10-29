@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chapitre 3 — Induction (Récurrence) sur ℕ — Cours complet + exercices guidés</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root {
+      --blue: #1565c0;
+      --light: #e3f2fd;
+      --yellow: #fff9c4;
+      --green: #e8f5e9;
+      --warn: #ffebee;
+      --violet: #ede7f6;
+      --rose: #fce4ec;
+      --radius: 12px;
+    }
+    body {
+      margin: 0;
+      background: #fafafa;
+      font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+      line-height: 1.6;
+      color: #212121;
+      padding: 20px 16px 90px 16px;
+      max-width: 1220px;
+      margin-inline: auto;
+    }
+    h1, h2, h3, h4 {
+      color: var(--blue);
+      margin-top: 0;
+    }
+    h1 { text-align: center; margin-bottom: 12px; }
+    h2 { border-bottom: 2px solid rgba(21,101,192,.12); padding-bottom: 4px; margin-top: 32px; }
+    h3 { margin-top: 24px; }
+    p { margin-top: 0; }
+    .toc {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.04);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      box-shadow: 0 1px 2px rgba(0,0,0,.03);
+      margin-bottom: 30px;
+    }
+    .toc ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .box {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin: 16px 0;
+      box-shadow: 0 1px 1px rgba(0,0,0,.02);
+      border-left: 6px solid transparent;
+    }
+    .def { background: var(--light); border-left-color: #1565c0; }
+    .idea { background: var(--yellow); border-left-color: #fdd835; }
+    .exo { background: var(--violet); border-left-color: #7e57c2; }
+    .sol { background: var(--green); border-left-color: #1b5e20; }
+    .warn { background: var(--warn); border-left-color: #c62828; }
+    .ex { background: var(--rose); border-left-color: #f06292; }
+    .step {
+      background: rgba(227,242,253,.45);
+      border-left: 4px solid #1565c0;
+      padding: 6px 10px;
+      border-radius: 6px;
+      margin: 6px 0;
+    }
+    code, pre {
+      font-family: ui-monospace, SFMono-Regular, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    pre {
+      background: #263238;
+      color: #eceff1;
+      border-radius: 10px;
+      padding: 10px 14px;
+      overflow-x: auto;
+      font-size: .9rem;
+    }
+    .lvl {
+      display: inline-block;
+      padding: 2px 11px;
+      border-radius: 999px;
+      font-size: .65rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-left: 4px;
+      font-weight: 600;
+    }
+    .easy { background: #c8e6c9; color: #1b5e20; }
+    .med  { background: #fff9c4; color: #6d4c41; }
+    .hard { background: #ffcdd2; color: #b71c1c; }
+    .two-cols {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(310px,1fr));
+      gap: 14px;
+    }
+    blockquote {
+      background: #fff;
+      border-left: 4px solid #1565c0;
+      margin: 14px 0;
+      padding: 8px 14px;
+      border-radius: 4px;
+    }
+    @media (max-width: 720px) {
+      body { padding-inline: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Chapitre 3 — Induction (récurrence) sur ℕ</h1>
+  <p>
+    Document pensé pour un <strong>étudiant de 1<sup>re</sup> année / L1 info</strong> qui découvre la récurrence,
+    et qui doit faire les <strong>TD comme le tien</strong> (montrer que 9 divise 10ⁿ−1, prouver des formules de somme,
+    faire des inégalités, parfois Fibonacci).
+  </p>
+
+  <div class="toc">
+    <strong>Plan du document</strong>
+    <ul>
+      <li><a href="#why">0. Pourquoi la récurrence ? (idée intuitive)</a></li>
+      <li><a href="#principe">1. Principe de récurrence (forme de base)</a></li>
+      <li><a href="#recette">2. Recette à suivre à chaque exo (ce que le prof veut voir)</a></li>
+      <li><a href="#types">3. Les différents types de preuves par récurrence</a>
+        <ul>
+          <li><a href="#type1">3.1 Récurrence simple</a></li>
+          <li><a href="#type2">3.2 Récurrence forte (des livres Rosen / Grimaldi)</a></li>
+          <li><a href="#type3">3.3 Récurrence à deux pas / ordre 2</a></li>
+          <li><a href="#type4">3.4 Méthode du plus petit contre-exemple</a></li>
+        </ul>
+      </li>
+      <li><a href="#models">4. Modèles d’exercices (comme dans ton TD)</a>
+        <ul>
+          <li><a href="#sommes">4.1 Sommes (arithmétiques, géométriques)</a></li>
+          <li><a href="#ineg">4.2 Inégalités</a></li>
+          <li><a href="#div">4.3 Divisibilité (9 | (10ⁿ − 1), 3 | (2ⁿ − 1), etc.)</a></li>
+          <li><a href="#binom">4.4 Formules binomiales</a></li>
+          <li><a href="#fibo">4.5 Suites de type Fibonacci</a></li>
+        </ul>
+      </li>
+      <li><a href="#erreurs">5. Erreurs classiques (ce qui fait perdre les points)</a></li>
+      <li><a href="#books">6. Ce que disent les autres livres</a></li>
+      <li><a href="#struct">7. Lien rapide avec Ch4 (induction structurelle)</a></li>
+    </ul>
+  </div>
+
+  <!-- ======================================== -->
+  <h2 id="why">0. Pourquoi la récurrence ?</h2>
+  <div class="box def">
+    <p>
+      La récurrence sert à <strong>montrer une phrase qui parle de tous les entiers</strong> :
+      « pour tout n ≥ 0, … ».  
+      Tu ne peux pas vérifier un par un (il y en a une infinité) → donc tu fais une preuve
+      <strong>finie</strong> qui prouve quand même <strong>infini</strong>.
+    </p>
+  </div>
+
+  <div class="box idea">
+    <p>
+      Image classique qu’on trouve dans plusieurs cours : il y a une rangée infinie de dominos.
+      Si :
+    </p>
+    <ol>
+      <li>le 1er domino tombe ;</li>
+      <li>et si chaque domino fait tomber le suivant ;</li>
+    </ol>
+    <p>
+      alors <strong>tous</strong> tomberont.
+    </p>
+    <p>
+      Récurrence = ça.
+    </p>
+  </div>
+
+  <!-- ======================================== -->
+  <h2 id="principe">1. Principe de récurrence (forme de base)</h2>
+  <div class="box def">
+    <p><strong>Énoncé (forme math info / Sorbonne) :</strong></p>
+    <p>
+      Soit P(n) une propriété dépendant d’un entier n.  
+      Si
+    </p>
+    <ul>
+      <li>(Initialisation) P(n₀) est vraie ;</li>
+      <li>(Hérédité) pour tout n ≥ n₀, P(n) ⇒ P(n+1) ;</li>
+    </ul>
+    <p>
+      alors P(n) est vraie pour tout n ≥ n₀.
+    </p>
+  </div>
+
+  <div class="warn">
+    <p><strong>Important :</strong> on ne « prouve » pas vraiment le principe en L1, on l’admet. Dans certains livres (genre Rosen), on le déduit du <em>principe du bon ordre</em> : « tout sous-ensemble non vide de ℕ a un plus petit élément ».</p>
+  </div>
+
+  <!-- ======================================== -->
+  <h2 id="recette">2. Recette à suivre à chaque exo</h2>
+  <div class="box">
+    <p>
+      Quand le prof corrige, il veut lire plus ou moins ce squelette (dans TON TD aussi).
+      Donc écris dans cet ordre :
+    </p>
+    <ol>
+      <li><strong>1. Définition de P(n)</strong> : « Pour n ≥ …, on note P(n) : … »</li>
+      <li><strong>2. Initialisation</strong> : « Pour n = …, P(n) est vraie car … »</li>
+      <li><strong>3. Étape d’hérédité</strong> :
+        <ul>
+          <li>« Soit n ≥ … tel que P(n) est vraie » (hypothèse de récurrence) ;</li>
+          <li>« Montrons P(n+1) » (c’est l’objectif) ;</li>
+          <li>On part du membre gauche et on transforme jusqu’au membre droit, en utilisant l’hypothèse.</li>
+        </ul>
+      </li>
+      <li><strong>4. Conclusion</strong> : « Donc, par récurrence, P(n) est vraie pour tout n ≥ … »</li>
+    </ol>
+  </div>
+
+  <div class="warn">
+    <p><strong>Ne jamais</strong> écrire seulement : « par récurrence c’est vrai », sans avoir écrit les deux étapes.</p>
+  </div>
+
+  <!-- ======================================== -->
+  <h2 id="types">3. Les différents types de preuves par récurrence</h2>
+
+  <h3 id="type1">3.1 Récurrence simple</h3>
+  <p>C’est celle que j’ai déjà écrite. On suppose <strong>seulement</strong> P(n) pour démontrer P(n+1).</p>
+
+  <h3 id="type2">3.2 Récurrence forte (vue dans les livres)</h3>
+  <div class="box def">
+    <p>
+      Dans <em>Discrete Mathematics and its Applications</em> (Rosen), on la note souvent « strong induction ».
+      L’idée : pour prouver P(n+1), tu as le droit d’utiliser P(n), P(n−1), …, P(0).
+    </p>
+  </div>
+  <p>On l’utilise dès qu’un objet est défini « en se cassant en morceaux » (facteurs premiers, algos récursifs…)</p>
+
+  <h3 id="type3">3.3 Récurrence à deux pas</h3>
+  <p>Ex : suites de récurrence ordre 2 (Fibonacci). Tu dois prouver P(n) en utilisant P(n−1) et P(n−2).</p>
+
+  <h3 id="type4">3.4 Plus petit contre-exemple</h3>
+  <div class="box idea">
+    <p>
+      C’est une façon « à l’envers » d’appliquer la récurrence qu’on retrouve dans certains sujets.
+      On suppose qu’il existe un contre-exemple, on prend le plus petit, et on montre qu’il n’aurait pas pu exister.
+    </p>
+  </div>
+
+  <!-- ======================================== -->
+  <h2 id="models">4. Modèles d’exercices</h2>
+
+  <!-- SOMMES -->
+  <h3 id="sommes">4.1 Sommes (classiques des TD)</h3>
+
+  <div class="ex">
+    <p><strong>(1) Somme des n premiers entiers</strong> <span class="lvl easy">facile</span></p>
+    <p>Pour tout n ≥ 1 : 1 + 2 + ... + n = n(n+1)/2.</p>
+    <p>→ déjà fait, c’est le modèle de base.</p>
+  </div>
+
+  <div class="ex">
+    <p><strong>(2) Somme des entiers impairs</strong> <span class="lvl easy">facile</span></p>
+    <p>Montrer que pour tout n ≥ 1 :</p>
+    <p style="text-align:center;"><strong>1 + 3 + 5 + ... + (2n − 1) = n²</strong></p>
+
+    <div class="step"><strong>P(n)</strong> : « 1 + 3 + ... + (2n−1) = n² »</div>
+    <div class="step"><strong>Initialisation :</strong> n=1 → gauche = 1, droite = 1² = 1 → OK.</div>
+    <div class="step"><strong>Hérédité :</strong>
+      On suppose 1 + 3 + ... + (2n−1) = n².  
+      Alors
+      <pre>(1 + 3 + ... + (2n−1)) + (2(n+1) − 1)
+= n² + (2n+1)
+= n² + 2n + 1
+= (n+1)²
+</pre>
+      Donc P(n+1) vraie.
+    </div>
+    <div class="step"><strong>Conclusion :</strong> vrai pour tout n.</div>
+  </div>
+
+  <div class="ex">
+    <p><strong>(3) Somme arithmétique générale</strong> <span class="lvl med">moyen</span></p>
+    <p>Montrer que pour tout n ≥ 0 :</p>
+    <p style="text-align:center;"><strong>a + (a+r) + (a+2r) + ... + (a+nr) = (n+1)a + r·n(n+1)/2</strong></p>
+    <p>Ici on applique exactement la même structure, c’est juste plus long à écrire.</p>
+  </div>
+
+  <div class="ex">
+    <p><strong>(4) Somme géométrique</strong> <span class="lvl med">moyen</span></p>
+    <p>Pour q ≠ 1, montrer par récurrence :</p>
+    <p style="text-align:center;"><strong>1 + q + q² + ... + qⁿ = (qⁿ⁺¹ − 1)/(q − 1)</strong></p>
+  </div>
+
+  <!-- INEGALITES -->
+  <h3 id="ineg">4.2 Inégalités</h3>
+  <div class="box idea">
+    <p>
+      Dans les TD de L1, on met souvent une ou deux inégalités pour t’obliger à ne pas faire
+      que des égalités. La méthode est la même mais au lieu de « = » tu as « ≤ » ou « ≥ ».
+    </p>
+  </div>
+
+  <div class="ex">
+    <p><strong>(1) 2ⁿ ≥ n+1</strong> <span class="lvl easy">facile</span></p>
+    <p>Déjà fait plus haut.</p>
+  </div>
+
+  <div class="ex">
+    <p><strong>(2) n ≤ 2ⁿ pour n ≥ 0</strong> <span class="lvl easy">facile</span></p>
+    <p>Très proche du précédent.</p>
+  </div>
+
+  <div class="ex">
+    <p><strong>(3) (1 + 1/n)ⁿ ≤ 3 pour tout n ≥ 1</strong> <span class="lvl hard">avancé</span></p>
+    <p>On peut le faire par récurrence en utilisant une majoration. Ça montre que parfois l’étape d’hérédité n’est pas juste “j’ajoute un terme”.</p>
+  </div>
+
+  <!-- DIVISIBILITE -->
+  <h3 id="div">4.3 Divisibilité</h3>
+
+  <div class="box">
+    <p>
+      Ici on reconnaît <strong>ton TD</strong> : le prof adore les preuves comme « 9 | (10ⁿ − 1) »,
+      « 3 | (2ⁿ − 1) », « 11 | (10ⁿ⁺¹ − 1)/9 », etc. Ça vient du fait que <code>10 ≡ 1 (mod 9)</code>.
+    </p>
+  </div>
+
+  <div class="ex">
+    <p><strong>(1) 9 divise 10ⁿ − 1</strong> <span class="lvl med">moyen</span></p>
+    <p>Déjà fait, mais je réécris en mode “copie à rendre”.</p>
+
+    <div class="step">
+      <strong>Propriété P(n) :</strong> « 10ⁿ − 1 est divisible par 9 ».
+    </div>
+    <div class="step">
+      <strong>Initialisation :</strong> pour n=1, 10¹ − 1 = 9, divisible par 9. Donc P(1) vraie.
+    </div>
+    <div class="step">
+      <strong>Hérédité :</strong> supposons P(n) vraie : il existe k ∈ ℕ tel que 10ⁿ − 1 = 9k.  
+      Alors
+      <pre>10ⁿ⁺¹ − 1 = 10·10ⁿ − 1
+= 10(10ⁿ − 1) + 9
+= 10·9k + 9
+= 9(10k + 1)</pre>
+      donc 10ⁿ⁺¹ − 1 est aussi divisible par 9. Donc P(n) ⇒ P(n+1).
+    </div>
+    <div class="step">
+      <strong>Conclusion :</strong> par récurrence, P(n) est vraie pour tout n ≥ 1.
+    </div>
+  </div>
+
+  <div class="ex">
+    <p><strong>(2) 3 divise (2ⁿ − 1)</strong> <span class="lvl med">moyen</span></p>
+    <p>On fait pareil :</p>
+    <ul>
+      <li>P(n): « 2ⁿ − 1 ≡ 0 mod 3 »</li>
+      <li>n=1 → 2−1=1 pas bon → on commence à n=2.</li>
+    </ul>
+    <p>Tu vois ici un point important : <strong>il faut choisir le bon point de départ</strong>. On n’est pas obligé de commencer à 0 ou 1 : on commence à l’endroit où la propriété devient vraie.</p>
+  </div>
+
+  <!-- FORMULES BINOMIALES -->
+  <h3 id="binom">4.4 Formules binomiales</h3>
+  <div class="ex">
+    <p><strong>(1) Somme de C(n,k)</strong> <span class="lvl med">moyen</span></p>
+    <p>On peut prouver par récurrence que :</p>
+    <p style="text-align:center;"><strong>∑<sub>k=0</sub><sup>n</sup> C(n,k) = 2ⁿ</strong></p>
+    <p>Ça vient du binôme de Newton, mais on peut le faire 100% récurrence.</p>
+  </div>
+
+  <!-- FIBONACCI -->
+  <h3 id="fibo">4.5 Suites de type Fibonacci</h3>
+  <div class="box">
+    <p>
+      Là on est dans la partie « parfois le TD te demande de prouver : Fₙ ≤ Fₙ₊₁ » ou « Fₙ ≤ 2ⁿ », etc.
+      La méthode reste la même, mais <strong>l’étape d’hérédité utilise 2 hypothèses</strong> (ordre 2).
+    </p>
+  </div>
+
+  <div class="ex">
+    <p><strong>Exemple Fibonacci</strong> <span class="lvl hard">avancé</span></p>
+    <p>
+      Soit (Fₙ) la suite définie par F₀ = 0, F₁ = 1, et Fₙ₊₂ = Fₙ₊₁ + Fₙ.  
+      Montrer que pour tout n ≥ 0 : Fₙ ≤ 2ⁿ.
+    </p>
+
+    <div class="step"><strong>P(n)</strong> : « Fₙ ≤ 2ⁿ ».</div>
+    <div class="step"><strong>Initialisation :</strong> n=0 → F₀=0 ≤ 1 OK. n=1 → F₁=1 ≤ 2 OK.</div>
+    <div class="step"><strong>Hérédité (double) :</strong>
+      on suppose P(n) et P(n−1) vraies : Fₙ ≤ 2ⁿ et Fₙ₋₁ ≤ 2ⁿ⁻¹.  
+      On veut montrer P(n+1) : Fₙ₊₁ ≤ 2ⁿ⁺¹.
+      <br><br>
+      Or Fₙ₊₁ = Fₙ + Fₙ₋₁ ≤ 2ⁿ + 2ⁿ⁻¹ = 2ⁿ⁻¹(2 + 1) = 3·2ⁿ⁻¹.  
+      Et 3·2ⁿ⁻¹ ≤ 4·2ⁿ⁻¹ = 2ⁿ⁺¹.  
+      Donc Fₙ₊₁ ≤ 2ⁿ⁺¹.
+    </div>
+    <div class="step"><strong>Conclusion :</strong> vrai pour tout n.</div>
+  </div>
+
+  <!-- ======================================== -->
+  <h2 id="erreurs">5. Erreurs classiques</h2>
+  <div class="two-cols">
+    <div class="warn">
+      <p><strong>1. Ne pas écrire P(n)</strong><br>
+      Le correcteur ne sait pas ce que tu prouves.</p>
+    </div>
+    <div class="warn">
+      <p><strong>2. Supposer P(n+1)</strong><br>
+      Tu n’as pas le droit. Tu supposes P(n) pour montrer P(n+1).</p>
+    </div>
+    <div class="warn">
+      <p><strong>3. Oublier la conclusion</strong><br>
+      Tu fais tout le calcul mais tu ne dis pas « donc, par récurrence, … »</p>
+    </div>
+    <div class="warn">
+      <p><strong>4. Mal choisir le point de départ</strong><br>
+      Certaines propriétés ne sont vraies qu’à partir de 2, 3, voire 5.</p>
+    </div>
+    <div class="warn">
+      <p><strong>5. Changer de propriété en route</strong><br>
+      À l’étape n+1 tu dois prouver <em>exactement</em> la même forme qu’à l’étape n.</p>
+    </div>
+  </div>
+
+  <!-- ======================================== -->
+  <h2 id="books">6. Ce que disent les autres livres (petite synthèse)</h2>
+  <div class="box">
+    <p>
+      Si on regarde les livres de maths discrètes (Rosen, Grimaldi) ou les polys de Strasbourg / Paris / ULB, ils insistent sur 4 points :
+    </p>
+    <ol>
+      <li><strong>(a) Principe du bon ordre</strong> : toute partie non vide de ℕ a un plus petit élément → d’où l’induction.</li>
+      <li><strong>(b) Induction forte</strong> : version plus puissante mais même idée.</li>
+      <li><strong>(c) Induction descendante</strong> : on peut faire de n à n−1 quand on travaille à partir d’un grand entier.</li>
+      <li><strong>(d) Induction structurée</strong> : qu’on applique ensuite aux arbres, mots, programmes récursifs → ça c’est ton Ch4.</li>
+    </ol>
+    <p>
+      Dans certains livres d’info (par ex. <em>Introduction to Algorithms</em> de Cormen), quand ils prouvent la correction d’un algo récursif, c’est exactement une induction (souvent forte).
+    </p>
+  </div>
+
+  <!-- ======================================== -->
+  <h2 id="struct">7. Petit lien vers Ch4 (induction structurelle)</h2>
+  <div class="box">
+    <p>
+      Ch3 = on avance de <strong>+1</strong> sur les entiers.  
+      Ch4 = on avance de <strong>+construction</strong> sur les objets (mot vide → mot ; liste vide → liste ; feuille → arbre).
+    </p>
+    <p>
+      Donc si tu as bien compris Ch3, Ch4 sera la même logique mais avec « cas de base » + « cas construit ».
+    </p>
+  </div>
+
+  <p style="margin-top:50px; font-size:.75rem; text-align:center; color:#777;">
+    Fin du chapitre 3 — version longue, détaillée, niveau L1. À coller dans le navigateur.
+  </p>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+
+<div class="box box-objectives">
+  <div class="box-title">Objectifs d'apprentissage — Semaine 7 (LPPO Syntaxe)</div>
+  <ul>
+    <li>Distinguer sans équivoque la syntaxe des <strong>termes</strong> (qui désignent des objets) et des <strong>formules</strong> (qui ont une valeur de vérité).</li>
+    <li>Comprendre la signature {{ \mathcal{L} = \langle \mathcal{F}, \mathcal{P}, \text{ar} \rangle }} : constantes, fonctions, prédicats et arités.</li>
+    <li>Maîtriser la construction inductive des termes {{ \mathcal{T}_k(\mathcal{F}, \mathcal{V}) }}.</li>
+    <li>Calculer rigoureusement l'ensemble des variables libres {{ Free(F) }} d'une formule arbitraire.</li>
+    <li>Déterminer la portée d'un quantificateur et lier chaque occurrence de variable à son lieur.</li>
+    <li>Effectuer des renommages alphabétiques ({{ lpha }}-conversion) sans jamais introduire de <strong>capture de variable</strong>.</li>
+  </ul>
+</div>
+
+<h2 id="w07-c-termes-vs-formules">1. La Distinction Capitale : Termes vs Formules</h2>
+<div class="box box-definition">
+  <div class="box-title">Définition 7.1 — Terme vs Formule</div>
+  <ul>
+    <li><strong>Un Terme :</strong> Désigne un <strong>élément</strong> du domaine de discours (un nombre, une personne, une liste). Il ne possède PAS de valeur de vérité ! On ne peut pas dire qu'un terme est « vrai » ou « faux ».
+      <ul>
+        <li>Exemples : {{ x }}, {{ 0 }}, {{ s(0) }}, {{ f(x, y) }}, {{ \text{pere}(\text{jean}) }}.</li>
+      </ul>
+    </li>
+    <li><strong>Une Formule :</strong> Exprime une <strong>assertion</strong> sur les objets. Elle est susceptible d'être vraie ou fausse une fois interprétée.
+      <ul>
+        <li>Exemples : {{ P(x) }}, {{ x = y }}, {{ R(f(x), c) }}, {{ \forall x \exists y P(x, y) }}.</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<div class="box box-pourquoi">
+  <div class="box-title">Pourquoi je me trompe ? — Confondre f(x) et P(x)</div>
+  <p><strong>Erreur très fréquente :</strong> Écrire {{ f(x) \land P(y) }} ou penser que {{ P(x) }} peut être un argument d'une fonction comme {{ f(P(x)) }}.</p>
+  <p><strong>Règle absolue :</strong> Une fonction {{ f }} prend en argument des <strong>termes</strong> et produit un <strong>terme</strong>. Un prédicat {{ P }} prend en argument des <strong>termes</strong> et produit une <strong>formule atomique</strong>. Les connecteurs ({{ \land, \lor, \Rightarrow }}) ne relient QUE des formules !</p>
+</div>
+
+<h2 id="w07-c-termes-inductifs">2. Définition Inductive de l'Ensemble des Termes ({{ \mathcal{T}_k }})</h2>
+<div class="box box-definition">
+  <div class="box-title">Définition 7.2 — Les Niveaux Inductifs {{ \mathcal{T}_k }}</div>
+  <p>Soit {{ \mathcal{V} }} les variables, et {{ \mathcal{F} }} les fonctions (les constantes étant des fonctions d'arité 0). L'ensemble des termes est construit par strates :</p>
+  <ul>
+    <li>{{ \mathcal{T}_0 = \mathcal{V} \cup \mathcal{F}_0 }} (l'ensemble des variables et des constantes).</li>
+    <li>{{ \mathcal{T}_{k+1} = \mathcal{T}_k \cup \{ f(t_1, \dots, t_n) \mid f \in \mathcal{F}_n \text{ et } t_1, \dots, t_n \in \mathcal{T}_k \} }}.</li>
+    <li>L'ensemble complet des termes est {{ \mathcal{T}(\mathcal{F}, \mathcal{V}) = \bigcup_{k=0}^\infty \mathcal{T}_k }}.</li>
+  </ul>
+</div>
+
+<h2 id="w07-c-variables">3. Variables Libres, Variables Liées et Portée</h2>
+<div class="box box-definition">
+  <div class="box-title">Définition 7.3 — Calcul Récursif de {{ Free(F) }}</div>
+  <p>Pour déterminer quelles variables sont libres dans une formule, on applique les règles récursives :</p>
+  <ul>
+    <li>{{ Free(P(t_1, \dots, t_n)) = \text{Var}(t_1) \cup \dots \cup \text{Var}(t_n) }} ;</li>
+    <li>{{ Free(\neg F) = Free(F) }} ;</li>
+    <li>{{ Free(F_1 \land F_2) = Free(F_1) \cup Free(F_2) }} (de même pour {{ \lor, \Rightarrow, \Leftrightarrow }}) ;</li>
+    <li>{{ Free(\forall x F) = Free(F) \setminus \{x\} }} (le quantificateur lie la variable {{ x }}) ;</li>
+    <li>{{ Free(\exists x F) = Free(F) \setminus \{x\} }}.</li>
+  </ul>
+  <p>Une formule {{ F }} est dite <strong>close</strong> (ou énoncé / <em>sentence</em>) si {{ Free(F) = \emptyset }}.</p>
+</div>

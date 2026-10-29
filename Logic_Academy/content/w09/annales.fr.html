@@ -1,0 +1,28 @@
+
+<div class="box box-objectives">
+  <div class="box-title">Annales d'Examen — Semaine 9 (Preuves LPPO en Déduction Naturelle)</div>
+  <p>Sélection des exercices réels d'examens de Sorbonne Université portant sur les quantificateurs.</p>
+</div>
+
+<h2 id="w09-ann-ex1">1. Examen 2020-2021 Session 1 — Exercice 3</h2>
+<div class="box box-enonce">
+  <div class="box-title">Énoncé Officiel</div>
+  <p>Le but de cet exercice est de prouver la formule {{ \exists x (p(x) \implies orall y p(y)) }} en utilisant la règle du Tiers Exclu.</p>
+</div>
+<div class="box box-solution">
+  <div class="box-title">Corrigé d'Examen</div>
+  <p>Il s'agit exactement de la décomposition modulaire en 4 sous-preuves vue au TD 9 Exercice 34. Les étudiants ayant rédigé la preuve avec les lemmes intermédiaires {{ B_1 }}, {{ B_2 }}, {{ B_3 }} ont obtenu la note maximale (5/5).</p>
+</div>
+
+<h2 id="w09-ann-ex2">2. Examen 2022-2023 Session 1 — Exercice 2</h2>
+<div class="box box-enonce">
+  <div class="box-title">Énoncé Officiel</div>
+  <p>Prouver en déduction naturelle classique la formule :</p>
+  {{ (\forall x p(x) \implies \exists x q(x)) \implies \exists x (p(x) \implies q(x)) }}
+</div>
+<div class="box box-solution">
+  <div class="box-title">Corrigé d'Examen</div>
+  <p>Preuve par tiers exclu sur {{ orall x p(x) }} : si {{ orall x p(x) }} est vrai, alors par hypothèse {{ \exists x q(x) }} est vrai ; soit {{ c }} tel que {{ q(c) }}, alors {{ p(c) \implies q(c) }} est vrai. Si $
+eg orall x p(x){{  est vrai, il existe  }}c{{  tel que  }}
+eg p(c){{ , d'où  }}p(c) \implies q(c){{  est vrai par ex falso. Conclusion par  }}\exists I$.</p>
+</div>

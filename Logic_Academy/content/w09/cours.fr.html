@@ -1,0 +1,76 @@
+
+<div class="box box-objectives">
+  <div class="box-title">Objectifs d'apprentissage — Semaine 9 (Déduction Naturelle en LPPO)</div>
+  <ul>
+    <li>Maîtriser les 4 règles d'inférence pour les quantificateurs : {{ \forall I }}, {{ \forall E }}, {{ \exists I }}, {{ \exists E }}.</li>
+    <li>Comprendre la <strong>condition de variable fraîche (eigenvariable)</strong> pour {{ \forall I }} et {{ \exists E }} et savoir pourquoi la violer produit des sophismes logiques.</li>
+    <li>Savoir formaliser une preuve par instanciation universelle ({{ orall E }}) et témoin existentiel ({{ \exists I }}).</li>
+    <li>Maîtriser l'élimination de l'existentiel ({{ \exists E }}) sous forme de sous-preuve hypothétique.</li>
+    <li>Comprendre et prouver le célèbre <strong>Paradoxe du Buveur</strong> : {{ \exists x (P(x) \implies \forall y P(y)) }} avec le tiers exclu.</li>
+  </ul>
+</div>
+
+<h2 id="w09-c-regles-quantificateurs">1. Les 4 Règles d'Inférence des Quantificateurs</h2>
+
+<p>En Logique des Propositions, la déduction naturelle manipulait des connecteurs booléens ($\land, \lor, \implies, 
+eg{{ ). En LPPO, nous ajoutons les quantificateurs  }}orall{{  et  }}\exists{{ . Chaque quantificateur possède une règle d'introduction ( }}I{{ ) et une règle d'élimination ( }}E$).</p>
+
+<div class="box box-definition">
+  <div class="box-title">Règle {{ \forall I }} (Introduction du Pour-Tout)</div>
+  <p>Pour prouver qu'une propriété {{ A }} est vraie pour TOUT élément ({{ orall x A }}), on prouve qu'elle est vraie pour un élément <strong>arbitraire</strong> représenté par une nouvelle variable {{ y }}.</p>
+  {{ \frac{A[x \leftarrow y]}{\forall x A} (\forall I) }}
+  <p><strong>Condition critique de fraîcheur (Side Condition) :</strong> La variable {{ y }} doit être <em>fraîche</em>. C'est-à-dire que {{ y }} ne doit apparaître <strong>libre dans aucune hypothèse active</strong> dont dépend {{ A[x \leftarrow y] }}.</p>
+</div>
+
+<div class="box box-definition">
+  <div class="box-title">Règle {{ \forall E }} (Élimination du Pour-Tout)</div>
+  <p>Si l'on sait que {{ \forall x A }} est vrai, alors la propriété est vraie pour <strong>n'importe quel terme</strong> {{ t }} constructible dans le langage !</p>
+  {{ \frac{\forall x A}{A[x \leftarrow t]} (\forall E) }}
+  <p><em>Condition :</em> Le terme {{ t }} doit être librement substituable à {{ x }} dans {{ A }} (aucune variable de {{ t }} ne doit être capturée par un quantificateur interne de {{ A }}).</p>
+</div>
+
+<div class="box box-definition">
+  <div class="box-title">Règle {{ \exists I }} (Introduction de l'Existant)</div>
+  <p>Pour prouver qu'il existe un élément vérifiant {{ A }} ({{ \exists x A }}), il suffit de trouver <strong>un exemple concret (un témoin {{ t }})</strong> pour lequel {{ A[x \leftarrow t] }} est vrai.</p>
+  {{ \frac{A[x \leftarrow t]}{\exists x A} (\exists I) }}
+</div>
+
+<div class="box box-definition">
+  <div class="box-title">Règle {{ \exists E }} (Élimination de l'Existant)</div>
+  <p>Si l'on sait qu'il existe au moins un élément vérifiant {{ A }} ({{ \exists x A }}), et que l'on veut prouver une conclusion {{ C }}, on ouvre une sous-preuve en supposant que cet élément s'appelle {{ y }} (inconnu mais fixé) :</p>
+  {{ \frac{\exists x A \quad [A[x \leftarrow y]] \vdash C}{C} (\exists E) }}
+  <p><strong>Condition critique de fraîcheur :</strong> Le paramètre {{ y }} ne doit apparaître libre :
+  <ol>
+    <li>Dans aucune des hypothèses actives résiduelles (en dehors de l'hypothèse locale {{ A[x \leftarrow y] }} qui est déchargée).</li>
+    <li><strong>Ni dans la conclusion finale {{ C }} !</strong> (On ne peut pas faire sortir le nom de la variable locale de sa portée).</li>
+  </ol>
+  </p>
+</div>
+
+<h2 id="w09-c-paradoxe-buveur">2. Le Paradoxe du Buveur (Drinker's Paradox)</h2>
+<div class="box box-theorem">
+  <div class="box-title">Théorème 9.1 — Le Paradoxe du Buveur</div>
+  <p>Dans tout bar (non vide), il existe une personne {{ x }} telle que : si cette personne boit, alors tout le monde boit !</p>
+  {{ \vdash \exists x (P(x) \implies \forall y P(y)) }}
+</div>
+
+<div class="box box-method">
+  <div class="box-title">Principe et Intuition de la Preuve</div>
+  <p>Ce résultat semble magique ou paradoxal dans le langage courant, mais il est purement classique et découle du Tiers Exclu appliqué à la formule {{ \forall y P(y) }} :</p>
+  <ul>
+    <li><strong>Cas 1 : Tout le monde boit ({{ orall y P(y) }} est vrai).</strong><br>
+    Prenons n'importe qui dans le bar, disons Alice ({{ a }}). L'implication {{ P(a) \implies orall y P(y) }} a une conclusion vraie, donc l'implication est vraie ! Alice est le buveur cherché.</li>
+    <li><strong>Cas 2 : Quelqu'un ne boit pas ($
+eg orall y P(y){{  est vrai, donc  }}\exists y 
+eg P(y)$).</strong><br>
+    Soit Bob ({{ b }}) une personne qui ne boit pas ($
+eg P(b){{ ). Dans l'implication  }}P(b) \implies orall y P(y){{ , la prémisse  }}P(b){{  est fausse ! Or, en logique, faux implique n'importe quoi ( }}F \implies Q \equiv V$). Donc l'implication est vraie pour Bob ! Bob est le buveur cherché.</li>
+  </ul>
+  <p>Dans tous les cas, un tel buveur existe toujours !</p>
+</div>
+
+<div class="box box-pourquoi">
+  <div class="box-title">Pourquoi je me trompe ? — Les Erreurs Fatales en Déduction Naturelle LPPO</div>
+  <p><strong>Erreur 1 : Utiliser une variable déjà mentionnée dans {{ orall I }}.</strong> Si vous posez {{ y }} alors que {{ y }} apparaît dans une hypothèse active (par exemple dans {{ P(y) }}), vous prouvez en réalité {{ P(y) \implies orall x P(x) }}, ce qui est complètement faux sémantiquement !</p>
+  <p><strong>Erreur 2 : Faire sortir la variable témoin de l'élimination existentielle {{ \exists E }}.</strong> Si vous partez de {{ \exists x P(x) }}, supposez {{ P(y) }}, et concluez immédiatement {{ P(y) }} hors de la boîte, vous avez violé la règle car {{ y \in Free(C) }} ! Vous venez de déduire « tout {{ y }} vérifie {{ P }} » à partir d'un simple existant !</p>
+</div>

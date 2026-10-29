@@ -1,0 +1,18 @@
+
+<div class="box box-objectives">
+  <div class="box-title">Annales & Sujets Types — Semaine 10 (Résolution & Unification)</div>
+  <p>Les examens écrits finaux de Sorbonne Université se concentrent sur les thèmes 1 à 9, tandis que la résolution et Prolog sont évalués en contrôle continu (TME noté et devoirs surveillés). Voici les exercices types d'évaluation.</p>
+</div>
+
+<h2 id="w10-ann-ex1">Exercice Type 1 — Unification de Robinson avec Occurs Check</h2>
+<div class="box box-enonce">
+  <div class="box-title">Énoncé</div>
+  <p>Appliquer l'algorithme de Robinson pour trouver le mgu du système :</p>
+  {{ \{ f(x, g(y)) \doteq f(h(z), x), \quad y \doteq a \} }}
+</div>
+<div class="box box-solution">
+  <div class="box-title">Correction</div>
+  <p>1. Décomposition sur {{ f }} : {{ x \doteq h(z) }} et {{ g(y) \doteq x }}.</p>
+  <p>2. Remplacement de {{ x }} par {{ h(z) }} : {{ g(y) \doteq h(z) }}.</p>
+  <p>3. Clash entre les symboles de fonction {{ g }} et {{ h }} : <strong>ÉCHEC d'unification !</strong></p>
+</div>

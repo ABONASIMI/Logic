@@ -1,0 +1,3186 @@
+<style>
+/* ============ Base typography ============ */
+h1, h2, h3 {
+  text-align: center;
+  color: #1565c0;
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  margin-top: 0;
+}
+h1 { font-weight: 700; margin-bottom: 12px; }
+h2, h3 { font-weight: 600; margin-bottom: 10px; }
+p, li { line-height: 1.5; }
+img { max-width: 100%; border-radius: 8px; }
+hr { border: 0; height: 1px; background: #e0e0e0; margin: 20px 0; }
+
+/* ============ Generic containers ============ */
+div.box {
+  padding: 16px;
+  border-radius: 12px;
+  margin: 18px 0;
+  box-shadow: 0 1px 0 rgba(0,0,0,.03);
+}
+div.question { background: #e3f2fd; border-left: 6px solid #1976d2; }
+div.answer   { background: #f9fbe7; border-left: 6px solid #cddc39; }
+div.explain  { background: #fff3e0; border-left: 6px solid #fb8c00; }
+
+/* ============ Code (inline & fenced) ============ */
+code, pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+/* Inline code */
+code {
+  background: #fff9c4;           /* light yellow inline */
+  border: 1px solid #f4e38a;
+  padding: 0 .25em;
+  border-radius: 6px;
+}
+
+/* Fenced code blocks (``` … ```) */
+pre {
+  background: #fff9c4;           /* light yellow block */
+  border-left: 6px solid #fdd835;/* amber accent */
+  padding: 12px;
+  border-radius: 10px;
+  margin: 14px 0;
+  overflow-x: auto;
+}
+pre code { background: transparent; border: 0; padding: 0; }
+
+/* Optional labeled code wrapper you can use with HTML:
+  <div class="code"><div class="label">A.sh</div><pre><code>…</code><pre></div> */
+
+div.code {
+  background: #fff9c4;
+  border-left: 6px solid #fdd835;
+  padding: 12px;
+  border-radius: 10px;
+  margin: 12px 0;
+}
+div.code .label {
+  font-weight: 600;
+  color: #6d4c41;
+  margin-bottom: 8px;
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+}
+div.code pre { background: transparent; margin: 0; padding: 0; }
+/* ===== FORCE YELLOW CODE BLOCKS (works in VS Code & MPE) ===== */
+
+/* Built-in VS Code preview */
+.vscode-body pre,
+.vscode-body pre code {
+  background: #fff9c4 !important;
+  border-left: 6px solid #fdd835 !important;
+}
+
+/* Markdown Preview Enhanced (uses highlight.js) */
+.markdown-preview pre,
+.markdown-preview pre code,
+pre code.hljs,
+.hljs {
+  background: #fff9c4 !important;
+  border-left: 6px solid #fdd835 !important;
+}
+
+/* Inline code (not in fences) */
+.vscode-body code:not(pre code),
+.markdown-preview code:not(pre code),
+code:not(pre code) {
+  background: #fff9c4 !important;
+  border: 1px solid #f4e38a !important;
+  padding: 0 .25em;
+  border-radius: 6px;
+}
+
+
+/* ============ Tables ============ */
+table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+th, td { border: 1px solid #e0e0e0; padding: 8px 10px; }
+thead th { background: #e3f2fd; }
+tbody tr:nth-child(odd) { background: #fafafa; }
+
+/* ============ Blockquotes ============ */
+blockquote {
+  margin: 12px 0;
+  padding: 10px 14px;
+  background: #f5f5f5;
+  border-left: 6px solid #9e9e9e;
+  border-radius: 8px;
+  color: #37474f;
+}
+
+/* ============ Spacing utilities (use anywhere) ============ */
+.spacer-sm { height: 8px; }
+.spacer-md { height: 16px; }
+.spacer-lg { height: 32px; }
+
+.mt-2 { margin-top: 12px; } .mt-4 { margin-top: 24px; }
+.mb-2 { margin-bottom: 12px; } .mb-4 { margin-bottom: 24px; }
+.pt-2 { padding-top: 12px; } .pb-2 { padding-bottom: 12px; }
+
+.center { text-align: center; }
+.right { text-align: right; }
+</style>
+
+
+
+
+<!-- =============== (6 points) Relation sur Q × Q =============== -->
+<div class="box question">
+  <h2>(6 points)</h2>
+  <p>
+    <strong>Énoncé exact :</strong><br>
+    Soit <strong>R ⊆ ℚ × ℚ</strong> telle que
+  </p>
+  <p class="center">
+    <strong>(n/m) R (p/q) ⇔ n · q = m · p</strong>
+  </p>
+  <p>
+    (où <code>n, m, p, q ∈ ℤ</code> et <code>m ≠ 0</code>, <code>q ≠ 0</code>, donc <code>n/m, p/q ∈ ℚ</code>).
+  </p>
+  <p>
+    <strong>Question :</strong> La relation <strong>R</strong> est-elle une relation d’équivalence ? Justifier.
+  </p>
+</div>
+
+<!-- =============== RÉPONSE (forme corrigé) =============== -->
+<div class="box answer">
+  <h3>Réponse</h3>
+  <p>
+    Oui. La relation <strong>R</strong> est une relation d’équivalence, car elle est
+    <strong>réflexive</strong>, <strong>symétrique</strong> et <strong>transitive</strong>.
+  </p>
+
+  <p><strong>1. R est réflexive.</strong><br>
+    Soit <code>n/m ∈ ℚ</code>. On a <code>n · m = m · n</code> (commutativité de la multiplication),
+    donc, d’après la définition de R, on a
+    <code>n/m R n/m</code>. Donc R est réflexive.
+  </p>
+
+  <p><strong>2. R est symétrique.</strong><br>
+    Soient <code>n/m</code> et <code>p/q</code> dans ℚ tels que <code>n/m R p/q</code>. Alors, par définition,
+    <code>n · q = m · p</code>. Or cette égalité implique aussi <code>p · m = q · n</code>.
+    C’est exactement la condition de <code>p/q R n/m</code>. Donc R est symétrique.
+  </p>
+
+  <p><strong>3. R est transitive.</strong><br>
+    Soient <code>n/m</code>, <code>p/q</code> et <code>r/s</code> dans ℚ tels que
+    <code>n/m R p/q</code> et <code>p/q R r/s</code>. Alors
+  </p>
+  <p class="center">
+    n · q = m · p &nbsp; et &nbsp; p · s = q · r.
+  </p>
+  <p>
+    Comme <code>q ≠ 0</code>, on peut écrire
+    <code>n = (m · p)/q</code> et <code>r = (p · s)/q</code>.
+  </p>
+  <p>
+    Donc
+  </p>
+  <p class="center">
+    n · s = (m · p / q) · s = m · p · s / q = m · (p · s / q) = m · r.
+  </p>
+  <p>
+    Donc <code>n/m R r/s</code>. Ainsi R est transitive.
+  </p>
+
+  <p><strong>Conclusion :</strong> R est réflexive, symétrique et transitive, donc
+    <strong>R est une relation d’équivalence sur ℚ</strong>.
+  </p>
+</div>
+
+<!-- =============== EXPLICATION : CE QUE ÇA VOULAIT DIRE =============== -->
+<div class="box explain">
+  <h3>Explication de la question</h3>
+  <p>
+    La question te demande : “cette relation qu’on a définie sur les <strong>fractions</strong>,
+    est-ce que c’est bien une <strong>relation d’équivalence</strong> ?”.
+  </p>
+  <p>
+    Une <strong>relation d’équivalence</strong> = une relation qui vérifie obligatoirement ces 3 propriétés :
+  </p>
+  <ol>
+    <li><strong>réflexive</strong> : pour tout x, x R x ;</li>
+    <li><strong>symétrique</strong> : si x R y alors y R x ;</li>
+    <li><strong>transitive</strong> : si x R y et y R z alors x R z.</li>
+  </ol>
+  <p>
+    Donc la structure de la réponse est imposée : tu dois prouver ces 3 points.
+  </p>
+</div>
+
+<!-- =============== EXPLICATION : COMMENT RECONNAÎTRE LES 3 PROPRIÉTÉS =============== -->
+<div class="box explain">
+  <h3>Comment savoir si une relation est… ?</h3>
+
+  <h4>1. Réflexive</h4>
+  <p>
+    <strong>Définition :</strong> R est réflexive sur E si <strong>pour tout</strong> x ∈ E, on a <strong>x R x</strong>.
+  </p>
+  <p>
+    <strong>Comment tester ?</strong> tu prends un x quelconque (ici x = n/m) et tu remplaces
+    dans la définition. Ici ça donne :
+  </p>
+  <p class="center">
+    (n/m) R (n/m) ⇔ n · m = m · n
+  </p>
+  <p>
+    et comme c’est vrai → R est réflexive.
+  </p>
+  <p>
+    🔑 Idée à retenir : si la condition de la relation est une égalité, la réflexivité est
+    presque toujours automatique.
+  </p>
+
+  <h4>2. Symétrique</h4>
+  <p>
+    <strong>Définition :</strong> R est symétrique si <strong>pour tous</strong> x, y ∈ E,
+    si x R y alors y R x.
+  </p>
+  <p>
+    <strong>Comment tester ?</strong> tu écris la condition x R y, puis tu la lis à l’envers.
+  </p>
+  <p>
+    Ici : “(n/m) R (p/q)” veut dire “n · q = m · p”. Mais une égalité peut se lire dans
+    les deux sens → “m · p = n · q”, donc “(p/q) R (n/m)”. Donc R est symétrique.
+  </p>
+  <p>
+    🔑 Quand la relation est de la forme « … = … », elle est presque toujours symétrique.
+  </p>
+
+  <h4>3. (Pour toi) Antisymétrique</h4>
+  <p>
+    Tu m’as demandé aussi “comment savoir si c’est antisymétrique ?”.
+  </p>
+  <p>
+    <strong>Définition :</strong> R est antisymétrique si
+  </p>
+  <p class="center">
+    si x R y et y R x alors x = y.
+  </p>
+  <p>
+    Ici, si (n/m) R (p/q) et (p/q) R (n/m), on a deux fois la même égalité
+    <code>n · q = m · p</code>, ce qui veut dire que les deux fractions représentent le même
+    rationnel. Donc on peut déduire qu’elles sont égales comme rationnels.
+  </p>
+  <p>
+    ⚠️ Mais : pour dire “relation d’équivalence”, on n’a pas besoin d’antisymétrie. On a besoin
+    de <strong>symétrie</strong>.
+  </p>
+
+  <h4>4. Transitive</h4>
+  <p>
+    <strong>Définition :</strong> R est transitive si : si x R y et y R z, alors x R z.
+  </p>
+  <p>
+    <strong>Comment tester ?</strong>
+  </p>
+  <ol>
+    <li>écris la condition “x R y” ;</li>
+    <li>écris la condition “y R z” ;</li>
+    <li>essaie de combiner les 2 pour obtenir “x R z”.</li>
+  </ol>
+  <p>
+    Ici :
+  </p>
+  <ul>
+    <li>(n/m) R (p/q) ⇔ n · q = m · p</li>
+    <li>(p/q) R (r/s) ⇔ p · s = q · r</li>
+  </ul>
+  <p>
+    on élimine q → on obtient n · s = m · r → donc (n/m) R (r/s).
+  </p>
+</div>
+
+<!-- =============== SI LA QUESTION ÉTAIT ÉCRITE AUTREMENT =============== -->
+<div class="box explain">
+  <h3>Si l’énoncé est écrit autrement, comment faire ?</h3>
+  <p>
+    Parfois le prof ne met pas exactement la même phrase. Voici plusieurs formes
+    <strong>équivalentes</strong> et ce qu’il faut faire.
+  </p>
+
+  <h4>🔵 Forme 1</h4>
+  <p class="center">
+    « On définit sur ℚ la relation ~ par :  
+    (a/b) ~ (c/d) ⇔ a·d = b·c.  
+    Montrer que ~ est une relation d’équivalence. »
+  </p>
+  <p>
+    👉 C’est exactement la même chose, tu refais les 3 points : réflexive / symétrique / transitive.
+  </p>
+
+  <h4>🔵 Forme 2</h4>
+  <p class="center">
+    « Deux fractions sont dites équivalentes si elles ont le même produit en croix.
+    Prouvez que c’est une relation d’équivalence. »
+  </p>
+  <p>
+    👉 “même produit en croix” = “n·q = m·p” → même solution.
+  </p>
+
+  <h4>🔵 Forme 3 (style code)</h4>
+  <p class="center">
+    « Définir : frac(n,m) ≈ frac(p,q) &lt;=&gt; n*q == m*p.  
+    Prouver que ≈ est une équivalence. »
+  </p>
+  <p>
+    👉 On traduit “==” par “=”, et on fait exactement la preuve précédente.
+  </p>
+
+  <h4>🔵 Forme 4 (piège “ordre”)</h4>
+  <p class="center">
+    « La relation R définie par (n/m) R (p/q) ⇔ n·q = m·p est-elle une relation d’ordre ? »
+  </p>
+  <p>
+    👉 Là il faut répondre : non, ce n’est pas une relation d’ordre (car elle est symétrique
+    et pas antisymétrique), mais c’est bien une relation d’équivalence.
+  </p>
+</div>
+
+<!-- =============== MINI-MÉMO =============== -->
+<div class="box explain">
+  <h3>Mini-mémo (à copier dans ton fichier)</h3>
+  <pre><code>Pour une relation R sur un ensemble E :
+
+R réflexive     ⇔  ∀x ∈ E, x R x
+R symétrique    ⇔  ∀x,y ∈ E, x R y ⇒ y R x
+R antisymétrique⇔  ∀x,y ∈ E, x R y et y R x ⇒ x = y
+R transitive    ⇔  ∀x,y,z ∈ E, x R y et y R z ⇒ x R z
+
+Relation d’équivalence = réflexive + symétrique + transitive
+Relation d’ordre       = réflexive + antisymétrique + transitive</code></pre>
+</div>
+
+
+
+<div class="box explain">
+  <h3>Petit récap’ de tout ce qu’il fallait dire sur CETTE relation ✅</h3>
+  <p>
+    Non, rien d’important ne manque vraiment. Tu as déjà :
+  </p>
+  <ul>
+    <li>✅ <strong>Énoncé exact</strong> de la relation : <code>(n/m) R (p/q) ⇔ n·q = m·p</code></li>
+    <li>✅ <strong>Preuve réflexive</strong> (mettre la même fraction des deux côtés → égalité vraie)</li>
+    <li>✅ <strong>Preuve symétrique</strong> (égalité se lit dans les deux sens)</li>
+    <li>✅ <strong>Preuve transitive</strong> (écrire les 2 produits en croix et éliminer <code>q</code>)</li>
+    <li>✅ <strong>Conclusion</strong> : donc c’est une <strong>relation d’équivalence</strong></li>
+    <li>✅ <strong>Méthode générale</strong> : comment reconnaître réflexive / symétrique / antisymétrique / transitive</li>
+    <li>✅ <strong>Versions alternatives</strong> de l’énoncé (avec ~, avec produit en croix, avec “deux fractions sont équivalentes si…”)</li>
+  </ul>
+
+  <h4>Ce qu’on peut encore ajouter (facultatif mais souvent demandé) 👇</h4>
+  <ol>
+    <li>
+      <strong>Classe d’équivalence :</strong> la classe de <code>2/3</code> est
+      <br>
+      <code>[2/3] = { p/q ∈ ℚ | 2·q = 3·p }</code> = toutes les fractions qui valent 2/3 (4/6, 6/9, 20/30, …).
+      <br>
+      👉 Très souvent après avoir montré “c’est une relation d’équivalence”, le prof demande “décrivez les classes”.
+    </li>
+    <li>
+      <strong>Interprétation :</strong> cette relation sert à dire : “toutes les écritures différentes d’un même rationnel sont mises dans le même paquet”. Donc elle <u>partionne</u> ℚ en “paquets de fractions égales”.
+    </li>
+    <li>
+      <strong>Forme normalisée :</strong> parfois on dit : “chaque classe contient une fraction irréductible” (ex. 2/3 à la place de 4/6). Ça dépend du cours, pas toujours demandé.
+    </li>
+    <li>
+      <strong>Différence avec l’ordre :</strong> tu l’as aussi : équivalence = (réflexive + symétrique + transitive), ordre = (réflexive + antisymétrique + transitive).
+    </li>
+  </ol>
+
+  <p>
+    👉 Donc pour TON sujet (celui du PDF), tu as l’essentiel.  
+    Si un exercice plus long vient après, ce sera en général : “donner les classes”, “définir ℚ comme quotient de ℤ×ℤ* par cette relation”, ou “montrer que c’est bien définissable” — mais ça, c’est déjà une étape suivante.
+  </p>
+</div>
+
+
+
+
+<br><hr><br>
+
+
+
+
+
+
+<div class="box question">
+  <h2>(2) (6 points)</h2>
+  <p>
+    Soit <strong>E</strong> un ensemble non vide. On note <strong>P(E)</strong> l’ensemble des parties de <strong>E</strong>. Soit
+  </p>
+  <p class="center">
+    <strong>f : E → P(E)</strong> telle que <strong>f(e) = {e}</strong>, pour tout <strong>e ∈ E</strong>.
+  </p>
+  <p>
+    La fonction <strong>f</strong> est-elle <u>injective</u> ? <u>surjective</u> ? <u>bijective</u> ? <u>Est-ce une application</u> ?
+    Justifier vos réponses.
+  </p>
+</div>
+
+<div class="box answer">
+  <h3>Réponse (forme officielle)</h3>
+  <p>
+    Soient <strong>e, e′ ∈ E</strong> tels que <strong>f(e) = f(e′)</strong>. Alors <strong>{e} = {e′}</strong>, donc <strong>e = e′</strong>, et
+    <strong>f est injective</strong>.
+  </p>
+  <p>
+    Pour tout <strong>e ∈ E</strong>, <strong>f(e) ≠ ∅</strong>. Or, <strong>∅ ∈ P(E)</strong>. Donc <strong>f n’est pas surjective</strong>, et n’est
+    donc <strong>pas bijective</strong>.
+  </p>
+  <p>
+    Comme <strong>f est définie sur E tout entier</strong>, <strong>f est une application</strong>.
+  </p>
+</div>
+
+<div class="box explain">
+  <h3>Explications complètes</h3>
+
+  <h4>1) Ce que la question veut exactement</h4>
+  <p>
+    On te donne une fonction super simple : on prend un élément <code>e</code> de <strong>E</strong> et on le met dans un
+    petit ensemble qui ne contient que lui : <code>f(e) = {e}</code>.
+  </p>
+  <p>
+    Le prof veut voir si tu sais reconnaître, sur CETTE fonction :
+  </p>
+  <ul>
+    <li>si c’est bien une <strong>application</strong> ;</li>
+    <li>si elle est <strong>injective</strong> ;</li>
+    <li>si elle est <strong>surjective</strong> vers <strong>P(E)</strong> ;</li>
+    <li>et donc si elle est <strong>bijective</strong>.</li>
+  </ul>
+  <p>
+    Donc toutes les notions à expliquer sont seulement celles-ci : <strong>application</strong>, <strong>injective</strong>, <strong>surjective</strong>, <strong>bijective</strong>.
+  </p>
+
+  <h4>2) Refaire la réponse pas à pas</h4>
+  <p>
+    <strong>(a) “f est une application” :</strong> pour qu’une fonction <code>f : E → P(E)</code> soit une application,
+    il faut que <strong>pour chaque</strong> élément de <code>E</code> on puisse calculer <code>f(e)</code>. Ici, la règle est très claire :
+    « prends e → renvoie {e} ». Il n’y a pas de cas “je ne sais pas”, pas de condition. Donc ✅ c’est une application.
+  </p>
+
+  <p>
+    <strong>(b) “f est injective” :</strong> on suit la définition. La définition dit :
+  </p>
+  <p class="center">
+    f est injective ⟺ (f(e) = f(e′) ⇒ e = e′).
+  </p>
+  <p>
+    Donc on commence par supposer <code>f(e) = f(e′)</code>. On remplace par la définition : <code>f(e) = {e}</code> et
+    <code>f(e′) = {e′}</code>. On obtient :
+  </p>
+  <p class="center">
+    {e} = {e′}
+  </p>
+  <p>
+    Or, deux singletons sont égaux <strong>seulement si</strong> les éléments sont égaux. Donc on conclut
+    <code>e = e′</code>. ⇒ c’est exactement la définition d’une fonction injective. Donc ✅ f est injective.
+  </p>
+
+  <p>
+    <strong>(c) “f n’est pas surjective” :</strong> là il faut regarder l’<strong>ensemble d’arrivée</strong>. L’arrivée,
+    ce n’est pas E, c’est <strong>P(E)</strong>. Et dans <strong>P(E)</strong> il y a plein de choses :
+  </p>
+  <ul>
+    <li>∅,</li>
+    <li>tous les singletons {e},</li>
+    <li>toutes les parties à 2 éléments {a, b},</li>
+    <li>… jusqu’à E lui-même.</li>
+  </ul>
+  <p>
+    Mais notre f fait toujours la même chose : elle donne <strong>un singleton</strong>. Donc elle produit
+    seulement : <code>{e1}, {e2}, {e3}, …</code>
+  </p>
+  <p>
+    Or, dans <code>P(E)</code>, il y a <code>∅</code> aussi. Et <code>∅</code> n’est l’image d’<strong>aucun</strong> élément de E, parce que
+    <code>f(e) = {e}</code> est toujours non vide. Donc il y a au moins un élément de <code>P(E)</code> non atteint. Donc ❌ pas surjective.
+  </p>
+
+  <p>
+    <strong>(d) “f n’est donc pas bijective” :</strong> c’est juste la conséquence : bijective = injective ET surjective.
+    On a injective ✅, surjective ❌ → donc pas bijective.
+  </p>
+
+  <h4>3) Notions utilisées dans la question et dans la réponse</h4>
+  <p>
+    👉 <strong>Application</strong> : “Comme f est définie sur E tout entier” = phrase du corrigé.  
+    Ça veut dire : on n’a pas oublié un élément de E, donc c’est bien une fonction.
+  </p>
+  <p>
+    👉 <strong>Injective</strong> : on reconnaît l’injectivité parce qu’on a fait “si f(e)=f(e′) alors e=e′”.
+  </p>
+  <p>
+    👉 <strong>Surjective</strong> : on a utilisé le fait que <code>∅ ∈ P(E)</code> mais <code>∅</code> n’est jamais image → ça, c’est LE bon réflexe
+    quand l’arrivée est P(E).
+  </p>
+  <p>
+    👉 <strong>Bijective</strong> : on déduit juste en 1 ligne à la fin.
+  </p>
+
+  <h4>4) Comment vérifier chacune (méthode réutilisable)</h4>
+  <p>
+    <strong>1. Application ?</strong> → regarde si la formule marche pour tout e : ici oui.
+  </p>
+  <p>
+    <strong>2. Injective ?</strong> → écris : « soient e, e′ tels que f(e)=f(e′) » → remplace → vois si tu peux dire e=e′ → ici oui.
+  </p>
+  <p>
+    <strong>3. Surjective ?</strong> → prends un élément du but (ici P(E)) et demande : “est-ce qu’il y a un e qui va dessus ?”.
+    Tu trouves ∅ → personne ne va dessus → pas surjective.
+  </p>
+  <p>
+    <strong>4. Bijective ?</strong> → seulement si 2 et 3 sont vraies.
+  </p>
+
+  <h4>5) Même réponse mais façon “très courte” (style examen rapide)</h4>
+  <p>
+    f est une application car définie sur tout E.  
+    Pour e, e′ ∈ E, f(e)=f(e′) ⇒ {e}={e′} ⇒ e=e′, donc f est injective.  
+    Comme ∅ ∈ P(E) mais ∅ ≠ f(e) pour tout e ∈ E, f n’est pas surjective, donc pas bijective.
+  </p>
+
+  <h4>6) Même réponse mais façon “très détaillée” (ce que tu aimes mettre dans le fichier) ✅</h4>
+  <p>
+    On considère la fonction f : E → P(E) définie par f(e) = {e}.  
+    <br>1. f est bien définie car pour tout e ∈ E, {e} est une partie de E, donc {e} ∈ P(E).  
+    <br>2. Soient e, e′ ∈ E tels que f(e)=f(e′). Alors {e}={e′}. Deux singletons sont égaux ssi leurs éléments sont égaux.
+    Donc e=e′. Ainsi f est injective.  
+    <br>3. Pour tout e ∈ E, f(e) est un ensemble non vide. Pourtant, ∅ appartient à P(E). Donc il n’existe aucun e ∈ E tel que f(e)=∅.
+    Donc f n’est pas surjective.  
+    <br>4. Comme f est injective mais non surjective, f n’est pas bijective.  
+    <br>5. Comme f est définie sur tout E, c’est bien une application.
+  </p>
+
+  <h4>7) 3 autres façons d’écrire la même question (et les réponses)</h4>
+
+  <p><strong>➤ Façon 1 :</strong></p>
+  <blockquote>
+    « On définit i : E → P(E) par i(x) = {x}. Montrer que i est injective mais pas surjective. »
+  </blockquote>
+  <p>
+    <strong>Réponse :</strong>  
+    i(x)={x} donc si i(x)=i(y) alors {x}={y} donc x=y → i est injective.  
+    Comme ∅ ∈ P(E) mais ∅ ≠ i(x) pour tout x, i n’est pas surjective.
+  </p>
+
+  <p><strong>➤ Façon 2 :</strong></p>
+  <blockquote>
+    « L’inclusion naturelle de E dans P(E), e ↦ {e}, est-elle bijective ? »
+  </blockquote>
+  <p>
+    <strong>Réponse :</strong>  
+    Elle est injective car {e}={e′} ⇒ e=e′.  
+    Elle n’est pas surjective car toutes les parties de E ne sont pas de la forme {e} (∅, {a,b}, …).  
+    Donc elle n’est pas bijective.
+  </p>
+
+  <p><strong>➤ Façon 3 :</strong></p>
+  <blockquote>
+    « On identifie E au sous-ensemble de P(E) formé des singletons. Justifier que cette identification est légitime. »
+  </blockquote>
+  <p>
+    <strong>Réponse :</strong>  
+    L’application e ↦ {e} est injective, donc on peut “voir” E comme son image dans P(E), c’est-à-dire comme l’ensemble
+    des singletons. Mais cette application n’est pas surjective sur tout P(E), seulement sur “les singletons”.
+  </p>
+
+  <h4>8) Mini-mémo pour toi</h4>
+  <pre><code>f : E → P(E), f(e) = {e}
+• Application : oui (définie pour tout e)
+• Injective   : oui ({e} = {e′} ⇒ e = e′)
+• Surjective  : non (∅ ∈ P(E) mais jamais image)
+• Bijective   : non (car pas surjective)</code></pre>
+</div>
+
+
+
+<br><hr><br>
+
+
+
+
+<div class="box question">
+  <h2>(3) (3 points)</h2>
+  <p>
+    Les fonctions suivantes sont-elles <strong>injectives</strong> ? <strong>bijectives</strong> ? <strong>surjectives</strong> ? On rappelle que <strong>ℝ<sup>+</sup></strong> désigne les réels positifs.
+  </p>
+  <p>
+    <strong>f : ℝ → ℝ</strong><br>
+    <code>x ↦ x² − 2</code>
+  </p>
+  <p>
+    <strong>g : ℝ<sup>+</sup> → [0, 1[</strong><br>
+    <code>x ↦ x² / (x² + 1)</code>
+  </p>
+</div>
+
+<div class="box answer">
+  <h3>Réponse (du corrigé)</h3>
+  <p>
+    — <strong>Pour f</strong> : <code>f(2) = 2 = f(−2)</code>, donc <strong>f n’est pas injective</strong>.
+  </p>
+  <p>
+    — Supposons qu’il existe un <code>x</code> tel que <code>x² − 2 = −3</code>, alors <code>x² = −1</code> et il n’existe pas de <code>x ∈ ℝ</code> tel que <code>f(x) = −3</code>, donc <strong>f n’est pas surjective</strong>.
+  </p>
+  <p>
+    — <strong>f n’est donc pas bijective</strong>.
+  </p>
+  <p>
+    — <strong>Pour g</strong> : si
+    <code>x²/(x²+1) = y²/(y²+1)</code> alors en développant on obtient <code>x² = y²</code>. Comme <code>x, y ≥ 0</code>, on en déduit <code>x = y</code>, donc <strong>g est injective</strong>.
+  </p>
+  <p>
+    — Soit <code>y ∈ [0, 1[</code>. Alors <code>y ≥ 0</code>, et <code>1 − y &gt; 0</code>, donc <code>y/(1 − y) ≥ 0</code> et
+    <code>g( √( y/(1−y) ) ) = y</code> donc <strong>g est surjective</strong>.
+  </p>
+  <p>
+    — <strong>g étant injective et surjective, elle est bijective.</strong>
+  </p>
+</div>
+
+<div class="box explain">
+  <h3>Explications (même modèle que Q1 et Q2)</h3>
+
+  <h4>1) Ce que la question te demande</h4>
+  <p>
+    Ici on fait exactement le même type de travail que pour la question (2), mais pour <strong>deux fonctions</strong> au lieu d’une.
+    Le prof veut que tu saches faire le test “injective / surjective / bijective” dans deux situations différentes :
+  </p>
+  <ul>
+    <li>une fonction polynomiale simple sur tout ℝ : <code>f(x) = x² − 2</code> ;</li>
+    <li>une fonction « bornée » qui va vers <code>[0,1[</code> : <code>g(x) = x²/(x²+1)</code>, mais seulement pour <code>x ≥ 0</code>.</li>
+  </ul>
+  <p>
+    Donc il faut faire 2 mini-études séparées : “cas de f” et “cas de g”.
+  </p>
+
+  <h4>2) Notions utilisées dans la question et dans la réponse</h4>
+  <p>
+    Il n’y a que 3 notions ici (pas “application” cette fois, parce qu’elles sont déjà bien définies) :
+  </p>
+  <ul>
+    <li><strong>Injective</strong> : si deux éléments ont la même image, alors ce sont les mêmes éléments.
+      <br><code>f(x) = f(y) ⇒ x = y</code>.
+    </li>
+    <li><strong>Surjective</strong> : tout élément de l’ensemble d’arrivée est atteint.
+      <br><code>∀y dans BUT, ∃x dans DÉPART : f(x) = y</code>.
+    </li>
+    <li><strong>Bijective</strong> : injective <strong>et</strong> surjective.
+    </li>
+  </ul>
+  <p>
+    🔑 Attention : la surjectivité se fait toujours “vers le bon ensemble” :
+    <br>• pour f → vers ℝ  
+    • pour g → vers [0,1[
+  </p>
+
+  <h4>3) Cas de f : ℝ → ℝ, f(x) = x² − 2</h4>
+  <p>
+    <strong>a) Pourquoi f n’est pas injective</strong><br>
+    On cherche 2 nombres différents qui ont la même image. C’est ce que fait le corrigé :
+  </p>
+  <p class="center">
+    f(2) = 2² − 2 = 4 − 2 = 2  
+    f(−2) = (−2)² − 2 = 4 − 2 = 2
+  </p>
+  <p>
+    Donc <strong>2 ≠ −2</strong> mais <strong>f(2) = f(−2)</strong> → ça casse l’injectivité.  
+    👉 méthode à retenir : dès que tu vois un <code>x²</code> sur tout ℝ, pense à tester <code>x</code> et <code>−x</code>.
+  </p>
+
+  <p>
+    <strong>b) Pourquoi f n’est pas surjective</strong><br>
+    Le but est ℝ, donc f devrait pouvoir donner n’importe quel réel.  
+    Le corrigé prend un contre-exemple : il demande “est-ce qu’on peut avoir f(x) = −3 ?”.
+  </p>
+  <p class="center">
+    f(x) = −3  
+    ⇔ x² − 2 = −3  
+    ⇔ x² = −1
+  </p>
+  <p>
+    Or dans ℝ, il n’y a pas de x tel que x² = −1. Donc il existe un nombre réel (−3) qui n’est pas image.  
+    Donc ❌ f n’est pas surjective.
+  </p>
+  <p>
+    Tu peux le voir aussi autrement : comme x² ≥ 0, on a x² − 2 ≥ −2. Donc f(x) ≥ −2 pour tout x → f ne prend jamais de valeur &lt; −2.
+  </p>
+
+  <p>
+    <strong>c) Conclusion pour f</strong><br>
+    f n’est pas injective, f n’est pas surjective → donc f n’est pas bijective.
+  </p>
+
+  <h4>4) Cas de g : ℝ<sup>+</sup> → [0,1[, g(x) = x²/(x²+1)</h4>
+  <p>
+    Ici on est plus soigneux parce que le domaine est <strong>ℝ<sup>+</sup></strong> (pas tous les réels) et le but est
+    <strong>[0,1[</strong> (pas tous les réels non plus).
+  </p>
+
+  <p>
+    <strong>a) Injectivité</strong><br>
+    Le corrigé part de : “Si <code>x²/(x²+1) = y²/(y²+1)</code> …”  
+    C’est exactement la méthode “injective” : on suppose deux images égales et on essaie d’arriver à x=y.
+  </p>
+  <p>
+    On a :
+  </p>
+  <p class="center">
+    x²/(x²+1) = y²/(y²+1)
+    ⇒ x²(y²+1) = y²(x²+1)
+    ⇒ x²y² + x² = y²x² + y²
+    ⇒ x² = y²
+  </p>
+  <p>
+    Et là le corrigé dit : “Comme x, y ≥ 0, on en déduit x = y”.  
+    👉 C’est très important : si on était sur ℝ tout entier, de x² = y² on ne pourrait dire que x = ± y.
+    Mais ici on est sur les réels positifs, donc pas de signe moins.
+  </p>
+  <p>
+    Donc ✅ g est injective.
+  </p>
+
+  <p>
+    <strong>b) Surjectivité</strong><br>
+    Le corrigé fait : “Soit y ∈ [0,1[ … on fabrique un x qui donne y”.
+  </p>
+  <p>
+    On prend y dans l’intervalle d’arrivée : y ≥ 0 et y &lt; 1. Donc 1 − y &gt; 0.  
+    On considère alors le nombre
+  </p>
+  <p class="center">
+    t = y / (1 − y)
+  </p>
+    (il est ≥ 0), puis on prend
+  <p class="center">
+    x = √t = √( y / (1 − y) )
+  </p>
+  <p>
+    Et on vérifie que g(x) = y.  
+    Donc pour tout y dans [0,1[, on a trouvé un x dans ℝ<sup>+</sup> qui va dessus → ✅ g est surjective.
+  </p>
+
+  <p>
+    <strong>c) Conclusion pour g</strong><br>
+    g est injective et g est surjective → ✅ g est bijective.
+  </p>
+
+  <h4>5) Autres manières d’écrire ce même exercice</h4>
+  <p><strong>Version 1 :</strong></p>
+  <blockquote>
+    « Montrer que la fonction g : ℝ<sup>+</sup> → [0,1[, x ↦ x²/(x²+1) est bijective. »
+  </blockquote>
+  <p>
+    ➜ tu refais juste la partie “égalité ⇒ x = y” + “pour tout y il existe x”.
+  </p>
+
+  <p><strong>Version 2 :</strong></p>
+  <blockquote>
+    « Soit h(x) = x² − 2. Déterminer l’image de h et en déduire si h est surjective sur ℝ. »
+  </blockquote>
+  <p>
+    ➜ tu dis : Im(h) = [−2, +∞[ donc surjective sur cet intervalle, mais pas sur ℝ.
+  </p>
+
+  <p><strong>Version 3 :</strong></p>
+  <blockquote>
+    « Étudier l’injectivité de f sur ℝ et sur ℝ<sup>+</sup>. »
+  </blockquote>
+  <p>
+    ➜ sur ℝ : pas injective (2 et −2).  
+    ➜ sur ℝ<sup>+</sup> : devient injective (plus de côté négatif).
+  </p>
+
+  <h4>6) Version “révision” (très lisible)</h4>
+  <pre><code>f : ℝ → ℝ, x ↦ x² − 2
+- f(2) = f(−2) → pas injective
+- on ne peut pas avoir f(x) = −3 → pas surjective
+- donc pas bijective
+
+g : ℝ⁺ → [0,1[, x ↦ x²/(x²+1)
+
+* égalité des images ⇒ x² = y², et comme x,y ≥ 0 ⇒ x = y → injective
+* pour y ∈ [0,1[, prendre x = √( y/(1−y) ) → g(x) = y → surjective
+* donc bijective</code></pre>
+
+</div>
+
+
+
+<br><hr><br>
+
+
+
+<div class="box question">
+  <h2>Exercice 2 — (1) (3 points)</h2>
+  <p>
+    Soit <strong>P</strong> une propriété sur les éléments d’un ensemble ordonné <strong>(E, ≼)</strong> muni d’un <strong>ordre bien fondé</strong> ≼.
+    <br>
+    <strong>Énoncer le principe d’induction bien fondée.</strong>
+  </p>
+</div>
+
+<div class="box answer">
+  <h3>Réponse (du corrigé)</h3>
+  <p>
+    <strong>Si</strong> 
+    pour tout <strong>x ∈ E</strong>, 
+    <br>
+    <span style="margin-left:1.2rem;">si pour tout <strong>y ≺ x</strong>, on a <strong>P(y)</strong>, alors on a aussi <strong>P(x)</strong>,</span>
+    <br>
+    <strong>alors</strong> pour tout <strong>e ∈ E</strong>, on a <strong>P(e)</strong>.
+  </p>
+</div>
+
+<div class="box explain">
+  <h3>Explications</h3>
+
+  <h4>1) Ce que la question est en train de demander</h4>
+  <p>
+    Ici, le prof ne te demande pas de <em>prouver</em> quelque chose, mais de <strong>réécrire correctement une formule de cours</strong> :
+    le <strong>principe d’induction bien fondée</strong>.
+  </p>
+  <p>
+    C’est la version “pour un ensemble général E” de ce que tu connais déjà sur les entiers naturels (l’induction sur ℕ).
+    Mais au lieu de dire “supposons vrai pour n, montrons pour n+1”, on dit :
+    <br>
+    « supposons que la propriété est vraie pour tous les éléments <strong>plus petits</strong> que x, alors elle est vraie pour x ».
+  </p>
+
+  <h4>2) Relecture de la réponse pas à pas</h4>
+  <p>
+    La phrase du corrigé peut être un peu compacte. On la réécrit lentement :
+  </p>
+  <ol>
+    <li>
+      On se place dans un ensemble ordonné <strong>(E, ≼)</strong>.  
+      On note <strong>y ≺ x</strong> pour dire « y est strictement plus petit que x » (c’est la version “&lt;” de ≼).
+    </li>
+    <li>
+      On a une propriété <strong>P(·)</strong> qu’on veut montrer vraie pour <strong>tous</strong> les éléments de E.
+    </li>
+    <li>
+      On suppose l’<strong>hypothèse d’induction</strong> suivante :
+      <br>
+      « pour tout x ∈ E, SI la propriété est vraie pour tous les éléments plus petits que x (tous les y tels que y ≺ x), ALORS elle est vraie pour x ».
+      <br>
+      On peut l’écrire joliment :
+      <br>
+      <code>∀x ∈ E, [ (∀y ∈ E, y ≺ x ⇒ P(y)) ⇒ P(x) ]</code>
+    </li>
+    <li>
+      Alors, on peut conclure :
+      <br>
+      <code>∀e ∈ E, P(e)</code>
+      <br>
+      c’est-à-dire : la propriété est vraie pour tout le monde.
+    </li>
+  </ol>
+  <p>
+    Donc la structure est toujours :
+  </p>
+  <p class="center">
+    <strong>(Hypothèse locale “tous les plus petits ⇒ x”)  ⟹  (Conclusion globale “tous les éléments ont la propriété”)</strong>
+  </p>
+
+  <h4>3) Notions utilisées dans la question et dans la réponse</h4>
+  <ul>
+    <li>
+      <strong>Ensemble ordonné (E, ≼)</strong> : ça veut dire qu’on a un ensemble E et une relation “≤” (ici écrite ≼) qui permet de dire
+      quel élément est avant quel autre.
+    </li>
+    <li>
+      <strong>Ordre bien fondé</strong> : ça veut dire qu’il n’y a pas de suite infinie qui descend tout le temps.
+      Autrement dit : tout sous-ensemble non vide de E a un plus petit élément.  
+      👉 c’est ça qui permet de faire de l’induction.
+    </li>
+    <li>
+      <strong>y ≺ x</strong> : c’est la version stricte de l’ordre, comme “&lt;” par rapport à “≤”.
+    </li>
+    <li>
+      <strong>Induction bien fondée</strong> : c’est le principe qui dit :
+      <br>
+      « si, pour démontrer P(x), on a le droit d’utiliser le fait que P(y) est vraie pour <em>tous</em> les y plus petits que x,
+      alors on finit par prouver P pour tout le monde ».
+    </li>
+  </ul>
+
+  <h4>4) Comment on “vérifie” ce principe quand on l’utilise</h4>
+  <p>
+    Quand dans un exercice on te dit : “on va faire une induction bien fondée”, tu dois TOUJOURS montrer ce schéma :
+  </p>
+  <ol>
+    <li>je prends un élément général x ∈ E ;</li>
+    <li>je suppose que pour tout y ≺ x, la propriété est vraie (ça c’est l’<strong>hypothèse d’induction</strong> élargie) ;</li>
+    <li>avec ça, je prouve que la propriété est vraie pour x ;</li>
+    <li>alors, par le principe d’induction bien fondée, c’est vrai pour tout E.</li>
+  </ol>
+  <p>
+    C’est exactement la même logique que :
+    <br>
+    « si je peux monter d’un étage en utilisant tous les étages en dessous → je finirai par tout couvrir ».
+  </p>
+
+  <h4>5) 2–3 autres façons d’écrire la même question (et quoi répondre)</h4>
+
+  <p><strong>Façon 1 (très fréquente) :</strong></p>
+  <blockquote>
+    « Énoncer le principe d’induction sur un ensemble bien fondé. »
+  </blockquote>
+  <p>
+    ➜ tu écris exactement la même phrase :  
+    <code>Si ∀x ∈ E, [(∀y ≺ x, P(y)) ⇒ P(x)], alors ∀x ∈ E, P(x).</code>
+  </p>
+
+  <p><strong>Façon 2 (avec “preuve par récurrence généralisée”) :</strong></p>
+  <blockquote>
+    « Donner le schéma de récurrence bien fondée sur (E, ≼). »
+  </blockquote>
+  <p>
+    ➜ c’est la même chose, ils changent juste le mot. Tu réécris le même schéma.
+  </p>
+
+  <p><strong>Façon 3 (version très parlée) :</strong></p>
+  <blockquote>
+    « Montrer que pour prouver qu’une propriété est vraie pour tous les éléments d’un ensemble bien fondé,
+    il suffit de montrer qu’elle est vraie pour un élément quelconque en la supposant vraie pour tous ses prédécesseurs. »
+  </blockquote>
+  <p>
+    ➜ tu replies ça à la forme :
+    <br>
+    « si pour tout x, (P est vraie pour tous les y ≺ x) ⇒ P(x), alors P est vraie partout ».
+  </p>
+
+  <h4>6) Version plus lisible de la formule (humaine)</h4>
+  <p>
+    On peut écrire le principe ainsi (plus “français”) :
+  </p>
+  <blockquote>
+    « Si, pour chaque élément x de E, le fait que la propriété soit vraie pour tous les éléments strictement plus petits que x
+    implique qu’elle est vraie pour x, alors la propriété est vraie pour tous les éléments de E. »
+  </blockquote>
+
+  <h4>7) À retenir pour tes prochains exos</h4>
+  <ul>
+    <li>si l’ordre est “bien fondé” → tu as le droit de faire cette induction ;</li>
+    <li>c’est la même idée que la récurrence sur ℕ mais plus générale ;</li>
+    <li>la formule commence toujours par “si pour tout x…” et finit toujours par “alors pour tout x…” ;</li>
+    <li>la partie entre les deux, c’est “si pour tout y ≺ x, … alors P(x)”.</li>
+  </ul>
+</div>
+
+
+
+<br><hr><br>
+
+
+
+<div class="box question">
+  <h2>Exercice 2 — (1) (3 points)</h2>
+  <p>
+    Soit <strong>P</strong> une propriété sur les éléments d’un ensemble ordonné <strong>(E, ≼)</strong> muni d’un <strong>ordre bien fondé</strong> ≼.
+    <br>
+    <strong>Énoncer le principe d’induction bien fondée.</strong>
+  </p>
+</div>
+
+<div class="box answer">
+  <h3>Réponse (du corrigé)</h3>
+  <p>
+    <strong>Si</strong> 
+    pour tout <strong>x ∈ E</strong>, 
+    <br>
+    <span style="margin-left:1.2rem;">si pour tout <strong>y ≺ x</strong>, on a <strong>P(y)</strong>, alors on a aussi <strong>P(x)</strong>,</span>
+    <br>
+    <strong>alors</strong> pour tout <strong>e ∈ E</strong>, on a <strong>P(e)</strong>.
+  </p>
+</div>
+
+<div class="box explain">
+  <h3>Explications</h3>
+
+  <h4>1) Ce que la question est en train de demander</h4>
+  <p>
+    Ici, le prof ne te demande pas de <em>prouver</em> quelque chose, mais de <strong>réécrire correctement une formule de cours</strong> :
+    le <strong>principe d’induction bien fondée</strong>.
+  </p>
+  <p>
+    C’est la version “pour un ensemble général E” de ce que tu connais déjà sur les entiers naturels (l’induction sur ℕ).
+    Mais au lieu de dire “supposons vrai pour n, montrons pour n+1”, on dit :
+    <br>
+    « supposons que la propriété est vraie pour tous les éléments <strong>plus petits</strong> que x, alors elle est vraie pour x ».
+  </p>
+
+  <h4>2) Relecture de la réponse pas à pas</h4>
+  <p>
+    La phrase du corrigé peut être un peu compacte. On la réécrit lentement :
+  </p>
+  <ol>
+    <li>
+      On se place dans un ensemble ordonné <strong>(E, ≼)</strong>.  
+      On note <strong>y ≺ x</strong> pour dire « y est strictement plus petit que x » (c’est la version “&lt;” de ≼).
+    </li>
+    <li>
+      On a une propriété <strong>P(·)</strong> qu’on veut montrer vraie pour <strong>tous</strong> les éléments de E.
+    </li>
+    <li>
+      On suppose l’<strong>hypothèse d’induction</strong> suivante :
+      <br>
+      « pour tout x ∈ E, SI la propriété est vraie pour tous les éléments plus petits que x (tous les y tels que y ≺ x), ALORS elle est vraie pour x ».
+      <br>
+      On peut l’écrire joliment :
+      <br>
+      <code>∀x ∈ E, [ (∀y ∈ E, y ≺ x ⇒ P(y)) ⇒ P(x) ]</code>
+    </li>
+    <li>
+      Alors, on peut conclure :
+      <br>
+      <code>∀e ∈ E, P(e)</code>
+      <br>
+      c’est-à-dire : la propriété est vraie pour tout le monde.
+    </li>
+  </ol>
+  <p>
+    Donc la structure est toujours :
+  </p>
+  <p class="center">
+    <strong>(Hypothèse locale “tous les plus petits ⇒ x”)  ⟹  (Conclusion globale “tous les éléments ont la propriété”)</strong>
+  </p>
+
+  <h4>3) Notions utilisées dans la question et dans la réponse</h4>
+  <ul>
+    <li>
+      <strong>Ensemble ordonné (E, ≼)</strong> : ça veut dire qu’on a un ensemble E et une relation “≤” (ici écrite ≼) qui permet de dire
+      quel élément est avant quel autre.
+    </li>
+    <li>
+      <strong>Ordre bien fondé</strong> : ça veut dire qu’il n’y a pas de suite infinie qui descend tout le temps.
+      Autrement dit : tout sous-ensemble non vide de E a un plus petit élément.  
+      👉 c’est ça qui permet de faire de l’induction.
+    </li>
+    <li>
+      <strong>y ≺ x</strong> : c’est la version stricte de l’ordre, comme “&lt;” par rapport à “≤”.
+    </li>
+    <li>
+      <strong>Induction bien fondée</strong> : c’est le principe qui dit :
+      <br>
+      « si, pour démontrer P(x), on a le droit d’utiliser le fait que P(y) est vraie pour <em>tous</em> les y plus petits que x,
+      alors on finit par prouver P pour tout le monde ».
+    </li>
+  </ul>
+
+  <h4>4) Comment on “vérifie” ce principe quand on l’utilise</h4>
+  <p>
+    Quand dans un exercice on te dit : “on va faire une induction bien fondée”, tu dois TOUJOURS montrer ce schéma :
+  </p>
+  <ol>
+    <li>je prends un élément général x ∈ E ;</li>
+    <li>je suppose que pour tout y ≺ x, la propriété est vraie (ça c’est l’<strong>hypothèse d’induction</strong> élargie) ;</li>
+    <li>avec ça, je prouve que la propriété est vraie pour x ;</li>
+    <li>alors, par le principe d’induction bien fondée, c’est vrai pour tout E.</li>
+  </ol>
+  <p>
+    C’est exactement la même logique que :
+    <br>
+    « si je peux monter d’un étage en utilisant tous les étages en dessous → je finirai par tout couvrir ».
+  </p>
+
+  <h4>5) 2–3 autres façons d’écrire la même question (et quoi répondre)</h4>
+
+  <p><strong>Façon 1 (très fréquente) :</strong></p>
+  <blockquote>
+    « Énoncer le principe d’induction sur un ensemble bien fondé. »
+  </blockquote>
+  <p>
+    ➜ tu écris exactement la même phrase :  
+    <code>Si ∀x ∈ E, [(∀y ≺ x, P(y)) ⇒ P(x)], alors ∀x ∈ E, P(x).</code>
+  </p>
+
+  <p><strong>Façon 2 (avec “preuve par récurrence généralisée”) :</strong></p>
+  <blockquote>
+    « Donner le schéma de récurrence bien fondée sur (E, ≼). »
+  </blockquote>
+  <p>
+    ➜ c’est la même chose, ils changent juste le mot. Tu réécris le même schéma.
+  </p>
+
+  <p><strong>Façon 3 (version très parlée) :</strong></p>
+  <blockquote>
+    « Montrer que pour prouver qu’une propriété est vraie pour tous les éléments d’un ensemble bien fondé,
+    il suffit de montrer qu’elle est vraie pour un élément quelconque en la supposant vraie pour tous ses prédécesseurs. »
+  </blockquote>
+  <p>
+    ➜ tu replies ça à la forme :
+    <br>
+    « si pour tout x, (P est vraie pour tous les y ≺ x) ⇒ P(x), alors P est vraie partout ».
+  </p>
+
+  <h4>6) Version plus lisible de la formule (humaine)</h4>
+  <p>
+    On peut écrire le principe ainsi (plus “français”) :
+  </p>
+  <blockquote>
+    « Si, pour chaque élément x de E, le fait que la propriété soit vraie pour tous les éléments strictement plus petits que x
+    implique qu’elle est vraie pour x, alors la propriété est vraie pour tous les éléments de E. »
+  </blockquote>
+
+  <h4>7) À retenir pour tes prochains exos</h4>
+  <ul>
+    <li>si l’ordre est “bien fondé” → tu as le droit de faire cette induction ;</li>
+    <li>c’est la même idée que la récurrence sur ℕ mais plus générale ;</li>
+    <li>la formule commence toujours par “si pour tout x…” et finit toujours par “alors pour tout x…” ;</li>
+    <li>la partie entre les deux, c’est “si pour tout y ≺ x, … alors P(x)”.</li>
+  </ul>
+</div>
+
+
+
+<br><hr><br>
+
+
+<div class="box question">
+  <h2>Exercice 2 — (2)</h2>
+  <p>
+    On définit <strong>≤<sub>lex</sub></strong> ⊆ ℕ × ℕ par
+  </p>
+  <p class="center">
+    <strong>(n, m) ≤<sub>lex</sub> (n′, m′)</strong> si et seulement si  
+    <strong>n &lt; n′</strong> ou bien <strong>(n = n′ et m ≤ m′)</strong>,
+  </p>
+  <p>
+    où ≤ est l’ordre usuel sur les entiers naturels.
+  </p>
+  <p>
+    <strong>a.</strong> (2 points) L’ordre ≤<sub>lex</sub> est-il un ordre total ou partiel ? Justifier.
+    <br>
+    <strong>b.</strong> (1 point) Pour la partie 
+    <span style="white-space:nowrap;">A = {1, 2, 3} × {0, 2}</span> de ℕ × ℕ,
+    représenter <strong>(A, ≤<sub>lex</sub>)</strong> (ne pas dessiner les arcs de transitivité ni de réflexivité).
+    <br>
+    <strong>c.</strong> (4 points) Donner l’ensemble des minorants et des majorants de A dans ℕ × ℕ.  
+    S’ils existent, donner la borne inférieure, la borne supérieure, le plus petit élément et le plus grand élément.  
+    Donner les éléments minimaux et les éléments maximaux.
+  </p>
+</div>
+
+<div class="box answer">
+  <h3>Réponse (du corrigé)</h3>
+
+  <p><strong>a.</strong> C’est un <strong>ordre total</strong>.</p>
+  <p>
+    En effet, soient (m, n) et (m′, n′) ∈ ℕ × ℕ.  
+    Comme l’ordre usuel sur ℕ est total, on a : m &lt; m′ ou m′ &lt; m ou m = m′.
+  </p>
+  <ul>
+    <li>si m &lt; m′ alors (m, n) ≤<sub>lex</sub> (m′, n′) ;</li>
+    <li>si m′ &lt; m alors (m′, n′) ≤<sub>lex</sub> (m, n) ;</li>
+    <li>si m = m′, on compare n et n′ avec l’ordre usuel, donc on a encore l’un ou l’autre.</li>
+  </ul>
+  <p>
+    Donc pour <strong>tous</strong> (m, n) et (m′, n′), on a <strong>soit</strong> (m, n) ≤<sub>lex</sub> (m′, n′), <strong>soit</strong> (m′, n′) ≤<sub>lex</sub> (m, n).  
+    Donc ≤<sub>lex</sub> est un <strong>ordre total</strong>.
+  </p>
+
+  <p><strong>b.</strong> A = {1, 2, 3} × {0, 2} = {(1,0), (1,2), (2,0), (2,2), (3,0), (3,2)}.  
+    Avec l’ordre lexicographique, on obtient la chaîne suivante :
+  </p>
+  <p class="center">
+    (1,0) &lt; (1,2) &lt; (2,0) &lt; (2,2) &lt; (3,0) &lt; (3,2)
+  </p>
+  <p>
+    (c’est donc linéaire, il n’y a pas de branches).
+  </p>
+
+  <p><strong>c.</strong></p>
+  <p>
+    Ensemble des <strong>minorants</strong> de A :
+  </p>
+  <p class="center">
+    Min(A) = { (0, n) | n ∈ ℕ } ∪ { (1, 0) }.
+  </p>
+  <p>
+    Ensemble des <strong>majorants</strong> de A :
+  </p>
+  <p class="center">
+    Maj(A) = { (3, n) | n ≥ 2 } ∪ { (m, n) | m &gt; 3, n ∈ ℕ }.
+  </p>
+  <p>
+    La <strong>borne inférieure</strong) de A (qui est aussi le <strong>plus petit élément</strong>) est (1, 0).
+    <br>
+    La <strong>borne supérieure</strong> de A (qui est aussi le <strong>plus grand élément</strong>) est (3, 2).
+    <br>
+    L’<strong>unique élément minimal</strong> est (1, 0).
+    <br>
+    L’<strong>unique élément maximal</strong> est (3, 2).
+  </p>
+</div>
+
+<div class="box explain">
+  <h3>Explications (lecture humaine)</h3>
+
+  <h4>1) Ce que la question voulait</h4>
+  <p>
+    On te fait travailler sur un ordre <strong>lexicographique</strong> sur ℕ × ℕ (= couples d’entiers).  
+    C’est le même principe que dans un dictionnaire : on compare d’abord le <strong>premier</strong> élément, et seulement
+    s’il est égal, on compare le <strong>second</strong>.
+  </p>
+  <p>
+    L’énoncé te demande 3 choses :
+  </p>
+  <ol>
+    <li>dire si cet ordre est total ou partiel ;</li>
+    <li>faire le petit “diagramme” de l’ensemble A = {1,2,3}×{0,2} avec cet ordre ;</li>
+    <li>faire tout le vocabulaire d’ordre : minorants, majorants, borne inf, borne sup, min, max, éléments minimaux/maximaux.</li>
+  </ol>
+
+  <h4>2) Rappel très clair sur l’ordre lexicographique</h4>
+  <p>
+    On dit :
+  </p>
+  <p class="center">
+    (n, m) ≤<sub>lex</sub> (n′, m′)
+  </p>
+  <p>
+    si
+  </p>
+  <ul>
+    <li>soit le <strong>premier</strong> nombre est plus petit : n &lt; n′ ;</li>
+    <li>soit les premiers sont égaux (n = n′) et on compare les <strong>seconds</strong> : m ≤ m′.</li>
+  </ul>
+  <p>
+    Donc : “on regarde la 1<sup>re</sup> coordonnée d’abord, et on ne regarde la 2<sup>e</sup> que si la 1<sup>re</sup> est égale”.
+  </p>
+
+  <h4>3) Pourquoi c’est un <u>ordre total</u> (question a)</h4>
+  <p>
+    Définitions rapides :
+  </p>
+  <ul>
+    <li><strong>ordre partiel</strong> : on peut avoir deux éléments <em>incomparables</em> (ni x ≤ y, ni y ≤ x) ;</li>
+    <li><strong>ordre total</strong> : pour <em>tous</em> x, y, on a <strong>toujours</strong> x ≤ y ou y ≤ x.</li>
+  </ul>
+  <p>
+    Ici, comme on compare d’abord les 1<sup>res</sup> coordonnées, et que <strong>l’ordre usuel sur ℕ est total</strong>, on peut <strong>toujours</strong>
+    décider qui vient avant l’autre :
+  </p>
+  <ul>
+    <li>si les 1<sup>res</sup> coordonnées sont différentes → on sait qui est plus petit ;</li>
+    <li>si elles sont égales → on regarde les 2<sup>des</sup>, et là encore l’ordre est total.</li>
+  </ul>
+  <p>
+    Donc il n’y a <strong>jamais</strong> de cas “on ne sait pas”. → c’est <strong>total</strong>.
+  </p>
+
+  <h4>4) Représentation de A (question b)</h4>
+  <p>
+    A = {1,2,3} × {0,2} =  
+    {(1,0), (1,2), (2,0), (2,2), (3,0), (3,2)}.
+  </p>
+  <p>
+    Avec l’ordre lexicographique, on compare d’abord 1, 2, 3.  
+    Donc tout ce qui commence par 1 vient avant tout ce qui commence par 2, qui vient avant tout ce qui commence par 3.
+  </p>
+  <p>
+    Donc l’ordre est exactement :
+  </p>
+  <p class="center">
+    (1,0) &lt; (1,2) &lt; (2,0) &lt; (2,2) &lt; (3,0) &lt; (3,2)
+  </p>
+  <p>
+    👉 C’est une <strong>chaîne</strong>, pas un arbre.
+  </p>
+
+  <h4>5) Tout le vocabulaire de la question c)</h4>
+  <p>
+    On travaille dans le grand ensemble ℕ × ℕ (pas seulement dans A).
+  </p>
+
+  <p>
+    <strong>Minorant de A</strong> : un élément x est minorant de A si x ≤<sub>lex</sub> a pour <strong>tout</strong> a ∈ A.
+    <br>
+    Ici, à cause du lexicographique, si tu mets 0 en première coordonnée, tu es <strong>avant</strong> tout ce qui commence par 1.
+    Donc <strong>tous les (0,n)</strong> sont des minorants.
+    <br>
+    En plus, (1,0) est lui-même dans A et c’est le tout premier de A → il est aussi minorant.
+    <br>
+    Donc :
+  </p>
+  <p class="center">
+    Min(A) = { (0, n) | n ∈ ℕ } ∪ { (1, 0) }.
+  </p>
+
+  <p>
+    <strong>Majorant de A</strong> : un élément x est majorant si a ≤<sub>lex</sub> x pour tout a ∈ A.
+    <br>
+    Le plus grand de A est (3,2).  
+    Tous les éléments qui ont première coordonnée &gt; 3 sont après (3,2).  
+    Et aussi tous les (3,n) avec n ≥ 2 sont après (3,2).
+    <br>
+    Donc :
+  </p>
+  <p class="center">
+    Maj(A) = { (3, n) | n ≥ 2 } ∪ { (m, n) | m &gt; 3, n ∈ ℕ }.
+  </p>
+
+  <p>
+    <strong>Borne inférieure</strong> de A : c’est le plus grand des minorants. Ici, comme (1,0) est dans les minorants et qu’il est
+    plus grand que tous les (0,n), la borne inf = (1,0).
+  </p>
+  <p>
+    <strong>Borne supérieure</strong> de A : c’est le plus petit des majorants. Ici, c’est (3,2).
+  </p>
+  <p>
+    <strong>Plus petit élément</strong> de A = le premier dans la chaîne = (1,0).
+    <br>
+    <strong>Plus grand élément</strong> de A = le dernier dans la chaîne = (3,2).
+  </p>
+  <p>
+    <strong>Éléments minimaux</strong> : ceux qui n’ont rien de plus petit qu’eux dans A → ici seulement (1,0).
+    <br>
+    <strong>Éléments maximaux</strong> : ceux qui n’ont rien de plus grand qu’eux dans A → ici seulement (3,2).
+  </p>
+
+  <h4>6) 2–3 autres façons d’écrire la même question</h4>
+  <p><strong>Forme 1 :</strong></p>
+  <blockquote>
+    « On considère l’ordre lexicographique sur ℕ × ℕ. Montrer qu’il est total. »
+  </blockquote>
+  <p>
+    ➜ tu refais juste le début de (a).
+  </p>
+
+  <p><strong>Forme 2 :</strong></p>
+  <blockquote>
+    « Représenter l’ensemble A = {1,2,3}×{0,2} muni de l’ordre lexicographique par un diagramme de Hasse. »
+  </blockquote>
+  <p>
+    ➜ tu dessines la chaîne (1,0) &lt; (1,2) &lt; (2,0) &lt; (2,2) &lt; (3,0) &lt; (3,2).
+  </p>
+
+  <p><strong>Forme 3 :</strong></p>
+  <blockquote>
+    « Dans (ℕ×ℕ, ≤<sub>lex</sub>), déterminer les bornes de A = {1,2,3}×{0,2}. »
+  </blockquote>
+  <p>
+    ➜ tu réponds directement : inf A = (1,0), sup A = (3,2).
+  </p>
+</div>
+
+
+<br><hr><br>
+
+
+
+<div class="box question">
+  <h2>Exercice 2 — (3)</h2>
+  <p>
+    Soit <strong>X ⊆ ℕ × ℕ</strong> un sous-ensemble non vide de ℕ × ℕ.
+  </p>
+  <p>
+    <strong>a. (3 points)</strong> Montrer que l’ensemble
+    <br>
+    <code>X₁ = { n ∈ ℕ | il existe m ∈ ℕ tel que (n, m) ∈ X }</code>
+    <br>
+    admet un <strong>élément minimal</strong> n₁ pour l’ordre usuel ≤ sur les entiers naturels.
+  </p>
+  <p>
+    <strong>b. (3 points)</strong> Montrer que
+    <br>
+    <code>Xₙ₁ = { m ∈ ℕ | (n₁, m) ∈ X }</code>
+    <br>
+    admet un <strong>élément minimal</strong> m₁ pour l’ordre usuel ≤ sur les entiers naturels.
+  </p>
+  <p>
+    <strong>c. (5 points)</strong> En déduire que l’ordre <code>≤<sub>lex</sub></code> est <strong>bien fondé</strong>.
+    (on rappelle : 
+    <code>(n,m) ≤<sub>lex</sub> (n′,m′) ⇔ n &lt; n′ ou (n = n′ et m ≤ m′)</code>).
+  </p>
+</div>
+
+<div class="box answer">
+  <h3>Réponse (corrigé recopié)</h3>
+
+  <p><strong>a.</strong>
+    Comme X est non vide, il contient au moins un élément (n₀, m₀), donc n₀ ∈ X₁ et X₁ est non vide.
+    Or, <code>X₁ ⊆ ℕ</code>, et l’ordre usuel sur ℕ est bien fondé, donc toute partie non vide de ℕ admet un élément minimal.
+    Ainsi, <strong>X₁ admet un élément minimal n₁</strong>.
+  </p>
+
+  <p><strong>b.</strong>
+    On sait que n₁ ∈ X₁, donc il existe m ∈ ℕ tel que (n₁, m) ∈ X.
+    Donc <code>Xₙ₁</code> est non vide, et comme <code>Xₙ₁ ⊆ ℕ</code> et que l’ordre usuel sur ℕ est bien fondé,
+    <strong>Xₙ₁ admet un élément minimal m₁</strong>.
+  </p>
+
+  <p><strong>c.</strong>
+    Soit X ⊆ ℕ × ℕ un sous-ensemble non vide. On montre que (n₁, m₁), définis ci-dessus, est un <strong>élément minimal de X</strong>.
+  </p>
+  <p>
+    Soit (n, m) ∈ X tel que 
+    <code>(n, m) ≤<sub>lex</sub> (n₁, m₁)</code>.
+    Par définition de ≤<sub>lex</sub>, on a :
+  </p>
+  <ul>
+    <li>soit n &lt; n₁,</li>
+    <li>soit n = n₁ et m ≤ m₁.</li>
+  </ul>
+  <p>
+    Dans le premier cas, comme (n, m) ∈ X, on a n ∈ X₁ et n &lt; n₁, ce qui contredit le fait que n₁ est un élément minimal de X₁.
+    Donc on ne peut pas avoir n &lt; n₁.
+  </p>
+  <p>
+    On est donc dans le second cas : n = n₁ et m ≤ m₁.
+    Mais alors m ∈ Xₙ₁, et comme m₁ est un élément minimal de Xₙ₁, on en déduit m = m₁.
+  </p>
+  <p>
+    Donc, pour tout (n, m) ∈ X tel que
+    <code>(n, m) ≤<sub>lex</sub> (n₁, m₁)</code>
+    on a
+    <code>(n, m) = (n₁, m₁)</code>.
+    Ainsi, <strong>(n₁, m₁) est un élément minimal de X</strong>.
+  </p>
+  <p>
+    On a donc montré que <strong>toute partie non vide</strong> de ℕ × ℕ admet un élément minimal pour ≤<sub>lex</sub>.
+    <br>
+    Donc <strong>l’ordre ≤<sub>lex</sub> est bien fondé</strong>.
+  </p>
+</div>
+
+<div class="box explain">
+  <h3>Explications (une seule grande boîte 😊)</h3>
+
+  <h4>1) Ce que la question voulait vraiment</h4>
+  <p>
+    Dans la question (2) juste avant, on t’a <strong>défini</strong> l’ordre lexicographique sur ℕ × ℕ et on t’a fait jouer avec
+    l’exemple A = {1,2,3}×{0,2}.  
+    <strong>Ici</strong>, on passe à l’étape d’après : on veut montrer que <strong>cet ordre est bien fondé</strong>, c’est-à-dire :
+  </p>
+  <p class="center">
+    « toute partie non vide de (ℕ × ℕ, ≤<sub>lex</sub>) possède un élément minimal ».
+  </p>
+  <p>
+    Mais au lieu de le faire d’un seul coup, le sujet te guide en <strong>3 petits pas</strong> :
+  </p>
+  <ol>
+    <li>
+      d’abord on projette X sur la <strong>première coordonnée</strong> → c’est X₁ ;
+    </li>
+    <li>
+      ensuite on regarde, pour cette première coordonnée minimale, tous les couples qui commencent par elle → c’est Xₙ₁ ;
+    </li>
+    <li>
+      enfin on recolle les deux pour dire : “voilà le vrai minimal de X pour l’ordre lexicographique”.
+    </li>
+  </ol>
+
+  <h4>2) Les notions utilisées ici</h4>
+  <ul>
+    <li><strong>ensemble non vide</strong> : il y a au moins un élément dedans. Ici : X ≠ ∅.</li>
+    <li><strong>projection</strong> sur la 1<sup>re</sup> coordonnée : X₁ = { n | ∃m, (n,m) ∈ X }.</li>
+    <li><strong>ordre bien fondé sur ℕ</strong> : toute partie non vide de ℕ a un plus petit élément (ça c’est “classique”).</li>
+    <li><strong>élément minimal</strong> : x est minimal dans Y si x ∈ Y et il n’existe pas y ∈ Y avec y &lt; x.</li>
+    <li><strong>ordre lexicographique</strong> : on compare d’abord les 1<sup>res</sup> coordonnées, puis les 2<sup>des</sup> si les 1<sup>res</sup> sont égales.</li>
+    <li><strong>ordre bien fondé</strong> : “pas de descente infinie” / “toute partie non vide a un minimal”.</li>
+  </ul>
+
+  <h4>3) Pourquoi (a) est facile</h4>
+  <p>
+    On part d’un X ⊆ ℕ×ℕ non vide. Donc il existe au moins un couple (n₀, m₀) dans X.
+    Du coup, n₀ appartient à X₁. Donc X₁ est non vide.
+  </p>
+  <p>
+    Mais <strong>X₁ ⊆ ℕ</strong>, et <strong>sur ℕ</strong> on connaît déjà le résultat : toute partie non vide a un élément minimal.
+    Donc on a un n₁ minimal.  
+    👉 C’est littéralement : “X₁ est non vide + ℕ est bien fondé → X₁ a un minimal”.
+  </p>
+
+  <h4>4) Pourquoi (b) est le même raisonnement</h4>
+  <p>
+    Maintenant qu’on a fixé la plus petite 1<sup>re</sup> coordonnée possible (n₁),
+    on regarde <strong>tous</strong> les couples de X qui commencent par n₁ :
+  </p>
+  <p class="center">
+    Xₙ₁ = { m ∈ ℕ | (n₁, m) ∈ X }.
+  </p>
+  <p>
+    Comme n₁ ∈ X₁, il existe bien au moins un m tel que (n₁, m) ∈ X → donc Xₙ₁ est non vide.
+    Et comme c’est une <strong>partie de ℕ</strong>, elle a un élément minimal m₁.  
+    👉 donc on a trouvé <strong>la plus petite 2<sup>e</sup> coordonnée</strong> compatible avec la plus petite 1<sup>re</sup>.
+  </p>
+
+  <h4>5) Comment (c) utilise (a) et (b)</h4>
+  <p>
+    On veut prouver : “≤<sub>lex</sub> est bien fondé”.
+    Par définition, ça veut dire :
+  </p>
+  <p class="center">
+    « pour tout X ⊆ ℕ×ℕ, X ≠ ∅ ⇒ X possède un élément minimal pour ≤<sub>lex</sub> »
+  </p>
+  <p>
+    Et c’est exactement ce qu’on vient de construire :
+  </p>
+  <ol>
+    <li>on prend X non vide ;</li>
+    <li>on en tire n₁ = plus petit premier entier utilisé dans X ;</li>
+    <li>on en tire m₁ = plus petit deuxième entier associé à ce n₁ ;</li>
+    <li>on regarde le couple (n₁, m₁) → on montre qu’il est bien minimal pour l’ordre lexicographique.</li>
+  </ol>
+  <p>
+    La petite preuve à la fin (“supposons (n,m) ≤<sub>lex</sub> (n₁,m₁) …”) sert juste à dire :
+    <strong>il n’y a rien de plus petit dans X</strong>.
+  </p>
+
+  <h4>6) Comment vérifier chaque notion sur CETTE question</h4>
+  <ul>
+    <li>
+      <strong>“bien fondé ?”</strong>  
+      → je prends un sous-ensemble non vide X  
+      → je construis un élément qui est forcé d’être minimal  
+      → si j’y arrive pour un X arbitraire, alors l’ordre est bien fondé.
+    </li>
+    <li>
+      <strong>“élément minimal ?”</strong>  
+      → je prends un candidat (ici (n₁, m₁))  
+      → je montre : si un élément de X est ≤ à lui, alors c’est le même.
+    </li>
+    <li>
+      <strong>“ordre lexicographique ?”</strong>  
+      → toujours deux cas : (i) la 1<sup>re</sup> coordonnée est plus petite, (ii) elles sont égales et on compare la 2<sup>e</sup>.
+    </li>
+  </ul>
+
+  <h4>7) 2–3 autres façons d’écrire la même question (et quoi répondre)</h4>
+
+  <p><strong>Forme 1 :</strong></p>
+  <blockquote>
+    « Montrer que (ℕ×ℕ, ≤<sub>lex</sub>) est bien fondé. »
+  </blockquote>
+  <p>
+    ➜ tu refais exactement (a) puis (b) puis (c).
+  </p>
+
+  <p><strong>Forme 2 :</strong></p>
+  <blockquote>
+    « Soit X ⊆ ℕ×ℕ non vide. Prouver qu’il existe (n,m) ∈ X tel que pour tout (p,q) ∈ X,
+    (p,q) ≤<sub>lex</sub> (n,m) ⇒ (p,q) = (n,m). »
+  </blockquote>
+  <p>
+    ➜ tu dis : on prend n₁ minimal des 1<sup>res</sup> coord., puis m₁ minimal pour n₁, et on conclut.
+  </p>
+
+  <p><strong>Forme 3 (plus “cours”) :</strong></p>
+  <blockquote>
+    « Prouver que le produit d’ordres bien fondés (avec l’ordre lexicographique) est bien fondé. »
+  </blockquote>
+  <p>
+    ➜ tu expliques : ℕ est bien fondé, on prend la plus petite 1<sup>re</sup> coordonnée, puis la plus petite 2<sup>e</sup>, donc le produit est bien fondé.
+  </p>
+
+  <h4>8) Ce qu’il faut retenir pour tes futurs exos</h4>
+  <ul>
+    <li>Quand tu vois “≤<sub>lex</sub>”, pense “je regarde d’abord la 1<sup>re</sup> coordonnée”.</li>
+    <li>Pour montrer “bien fondé”, on prend une partie non vide et on fabrique un minimal.</li>
+    <li>Sur ℕ, c’est toujours facile : toute partie non vide a un minimum.</li>
+    <li>Sur ℕ×ℕ avec lexicographique, on fait “minimum sur la 1<sup>re</sup> puis minimum sur la 2<sup>e</sup>”.</li>
+  </ul>
+</div>
+
+
+
+
+
+<br><hr><br>
+<!-- =============== Exercice 2 — (4) Terminaison de `foo` par induction bien fondée =============== -->
+
+<div class="box question">
+  <h2>Exercice 2 — (4) (6 points)</h2>
+  <p><strong>Énoncé exact :</strong></p>
+  <pre><code>def foo(m,n):
+    if (m != n):
+        if (m > n):
+            return foo(m-n,n)
+        else:
+            return foo(m,n-m)
+    else:
+        return (m,n)
+  </code></pre>
+  <p>
+    On veut montrer la propriété <strong>P(m,n)</strong> : « L’appel à <code>foo(m,n)</code> termine. » pour tout
+    <strong>(m,n) ∈ (ℕ \\ {0}) × (ℕ \\ {0})</strong>. <br>
+    <strong>Demander :</strong> Démontrer <strong>P</strong> par <em>induction bien fondée</em> avec un <em>ordre bien choisi</em>. 
+    (Énoncé tiré du sujet officiel.) :contentReference[oaicite:0]{index=0}
+  </p>
+</div>
+
+<div class="box answer">
+  <h3>Réponse officielle (copie fidèle)</h3>
+  <p>
+    <strong>Solution :</strong> On utilise l’ordre <strong>≤<sub>lex</sub></strong>. Soit <code>(m,n) ∈ (ℕ\\{0})×(ℕ\\{0})</code>, 
+    et supposons <code>P(m′, n′)</code> vraie pour tout <code>(m′, n′) ≺<sub>lex</sub> (m,n)</code>.
+  </p>
+  <ul>
+    <li>Si <code>m = n</code>, alors <code>foo(m,n)</code> se termine immédiatement.</li>
+    <li>Si <code>m &gt; n</code>, la terminaison de <code>foo(m,n)</code> dépend de celle de <code>foo(m−n,n)</code>. 
+      Comme <code>n &gt; 0</code>, on a <code>m−n &lt; m</code>, donc <code>(m−n,n) ≺<sub>lex</sub> (m,n)</code>. 
+      Par hypothèse d’induction, <code>foo(m−n,n)</code> termine.</li>
+    <li>Si <code>m &lt; n</code>, de même, <code>foo(m,n)</code> dépend de <code>foo(m,n−m)</code>. 
+      Or <code>n−m &lt; n</code> et <code>(m,n−m) ≺<sub>lex</sub> (m,n)</code>, donc par hypothèse d’induction 
+      <code>foo(m,n−m)</code> termine.</li>
+  </ul>
+  <p>
+    On a donc montré que pour tout <code>(m,n) ∈ (ℕ\\{0})×(ℕ\\{0})</code>, si <code>foo(m′,n′)</code> termine pour tout 
+    <code>(m′, n′) ≺<sub>lex</sub> (m,n)</code>, alors <code>foo(m,n)</code> termine. Par le principe d’induction bien fondée, 
+    <code>foo(m,n)</code> termine pour tout <code>(m,n) ∈ (ℕ\\{0})×(ℕ\\{0})</code>. :contentReference[oaicite:1]{index=1}
+  </p>
+</div>
+
+<div class="box explain">
+  <h3>Explications (une seule section, claire et complète)</h3>
+
+  <h4>1) Ce que la question demande</h4>
+  <p>
+    Tu dois prouver que <code>foo(m,n)</code> <strong>termine pour toutes</strong> entrées positives <code>m,n ≥ 1</code>. 
+    Et tu dois le faire via une <strong>induction bien fondée</strong> : on choisit un <em>ordre bien fondé</em> sur 
+    les paires <code>(m,n)</code>, on suppose la propriété vraie pour toutes les paires <em>strictement plus petites</em> 
+    dans cet ordre, puis on la prouve pour <code>(m,n)</code>.
+  </p>
+
+  <h4>2) Notions utilisées</h4>
+  <ul>
+    <li><strong>Ordre bien fondé :</strong> aucun infiniment long enchaînement strictement décroissant. 
+      Exemples : l’ordre usuel sur ℕ, le <em>lexicographique</em> sur ℕ×ℕ, etc.</li>
+    <li><strong>Induction bien fondée :</strong> si pour tout <code>x</code> on a « 
+      (la propriété vaut pour tous les <code>y ≺ x</code>) ⇒ (elle vaut pour <code>x</code>) », 
+      alors elle vaut pour tous les <code>x</code>.</li>
+    <li><strong>Ordre lexicographique ≤<sub>lex</sub> sur ℕ×ℕ :</strong> 
+      <code>(a,b) &lt;<sub>lex</sub> (c,d)</code> si <code>a&lt;c</code>, ou bien <code>a=c</code> et <code>b&lt;d</code>. 
+      Il est <em>bien fondé</em> (voir Ex. 2.(3) du sujet). :contentReference[oaicite:2]{index=2}</li>
+  </ul>
+
+  <h4>3) Pourquoi le choix de l’ordre lexicographique marche ici</h4>
+  <p>
+    Dans le code, si <code>m≠n</code>, on remplace <code>(m,n)</code> par :
+  </p>
+  <ul>
+    <li><strong>cas m&gt;n :</strong> <code>(m−n,n)</code>. On a <code>m−n &lt; m</code> et <code>n</code> inchangé ⇒ 
+      <code>(m−n,n) &lt;<sub>lex</sub> (m,n)</code> (le premier composant a strictement diminué).</li>
+    <li><strong>cas m&lt;n :</strong> <code>(m,n−m)</code>. On a <code>n−m &lt; n</code> et <code>m</code> inchangé ⇒ 
+      <code>(m,n−m) &lt;<sub>lex</sub> (m,n)</code> si le premier composant est égal mais le second a strictement diminué.</li>
+  </ul>
+  <p>
+    Donc <em>à chaque appel récursif</em>, l’argument <code>(m,n)</code> <strong>diminue strictement</strong> 
+    pour l’ordre bien fondé <code>≤<sub>lex</sub></code>. Il ne peut pas y avoir de chaîne infinie de diminutions strictes, 
+    donc la récursion <strong>ne peut pas être infinie</strong> : elle finit au cas de base <code>m=n</code>.
+  </p>
+
+  <h4>4) Vérification pas à pas (structure « hypothèse → objectif »)</h4>
+  <ol>
+    <li><strong>Hypothèse d’induction (HB) :</strong> pour tout <code>(m′,n′) &lt;<sub>lex</sub> (m,n)</code>, 
+      <code>foo(m′,n′)</code> termine.</li>
+    <li><strong>À prouver :</strong> <code>foo(m,n)</code> termine.
+      <ul>
+        <li>Si <code>m=n</code> ⇒ retour direct ⇒ terminé.</li>
+        <li>Si <code>m&gt;n</code> ⇒ on appelle <code>foo(m−n,n)</code> avec <code>(m−n,n) &lt;<sub>lex</sub> (m,n)</code> ⇒ 
+          par (HB), ça termine ⇒ donc l’appel courant termine.</li>
+        <li>Si <code>m&lt;n</code> ⇒ on appelle <code>foo(m,n−m)</code> avec <code>(m,n−m) &lt;<sub>lex</sub> (m,n)</code> ⇒ 
+          par (HB), ça termine ⇒ donc l’appel courant termine.</li>
+      </ul>
+    </li>
+    <li><strong>Conclusion (principe d’induction bien fondée) :</strong> 
+      <code>foo(m,n)</code> termine pour tout <code>(m,n) ∈ (ℕ\\{0})×(ℕ\\{0})</code>. 
+      (C’est exactement la solution officielle.) :contentReference[oaicite:3]{index=3}
+    </li>
+  </ol>
+
+  <h4>5) Deux autres façons correctes de répondre (mêmes idées, écriture différente)</h4>
+  <ul>
+    <li><strong>Mesure « somme » :</strong> définir <code>μ(m,n)=m+n</code>. À chaque appel,
+      <code>(m,n)→(m−n,n)</code> (si <code>m&gt;n</code>) donne <code>μ</code> qui passe de <code>m+n</code> à <code>m</code> 
+      (baisse de <code>n≥1</code>), et <code>(m,n)→(m,n−m)</code> (si <code>m&lt;n</code>) donne <code>μ</code> 
+      qui passe de <code>m+n</code> à <code>n</code> (baisse de <code>m≥1</code>). 
+      Donc <code>μ</code> décroît strictement dans ℕ bien fondé ⇒ terminaison.</li>
+    <li><strong>Mesure « max » :</strong> définir <code>ν(m,n)=max(m,n)</code>. 
+      Si <code>m&gt;n</code>, alors <code>ν(m−n,n)=max(m−n,n)=n&lt;m=ν(m,n)</code>. 
+      Si <code>m&lt;n</code>, alors <code>ν(m,n−m)=m&lt;n=ν(m,n)</code>. 
+      À chaque pas, le maximum baisse strictement ⇒ pas de boucle infinie ⇒ terminaison.</li>
+  </ul>
+
+  <h4>6) 2–3 reformulations fréquentes du même exercice (et comment y répondre)</h4>
+  <ul>
+    <li><em>« Prouver que la fonction termine pour tout <code>(m,n)≥(1,1)</code> en exhibant une <strong>fonction variante</strong>. »</em><br>
+      ⇒ Choisir <code>m+n</code> ou <code>max(m,n)</code> comme variante décroissante dans ℕ.</li>
+    <li><em>« Utiliser une <strong>induction bien fondée</strong> quelconque (pas forcément lexicographique). »</em><br>
+      ⇒ Prendre l’ordre strict induit par la variante <code>m+n</code> : <code>(m′,n′) ≺ (m,n)</code> si <code>m′+n′ &lt; m+n</code>. 
+      Refaire le même raisonnement d’induction.</li>
+    <li><em>« Justifier la terminaison en reliant à l’algorithme d’Euclide. »</em><br>
+      ⇒ Observer que <code>foo</code> est la version « soustractions répétées » de l’algorithme d’Euclide. 
+      À chaque pas, le plus grand des deux nombres diminue ⇒ on finit quand ils deviennent égaux.</li>
+  </ul>
+</div>
+
+
+
+<br><hr><br>
+
+<div class="box question">
+  <h2>Exercice 3 — (Total : 18 points)</h2>
+
+  <p><strong>(1)</strong> On définit l’ensemble <strong>ABS</strong> des arbres binaires stricts étiquetés sur un alphabet <strong>A</strong> :
+  <br>— pour tout <code>a ∈ A</code>, <code>(a, ∅, ∅) ∈ ABS</code>.
+  <br>— pour tout arbre <code>g ∈ ABS</code> et <code>d ∈ ABS</code>, pour toute lettre <code>a ∈ A</code>, <code>(a, g, d) ∈ ABS</code>.
+  </p>
+
+  <p>On rappelle la définition de l’ensemble <strong>AB</strong> des arbres binaires étiquetés sur un alphabet <strong>A</strong> :
+  <br>— <code>∅ ∈ AB</code>,
+  <br>— pour tout arbre <code>g ∈ AB</code> et <code>d ∈ AB</code>, pour toute lettre <code>a ∈ A</code>, <code>(a, g, d) ∈ AB</code>.
+  </p>
+
+  <p><strong>a. (2 points)</strong> Donner la fonction <code>n : AB → ℕ</code> (nombre de nœuds d’un arbre <code>t ∈ AB</code>) et la fonction <code>ns : ABS → ℕ</code> (nombre de nœuds d’un arbre strict <code>t ∈ ABS</code>). </p>
+
+  <p>On se place maintenant sur l’alphabet réduit <code>A = {a}</code>. On définit <code>f : AB → ABS</code> par :
+  <br>— <code>f(∅) = (a, ∅, ∅)</code>
+  <br>— pour tous <code>g, d ∈ AB</code>, <code>f(a, g, d) = (a, f(g), f(d))</code>.
+  </p>
+
+  <p><strong>b. (3 points)</strong> Donner <code>f(t)</code> si <code>t = (a, ∅, (a, (a, ∅, ∅), ∅))</code>. On peut donner une représentation graphique.</p>
+
+  <p><strong>c. (5 points)</strong> Montrer par induction structurelle que <code>f</code> est <strong>surjective</strong>.</p>
+
+  <p><strong>d. (5 points)</strong> Montrer que pour tout <code>t ∈ AB</code>, <code>ns(f(t)) = 2 · n(t) + 1</code>. </p>
+</div>
+
+<div class="box answer">
+  <h3>Réponses (du corrigé)</h3>
+
+  <p><strong>(1a)</strong> Par <em>induction structurelle</em> :<br>
+  — <code>n(∅) = 0</code> ;&nbsp;&nbsp;— pour tout <code>a ∈ A</code>, pour tout <code>g, d ∈ AB</code>, <code>n(a, g, d) = 1 + n(g) + n(d)</code>.<br>
+  — <code>ns((a, ∅, ∅)) = 1</code> pour tout <code>a ∈ A</code> ;&nbsp;&nbsp;— pour tout <code>a ∈ A</code>, <code>g, d ∈ ABS</code>, <code>ns(a, g, d) = 1 + ns(g) + ns(d)</code>. :contentReference[oaicite:0]{index=0}</p>
+
+  <p><strong>(1b)</strong> Pour <code>t = (a, ∅, (a, (a, ∅, ∅), ∅))</code> et <code>A={a}</code> :
+  <br><code>f(t) = (a, f(∅), f(a, (a, ∅, ∅), ∅)) = (a, (a, ∅, ∅), (a, f(a, ∅, ∅), f(∅)))</code>
+  <br>Comme <code>f(∅)=(a,∅,∅)</code> et <code>f(a,∅,∅)=(a, (a,∅,∅), (a,∅,∅))</code>, on obtient (représentation textuelle compactée) :
+  <pre><code>(a,
+  (a, ∅, ∅),
+  (a,
+    (a, (a, ∅, ∅), (a, ∅, ∅)),
+    (a, ∅, ∅)))</code></pre>
+  (Le corrigé donne un dessin arboré équivalent.) :contentReference[oaicite:1]{index=1}</p>
+
+  <p><strong>(1c)</strong> Surjectivité de <code>f</code> par induction structurelle sur <code>t ∈ ABS</code> :<br>
+  — Si <code>t = (a, ∅, ∅)</code>, alors <code>t = f(∅)</code> ;<br>
+  — Si <code>t = (a, g, d)</code> avec <code>g, d ∈ ABS</code>, par hypothèse d’induction il existe <code>t′₁, t′₂ ∈ AB</code> tels que <code>f(t′₁)=g</code> et <code>f(t′₂)=d</code>, donc <code>f(a, t′₁, t′₂) = (a, g, d) = t</code>. :contentReference[oaicite:2]{index=2}</p>
+
+  <p><strong>(1d)</strong> Pour tout <code>t ∈ AB</code>, <code>ns(f(t)) = 2 · n(t) + 1</code> par induction structurelle sur <code>t</code> :
+  <br>— Cas base <code>t=∅</code> : <code>ns(f(∅)) = ns(a,∅,∅) = 1 = 2·0 + 1</code>.
+  <br>— Pas d’induction : si <code>t=(a, g, d)</code> et si <code>ns(f(g))=2·n(g)+1</code>, <code>ns(f(d))=2·n(d)+1</code>, alors
+  <br><code>n(t) = 1 + n(g) + n(d)</code>, <code>f(t) = (a, f(g), f(d))</code>, donc
+  <br><code>ns(f(t)) = 1 + ns(f(g)) + ns(f(d)) = 1 + (2n(g)+1) + (2n(d)+1) = 2(1+n(g)+n(d)) + 1 = 2·n(t)+1</code>. :contentReference[oaicite:3]{index=3}</p>
+
+  <hr>
+
+  <p><strong>(2) (3 points)</strong> Pour tout <code>n ∈ ℕ</code>, <code>8<sup>n</sup> − 1</code> est un multiple de <code>7</code> (rappel : <code>8 = 7+1</code>) :
+  <br>— Initialisation : <code>8<sup>0</sup> − 1 = 0</code> est multiple de <code>7</code>.
+  <br>— Hérédité : si <code>8<sup>n</sup> − 1</code> est multiple de <code>7</code>, alors
+  <br><code>8<sup>n+1</sup> − 1 = 8 · 8<sup>n</sup> − 1 = (7+1)·8<sup>n</sup> − 1 = 7·8<sup>n</sup> + (8<sup>n</sup> − 1)</code> est somme de deux multiples de <code>7</code>, donc multiple de <code>7</code>. :contentReference[oaicite:4]{index=4}
+  </p>
+</div>
+
+<div class="box explain">
+  <h3>Explications — ce que la question demande & comment répondre (pas à pas)</h3>
+
+  <h4>1) Lecture de l’énoncé</h4>
+  <ul>
+    <li><strong>AB</strong> : arbres binaires (nœud vide <code>∅</code> autorisé).</li>
+    <li><strong>ABS</strong> : arbres binaires <em>stricts</em> (chaque nœud a exactement 0 ou 2 fils — ici les feuilles strictes sont <code>(a,∅,∅)</code>).</li>
+    <li><strong>n</strong> et <strong>ns</strong> : fonctions « nombre de nœuds ». On te demande leurs définitions récursives.</li>
+    <li>On fige l’alphabet à <code>A={a}</code> pour construire une application <strong>f : AB → ABS</strong> qui « remplace » chaque nœud par un nœud étiqueté <code>a</code> et applique <code>f</code> récursivement à ses sous-arbres.</li>
+    <li>Ensuite, on calcule <code>f(t)</code> pour un arbre donné, on montre que <strong>f est surjective</strong>, puis on prouve la formule de comptage <code>ns(f(t)) = 2·n(t)+1</code>.</li>
+    <li>Enfin, question arithmétique indépendante : prouver par récurrence que <code>8<sup>n</sup>−1</code> est multiple de <code>7</code>.</li>
+  </ul>
+
+  <h4>2) Notions utilisées</h4>
+  <ul>
+    <li><strong>Induction structurelle</strong> (sur la forme d’un arbre) : cas de base (feuille / vide), puis pas récursif (nœud avec sous-arbres).</li>
+    <li><strong>Surjectivité</strong> d’une fonction <code>f : X → Y</code> : pour tout <code>y ∈ Y</code>, il existe <code>x ∈ X</code> tel que <code>f(x)=y</code>.</li>
+    <li><strong>Définitions récursives</strong> de fonctions sur arbres : on donne la valeur sur la base (∅ ou feuille), puis la formule sur <code>(a,g,d)</code>.</li>
+    <li><strong>Récurrence (arithmétique)</strong> : initialisation + hérédité pour un énoncé sur <code>n ∈ ℕ</code>.</li>
+  </ul>
+
+  <h4>3) Comment vérifier chacune pour CET exercice</h4>
+  <ul>
+    <li><strong>(1a) Définir n et ns</strong> : écris toujours « cas base » puis « cas nœud ». Pour <code>AB</code>, base <code>∅</code>. Pour <code>ABS</code>, base <code>(a,∅,∅)</code>.</li>
+    <li><strong>(1b) Calculer f(t)</strong> : déroule la définition de <code>f</code> de haut en bas (remplace <code>∅</code> par <code>(a,∅,∅)</code>, et applique <code>f</code> aux sous-arbres non vides).</li>
+    <li><strong>(1c) f surjective</strong> : prends un arbre <code>t ∈ ABS</code>. Si c’est une feuille, preimage <code>∅</code>. Si c’est <code>(a,g,d)</code>, utilise l’IH pour trouver des préimages de <code>g</code> et <code>d</code>, puis construit <code>(a, t′₁, t′₂)</code>.</li>
+    <li><strong>(1d) ns(f(t)) = 2·n(t)+1</strong> : fais une induction sur <code>t</code> ; vérifie base <code>∅</code>; au pas, remplace <code>ns(f(g))</code> et <code>ns(f(d))</code> par les hypothèses, puis simplifie.</li>
+    <li><strong>(2) 8<sup>n</sup>−1 multiple de 7</strong> : écris base <code>n=0</code>, puis pour l’hérédité, factorise via <code>8 = 7+1</code> pour obtenir une somme de multiples de 7.</li>
+  </ul>
+
+  <h4>4) Autres formulations possibles & comment répondre</h4>
+  <ul>
+    <li><strong>Variante (1a)</strong> : « Écrire <em>précisément</em> n et ns avec une seule équation par cas. » → Donne exactement les deux lignes par ensemble.</li>
+    <li><strong>Variante (1c)</strong> : « Montrer que f est surjective sur ABS en construisant une section g : ABS → AB avec f∘g = id. » → Définis <code>g(a,∅,∅)=∅</code>, <code>g(a,g₁,d₁)=(a,g(g₁),g(d₁))</code>, puis montre <code>f(g(t))=t</code> par induction.</li>
+    <li><strong>Variante (1d)</strong> : « Donner une preuve par double comptage » → Observe que chaque nœud de <code>AB</code> devient un nœud dans <code>ABS</code> et chaque branche vide devient une feuille <code>(a,∅,∅)</code> : un arbre <code>AB</code> avec <code>n(t)</code> nœuds a <code>n(t)+1</code> fils vides → <code>ns(f(t)) = n(t) + (n(t)+1) = 2n(t)+1</code>.</li>
+    <li><strong>Variante (2)</strong> : « Prouver que 8<sup>n</sup> ≡ 1 (mod 7) » → même preuve en arithmétique modulaire : base <code>8≡1</code>, hérédité par <code>8·1≡1</code>.</li>
+  </ul>
+
+  <h4>5) Mini-mémo (à réviser)</h4>
+  <pre><code>Induction structurelle (arbres) :
+• Base : cas feuille (ou vide).
+• Pas : (a,g,d) en supposant vrai pour g et d.
+
+Surjectivité f:AB→ABS :
+• t=(a,∅,∅) → ∅
+• t=(a,g,d) → par IH, g=f(t′₁), d=f(t′₂), donc t=f(a,t′₁,t′₂)
+
+Formule : ns(f(t)) = 2·n(t) + 1 :
+• Base ∅ : 1 = 2·0 + 1
+• Pas : 1+(2n(g)+1)+(2n(d)+1) = 2(1+n(g)+n(d))+1
+
+Récurrence “8^n − 1 multiple de 7” :
+• Base n=0 : OK
+• Hérédité : 8^(n+1)−1 = 7·8^n + (8^n − 1)</code></pre>
+
+  <p><em>Note :</em> le corrigé contient une petite coquille au (1d) (il écrit une fois <code>ns(f(t))</code> à la place de <code>ns(f(d))</code> dans la somme). La formule correcte est bien <code>ns(f(t)) = 1 + ns(f(g)) + ns(f(d))</code>. :contentReference[oaicite:5]{index=5}</p>
+</div>
+
+
+<br><hr><br>
+
+
+
+<!-- =============== Exercice 4 — Automate (faire « le prochain ») =============== -->
+
+<div class="box question">
+  <h2>Exercice 4 (Total : 3 points)</h2>
+  <p>On considère l’alphabet <strong>A = {a, b}</strong>. On note <strong>L = L(A)</strong> le langage accepté par l’automate <strong>A</strong> suivant :</p>
+  <pre><code>A :
+
+0   1
+b   b
+a
+b </code></pre>
+
+  <ol>
+    <li>(1 point) Cet automate est-il <strong>déterministe</strong> ? <strong>complet</strong> ? Justifier.</li>
+    <li>(2 points) Le mot <strong>baab</strong> est-il accepté par l’automate ? Le mot <strong>babb</strong> ? Justifier vos réponses.</li>
+  </ol>
+</div>
+
+<div class="box answer">
+  <h3>Réponse (officielle)</h3>
+  <p><strong>(1)</strong> L’automate <em>n’est pas déterministe</em>, car on a les transitions <code>(0, b, 0)</code> et <code>(0, b, 1)</code> (deux sorties différentes depuis l’état 0 avec la même lettre <code>b</code>). Il <em>n’est pas complet</em> car il n’y a aucune transition étiquetée par <code>a</code> depuis l’état 0. :contentReference[oaicite:0]{index=0}</p>
+  <p><strong>(2)</strong> Le mot <code>baab</code> <em>n’est pas</em> accepté : il n’existe aucune exécution étiquetée <code>baab</code> (pas de transition <code>a</code> depuis 0, et la seule transition en <code>a</code> mène à 0). Le mot <code>babb</code> <em>est</em> accepté : il étiquette l’exécution <code>0 ─b→ 1 ─a→ 0 ─b→ 0 ─b→ 1</code>, qui est acceptante car <code>1</code> est un état acceptant. :contentReference[oaicite:1]{index=1}</div>
+
+<div class="box explain">
+  <h3>Explications (définitions, méthode et pas à pas)</h3>
+
+  <h4>1) Ce que la question demande</h4>
+  <ul>
+    <li>Vérifier si l’automate est <strong>déterministe</strong> et/ou <strong>complet</strong>.</li>
+    <li>Simuler deux mots (<code>baab</code> et <code>babb</code>) pour dire s’ils sont <strong>acceptés</strong> (le dernier état atteint doit être acceptant).</li>
+  </ul>
+
+  <h4>2) Notions utilisées</h4>
+  <ul>
+    <li><strong>Automate déterministe (DFA)</strong> : pour chaque état <em>q</em> et chaque lettre <em>α</em>, il y a <strong>au plus une</strong> transition sortante étiquetée <em>α</em>.</li>
+    <li><strong>Automate non déterministe (NFA)</strong> : il peut y avoir 0, 1 ou plusieurs transitions pour le même couple (état, lettre).</li>
+    <li><strong>Automate complet</strong> : pour chaque état et chaque lettre, il y a <strong>au moins une</strong> transition définie (on ne “bloque” jamais en lisant une lettre).</li>
+    <li><strong>État acceptant</strong> : si, après avoir lu tout le mot, on est dans un état acceptant, alors le mot est accepté.</li>
+    <li><strong>Exécution</strong> : une suite d’états reliés par des transitions qui étiquette exactement le mot lu (une lettre par transition).</li>
+  </ul>
+
+  <h4>3) Comment vérifier « déterministe » et « complet » sur ce dessin</h4>
+  <ul>
+    <li><strong>Déterministe ?</strong> regarde l’état 0 avec la lettre <code>b</code>. Le schéma indique deux transitions possibles : <code>0 ─b→ 0</code> et <code>0 ─b→ 1</code>. Comme il y en a <strong>deux</strong> pour la même lettre depuis le même état, <u>ce n’est pas déterministe</u>. :contentReference[oaicite:2]{index=2}</li>
+    <li><strong>Complet ?</strong> regarde l’état 0 avec la lettre <code>a</code>. Le corrigé précise : “il n’y a aucune transition étiquetée par <code>a</code> depuis l’état 0” ⇒ il manque une transition pour (0, a), donc <u>pas complet</u>. :contentReference[oaicite:3]{index=3}</li>
+  </ul>
+
+  <h4>4) Simulation des mots (pas à pas)</h4>
+  <p><em>(On part de l’état initial 0. On suppose que l’état 1 est acceptant — c’est mentionné dans la solution officielle.)</em></p>
+
+  <p><strong>Mot <code>baab</code></strong></p>
+  <ol>
+    <li>Lisons <code>b</code> depuis 0 : il existe des transitions <code>b</code>, mais la suite <code>aab</code> va immédiatement poser problème depuis 0 <em>car</em> “pas de transition <code>a</code> depuis 0” (le corrigé le dit explicitement). On “bloque” ⇒ <u>mot non accepté</u>. :contentReference[oaicite:4]{index=4}</li>
+  </ol>
+
+  <p><strong>Mot <code>babb</code></strong></p>
+  <ol>
+    <li><code>0 ─b→ 1</code> (on choisit cette transition en <code>b</code> vers 1, comme dans la trace officielle).</li>
+    <li><code>1 ─a→ 0</code> (la seule flèche en <code>a</code> mène à 0, d’après la solution).</li>
+    <li><code>0 ─b→ 0</code> (on utilise ici l’autre boucle <code>b</code> sur 0).</li>
+    <li><code>0 ─b→ 1</code> (on revient à 1).</li>
+  </ol>
+  <p>On finit en <strong>1</strong>, qui est acceptant ⇒ <strong>accepté</strong>. :contentReference[oaicite:5]{index=5}</p>
+
+  <h4>5) Astuces rapides (checklist en exam)</h4>
+  <ul>
+    <li><strong>Déterministe ?</strong> Inspecte chaque état : s’il existe deux flèches portant <em>la même étiquette</em> qui sortent du même état, ⇒ <u>pas déterministe</u>.</li>
+    <li><strong>Complet ?</strong> Pour chaque état et chaque lettre de l’alphabet, vérifie qu’au moins une transition existe. Si une lettre manque pour un état ⇒ <u>pas complet</u>.</li>
+    <li><strong>Simulation</strong> : pars de l’état initial, suis les flèches lettre par lettre. Si tu bloques (aucune transition), le mot n’est pas accepté. Si tu termines dans un état acceptant, le mot est accepté.</li>
+  </ul>
+
+  <h4>6) Autres formulations possibles & comment répondre</h4>
+  <ul>
+    <li><em>Variante A :</em> “Cet automate est-il un <strong>DFA</strong> ? Si non, modifiez-le pour qu’il le devienne.”  
+      → Réponds : “non (double sortie en <code>b</code> depuis 0)”. Pour le rendre DFA, tu dois choisir <em>une seule</em> sortie en <code>b</code> depuis 0 (ou transformer l’automate NFA en DFA par <em>construction des sous-ensembles</em>), et ajouter des transitions manquantes (souvent vers un <em>puits</em>) pour la complétude.</li>
+    <li><em>Variante B :</em> “Construire l’automate <strong>complet</strong> équivalent.”  
+      → Ajoute un état <em>puit</em> ⊥ et redirige toutes les transitions manquantes (par exemple (0, a)) vers ⊥. Depuis ⊥, toutes les lettres bouclent sur ⊥.</li>
+    <li><em>Variante C :</em> “Donner <strong>toutes</strong> les exécutions étiquetées <code>babb</code> (NFA).”  
+      → Dans un NFA, il peut y avoir plusieurs chemins. Énumère toutes les transitions possibles lettre par lettre, et indique quels chemins finissent en état acceptant.</li>
+  </ul>
+</div>
+
+
+
+
+<br><br><hr><hr><br><br>
+
+
+
+<div class="box explain">
+  <h2>Méga-explication — Toutes les notions des Exercices 1 → 4 (cours / sujet « partiel23 »)</h2>
+
+  <p>Voici un <strong>mini-cours complet</strong> qui couvre, explique et illustre <em>toutes</em> les notions qui apparaissent dans tes exercices : relations (équivalence/ordre), fonctions (injective/surjective/bijective), ordres sur des produits (≤<sub>lex</sub>), induction bien fondée et terminaison, induction structurelle sur les arbres, et automates (DFA/NFA, complétude, acceptation).</p>
+
+  <hr>
+
+  <!-- 1. RELATIONS -->
+
+  <h3>1) Relations sur un ensemble</h3>
+  <p>Une <strong>relation</strong> R sur un ensemble E est un sous-ensemble de E×E. On écrit <code>x R y</code> si le couple (x,y) appartient à R.</p>
+
+  <h4>1.1) Quatre propriétés fondamentales</h4>
+  <ul>
+    <li><strong>Réflexive</strong> : ∀x∈E, <code>x R x</code>.  
+      <em>Pour vérifier</em> : prends un x arbitraire, remplace dans la condition. Si la relation est définie par une égalité « … = … », c’est presque toujours vrai (ex. <code>n·m = m·n</code>).</li>
+    <li><strong>Symétrique</strong> : ∀x,y, <code>x R y ⇒ y R x</code>.  
+      <em>Pour vérifier</em> : pars de la condition de <code>x R y</code>, regarde si elle se lit à l’envers (une égalité se lit dans les deux sens).</li>
+    <li><strong>Transitive</strong> : ∀x,y,z, <code>(x R y ∧ y R z) ⇒ x R z</code>.  
+      <em>Pour vérifier</em> : écris les deux hypothèses et combine-les algébriquement pour obtenir la conclusion (enchaînement d’égalités, élimination d’une variable commune, etc.).</li>
+    <li><strong>Antisymétrique</strong> : ∀x,y, <code>(x R y ∧ y R x) ⇒ x = y</code>.  
+      ⚠️ À ne pas confondre avec « asymétrique ». L’antisymétrie apparaît pour les <em>ordres</em>, pas pour les équivalences.</li>
+  </ul>
+
+  <h4>1.2) Deux grandes familles</h4>
+  <ul>
+    <li><strong>Relation d’équivalence</strong> = réflexive + symétrique + transitive.  
+      Elle <strong>partitionne</strong> E en <strong>classes d’équivalence</strong> : des « paquets » d’éléments qui s’équivalent.</li>
+    <li><strong>Relation d’ordre (partiel)</strong> = réflexive + antisymétrique + transitive.  
+      <u>Total</u> si toute paire est comparable, sinon <u>partiel</u>.  
+      <em>Bornes</em> dans un sous-ensemble A⊆E :  
+      – <em>majorant</em> : ≥ tous les éléments de A ; <em>borne sup.</em> = plus petit des majorants (s’il existe).  
+      – <em>minorant</em> : ≤ tous les éléments de A ; <em>borne inf.</em> = plus grand des minorants (s’il existe).  
+      – <em>plus grand/petit élément</em> ∈A ; <em>maximal/minimal</em> = aucun élément strictement au-dessus/dessous dans A.</li>
+  </ul>
+
+  <h4>1.3) Exemple clé (Ex. 1-(1)) : sur ℚ, <code>(n/m) R (p/q) ⇔ n·q = m·p</code></h4>
+  <ul>
+    <li><em>Réflexive</em> : <code>n·m = m·n</code> ⇒ <code>n/m R n/m</code>.</li>
+    <li><em>Symétrique</em> : <code>n·q = m·p</code> ⇔ <code>p·m = q·n</code> ⇒ <code>p/q R n/m</code>.</li>
+    <li><em>Transitive</em> : <code>n·q = m·p</code> et <code>p·s = q·r</code> ⇒ élimine q ⇒ <code>n·s = m·r</code> ⇒ <code>n/m R r/s</code>.</li>
+  </ul>
+  <p><strong>Conclusion</strong> : c’est une <em>équivalence</em>. Les classes correspondent aux « mêmes rationnels » (ex. <code>[2/3]</code> contient 4/6, 6/9, …).</p>
+
+  <hr>
+
+  <!-- 2. FONCTIONS -->
+
+  <h3>2) Fonctions : injection, surjection, bijection, inverse</h3>
+  <ul>
+    <li><strong>Application</strong> : fonction définie sur tout le domaine.</li>
+    <li><strong>Injective</strong> : <code>f(x)=f(y) ⇒ x=y</code>.  
+      <em>Méthode</em> : pars de <code>f(x)=f(y)</code>, simplifie jusqu’à <code>x=y</code>.</li>
+    <li><strong>Surjective</strong> : ∀<code>y</code> dans le <em>codomaine</em>, ∃<code>x</code> tel que <code>f(x)=y</code>.  
+      <em>Méthode</em> : prends un y arbitraire, <strong>résous l’équation</strong> <code>f(x)=y</code> dans le domaine.</li>
+    <li><strong>Bijective</strong> = injective + surjective. ⇔ f possède une <strong>inverse</strong> <code>f<sup>−1</sup></code>.</li>
+  </ul>
+
+  <h4>2.1) Exemple (Ex. 1-(2)) : <code>f:E→P(E)</code> avec <code>f(e) = {e}</code></h4>
+  <ul>
+    <li><em>Injective</em> : <code>{e}={e’}</code> ⇒ <code>e=e’</code>.</li>
+    <li><em>Surjective</em> : <strong>non</strong>, car <code>∅ ∈ P(E)</code> n’a <em>aucun antécédent</em> (jamais <code>f(e)=∅</code>).</li>
+    <li>Donc <em>pas bijective</em>. C’est bien une <strong>application</strong> (définie sur tout E).</li>
+  </ul>
+
+  <h4>2.2) Exemple (Ex. 1-(3))</h4>
+  <ul>
+    <li><strong>f: ℝ→ℝ</strong>, <code>f(x)=x²−2</code> :  
+      pas injective (f(2)=f(−2)), pas surjective (aucun x avec f(x)=−3). ⇒ pas bijective.</li>
+    <li><strong>g: ℝ<sup>+</sup>→[0,1[</strong>, <code>g(x)=x²/(x²+1)</code> :  
+      injective (égalité ⇒ <code>x²=y²</code> ⇒ sur ℝ<sup>+</sup> force x=y),  
+      surjective : pour y∈[0,1[, poser <code>x = √(y/(1−y))</code> ⇒ <code>g(x)=y</code>.  
+      ⇒ g bijective (sur ces ensembles).</li>
+  </ul>
+
+  <h4>2.3) Schéma « réflexe »</h4>
+  <ul>
+    <li><em>Injectivité</em> : commence par « Soient x,y, <code>f(x)=f(y)</code>… »</li>
+    <li><em>Surjectivité</em> : « Soit y dans le codomaine. Posons <code>x = …(y)</code>. Alors <code>f(x)=y</code> »</li>
+    <li><em>Bijectivité</em> : fais les deux (ou construis explicitement <code>f<sup>−1</sup></code>).</li>
+  </ul>
+
+  <hr>
+
+  <!-- 3. ORDRES LEXICOGRAPHIQUES & BIEN-FONDE -->
+
+  <h3>3) Ordres sur produits : lexicographique, bornes, bien-fondé</h3>
+
+  <h4>3.1) Ordre lexicographique ≤<sub>lex</sub> sur ℕ×ℕ</h4>
+  <p><code>(a,b) &lt;<sub>lex</sub> (c,d)</code> si <code>a&lt;c</code>, ou bien <code>a=c</code> et <code>b&lt;d</code>.</p>
+  <ul>
+    <li><em>Total</em> : toute paire est comparable (on compare d’abord les 1<sup>res</sup> composantes, puis les 2<sup>es</sup> si besoin).</li>
+    <li><em>Bien fondé</em> sur ℕ×ℕ : pas de chaîne descendante infinie, car la 1<sup>re</sup> composante ne peut pas diminuer indéfiniment dans ℕ ; si elle se stabilise, la 2<sup>e</sup> ne peut pas diminuer indéfiniment non plus.</li>
+  </ul>
+
+  <h4>3.2) Bornes et extrémaux (rappel utile pour Ex. 2)</h4>
+  <ul>
+    <li><em>Majorant</em> / <em>minorant</em> d’un sous-ensemble A ; <em>sup</em> / <em>inf</em> (si existent) ; <em>plus grand/petit élément</em> ; <em>maximaux/minimaux</em> (distincts de max/min).</li>
+    <li><em>Hasse</em> : pour un ordre partiel, on dessine le graphe des comparabilités « immédiates » (sans réflexivité ni transitivité) pour visualiser minima/maxima.</li>
+  </ul>
+
+  <hr>
+
+  <!-- 4. INDUCTION BIEN FONDEE & TERMINAISON -->
+
+  <h3>4) Induction bien fondée & terminaison de programmes</h3>
+
+  <h4>4.1) Induction bien fondée (principe)</h4>
+  <p>Sur un ordre bien fondé (pas de descente infinie), pour prouver ∀x, P(x) :  
+  suppose P(y) vraie pour tout <code>y ≺ x</code>, puis prouve P(x). C’est l’analogue « sur un ordre » de la récurrence usuelle.</p>
+
+  <h4>4.2) Exemple clé (Ex. 2-(4)) : terminaison de <code>foo(m,n)</code></h4>
+  <pre><code>if m != n:
+  if m&gt;n:  foo(m−n, n)
+  else:     foo(m, n−m)
+else:
+  return (m,n)
+</code></pre>
+  <ul>
+    <li><em>Idée 1 (ordre)</em> : raisonne par induction bien fondée sur ≤<sub>lex</sub> sur (m,n)∈(ℕ\{0})² ; à chaque appel, la paire <strong>diminue strictement</strong> (soit la 1<sup>re</sup>, soit la 2<sup>e</sup> composante baisse).</li>
+    <li><em>Idée 2 (mesure)</em> : variante décroissante <code>μ(m,n)=m+n</code> (ou <code>ν(m,n)=max(m,n)</code>) ; à chaque appel, la mesure diminue dans ℕ bien fondé ⇒ terminaison.</li>
+    <li><em>Interprétation</em> : c’est la version « soustractions répétées » de l’algorithme d’Euclide ; on atteint forcément le cas de base <code>m=n</code>.</li>
+  </ul>
+
+  <hr>
+
+  <!-- 5. ARBRES & INDUCTION STRUCTURELLE -->
+
+  <h3>5) Arbres binaires, induction structurelle, fonctions récursives</h3>
+
+  <h4>5.1) Deux familles d’arbres</h4>
+  <ul>
+    <li><strong>AB</strong> (arbres binaires étiquetés) : <code>∅ ∈ AB</code> ; si <code>g,d ∈ AB</code> et <code>a ∈ A</code>, alors <code>(a,g,d) ∈ AB</code>.</li>
+    <li><strong>ABS</strong> (arbres binaires <em>stricts</em>) : feuilles <code>(a,∅,∅)</code> ; si <code>g,d ∈ ABS</code>, <code>(a,g,d) ∈ ABS</code>.  
+      Fait classique (finis) : #feuilles = #nœuds internes + 1.</li>
+  </ul>
+
+  <h4>5.2) Induction structurelle (définitions de taille)</h4>
+  <ul>
+    <li>Sur <strong>AB</strong> : <code>n(∅)=0</code>, <code>n(a,g,d)=1+n(g)+n(d)</code>.</li>
+    <li>Sur <strong>ABS</strong> : <code>ns(a,∅,∅)=1</code>, <code>ns(a,g,d)=1+ns(g)+ns(d)</code>.</li>
+  </ul>
+
+  <h4>5.3) La transformation <code>f: AB→ABS</code> (avec <code>A={a}</code>)</h4>
+  <ul>
+    <li><code>f(∅)=(a,∅,∅)</code> (le vide devient une <em>feuille stricte</em>),</li>
+    <li><code>f(a,g,d)=(a,f(g),f(d))</code> (on « applique f » aux sous-arbres).</li>
+    <li><em>Surjectivité de f</em> : par induction structurelle sur <code>t∈ABS</code> :  
+      – base : <code>(a,∅,∅)</code> est image de <code>∅</code> ;  
+      – hérédité : si <code>g=f(g’)</code> et <code>d=f(d’)</code>, alors <code>(a,g,d)=f(a,g’,d’)</code>.</li>
+    <li><em>Formule</em> : <code>ns(f(t)) = 2·n(t) + 1</code>.  
+      Démonstration par induction structurelle (écrire simultanément les définitions de <code>n</code>, <code>f</code>, <code>ns</code> et remplacer par l’hypothèse d’induction).</li>
+  </ul>
+
+  <hr>
+
+  <!-- 6. RECURRENCE ARITHMETIQUE / MODULO -->
+
+  <h3>6) Récurrence arithmétique & calcul modulo</h3>
+  <p><strong>Exemple (Ex. 3-(2))</strong> : montrer que <code>8<sup>n</sup> − 1</code> est multiple de 7.</p>
+  <ul>
+    <li><em>Par récurrence</em> :  
+      base n=0 : <code>8⁰−1 = 0</code>.  
+      hérédité : <code>8ⁿ⁺¹−1 = 8·8ⁿ−1 = 7·8ⁿ + (8ⁿ−1)</code> = somme de deux multiples de 7.</li>
+    <li><em>En modulo</em> : <code>8 ≡ 1 (mod 7)</code> ⇒ <code>8ⁿ ≡ 1</code> ⇒ <code>8ⁿ−1 ≡ 0</code>.</li>
+    <li><em>Généralisation</em> : <code>(a−1) | (aⁿ−1)</code> (identité de la somme géométrique).</li>
+  </ul>
+
+  <hr>
+
+  <!-- 7. AUTOMATES -->
+
+  <h3>7) Automates finis (DFA/NFA), complétude, acceptation de mots</h3>
+  <ul>
+    <li><strong>Automate déterministe (DFA)</strong> : pour chaque état q et chaque lettre α, ≤1 transition sortante étiquetée α.</li>
+    <li><strong>Automate non déterministe (NFA)</strong> : on autorise 0/1/plusieurs transitions pour (q,α).</li>
+    <li><strong>Complet</strong> : pour chaque (q,α), il existe ≥1 transition (sinon on « bloque »). On complète souvent avec un <em>état puits</em> ⊥ (toutes les lettres bouclent sur ⊥).</li>
+    <li><strong>Acceptation d’un mot</strong> : on part de l’état initial, on lit chaque lettre en suivant une transition correspondante.  
+      – En DFA : chemin unique.  
+      – En NFA : <em>au moins un</em> chemin ; s’il existe un chemin qui finit dans un état acceptant, le mot est accepté.</li>
+    <li><strong>Trucs rapides</strong> :  
+      – Déterministe ? inspecter chaque état : s’il y a deux flèches portant la <em>même étiquette</em> qui sortent du même état ⇒ <u>pas</u> déterministe.  
+      – Complet ? pour chaque état et chaque lettre, vérifier qu’au moins une transition existe ; sinon : <u>pas</u> complet.  
+      – Simulation : écrire la trace état-par-état. Si on bloque, le mot est refusé ; si on termine dans un état acceptant, le mot est accepté.</li>
+  </ul>
+
+  <hr>
+
+  <!-- 8. TEMPLATES / CHECKLISTS -->
+
+  <h3>8) Templates « prêts-à-écrire » (pour gagner des points vite)</h3>
+
+  <h4>8.1) Prouver qu’une relation est une <em>équivalence</em></h4>
+  <ol>
+    <li><strong>Réflexive</strong> : « Soit x∈E. On vérifie <code>x R x</code> : … (substitution) … C’est vrai ⇒ R est réflexive. »</li>
+    <li><strong>Symétrique</strong> : « Soient x,y. Supposons <code>x R y</code>, donc … (égalité). Cette égalité se lit dans l’autre sens, donc <code>y R x</code>. »</li>
+    <li><strong>Transitive</strong> : « Soient x,y,z. Si <code>x R y</code> et <code>y R z</code>, alors … (enchaîne les égalités) … ⇒ <code>x R z</code>. »</li>
+    <li><strong>Conclusion</strong> : « R est réflexive, symétrique et transitive ; c’est une relation d’équivalence. »</li>
+  </ol>
+
+  <h4>8.2) Tester injection / surjection / bijection</h4>
+  <ul>
+    <li><strong>Injection</strong> : « Soient x,y. Si <code>f(x)=f(y)</code>, alors … ⇒ <code>x=y</code>. »</li>
+    <li><strong>Surjection</strong> : « Soit y (arbitraire) dans le codomaine. Posons <code>x = …(y)</code>. Alors <code>f(x)=y</code>. »</li>
+    <li><strong>Bijectivité</strong> : écrire les deux points (ou construire <code>f<sup>−1</sup></code> explicitement).</li>
+  </ul>
+
+  <h4>8.3) Prouver la terminaison d’une fonction récursive</h4>
+  <ol>
+    <li>Choisir un <strong>ordre bien fondé</strong> (souvent ≤<sub>lex</sub> sur un produit ou une <strong>mesure</strong> <code>μ</code> à valeurs dans ℕ).</li>
+    <li>Montrer qu’à chaque appel récursif, l’argument <strong>diminue strictement</strong> pour cet ordre / cette mesure.</li>
+    <li>Conclure : pas de chaîne infinie ⇒ la récursion termine.</li>
+  </ol>
+
+  <h4>8.4) Induction structurelle (arbres)</h4>
+  <ol>
+    <li><strong>Base</strong> : traiter <code>∅</code> (AB) ou la feuille <code>(a,∅,∅)</code> (ABS).</li>
+    <li><strong>Hérédité</strong> : supposer le résultat vrai pour les sous-arbres gauche/droite, et le prouver pour <code>(a,g,d)</code> en remplaçant systématiquement dans la définition.</li>
+  </ol>
+
+  <h4>8.5) Automates : déterminisme, complétude, acceptation</h4>
+  <ul>
+    <li>Déterminisme : « Pour chaque état q et lettre α, il y a au plus une flèche (q,α,–). Ici, on observe … ⇒ (pas) déterministe. »</li>
+    <li>Complétude : « Pour chaque q et α, il y a au moins une flèche. Ici, il manque (q,α) pour … ⇒ (pas) complet. »</li>
+    <li>Mot accepté : « Trace : q<sub>0</sub> —a→ … —b→ … (dernier état acceptant ?) ⇒ (accepté / refusé). »</li>
+  </ul>
+
+  <hr>
+
+  <!-- 9. ERREURS CLASSIQUES -->
+
+  <h3>9) Pièges fréquents (et comment les éviter)</h3>
+  <ul>
+    <li>Confusion <strong>symétrie</strong> (équivalence) vs <strong>antisymétrie</strong> (ordre).</li>
+    <li>Surjectivité : <em>ne pas oublier</em> les éléments spéciaux du codomaine (ex. <code>∅ ∈ P(E)</code>), ni le rôle <emdéterminant du codomaine</em> (changer le codomaine change la réponse).</li>
+    <li>Bien-fondé : « pas de maximum » ≠ « pas de descente infinie ». On cible la <em>descente</em> infinie.</li>
+    <li>Induction structurelle : oublier le cas de base, ou mélanger les domaines (appliquer <code>ns</code> à un arbre de AB sans passer par <code>f</code>).</li>
+    <li>Automates : en NFA, il suffit d’<em>un</em> chemin acceptant ; en DFA, le chemin est unique.</li>
+  </ul>
+
+  <hr>
+
+  <!-- 10. MINI-MEMOS -->
+
+  <h3>10) Mini-mémos à recoller dans ton fichier</h3>
+  <pre><code>Équivalence  = Réflexive + Symétrique + Transitive
+Ordre (partiel) = Réflexive + Antisymétrique + Transitive
+Injection   : f(x)=f(y) ⇒ x=y
+Surjection  : ∀y, ∃x : f(x)=y
+Bijectif    : injectif + surjectif ⇔ f⁻¹ existe
+
+≤_lex sur ℕ×ℕ : (a,b) < (c,d) ⇔ (a<c) ou (a=c et b<d)   (bien fondé)
+Induction bien fondée : (∀y≺x, P(y)) ⇒ P(x)  ⇒ ∀x, P(x)
+Mesure variante (terminaison) : μ(x) décroît strictement dans ℕ ⇒ pas de boucle infinie
+
+AB : n(∅)=0 ; n(a,g,d)=1+n(g)+n(d)
+ABS : ns(a,∅,∅)=1 ; ns(a,g,d)=1+ns(g)+ns(d)
+f: AB→ABS (A={a}) : f(∅)=(a,∅,∅) ; f(a,g,d)=(a,f(g),f(d))
+Formule : ns(f(t)) = 2·n(t) + 1
+
+Automate :
+
+* Déterministe ? ≤ 1 flèche par (état,lettre).
+* Complet ? ≥ 1 flèche par (état,lettre).
+* Un mot est accepté s’il existe un chemin (NFA) ou l’unique chemin (DFA)
+  qui finit dans un état acceptant. </code></pre>
+
+</div>
+
+
+
+
+<div class="box explain">
+  <h2>Addendum — Explications plus profondes & mini-exemples (Ex. 1 → 4)</h2>
+
+  <h3>1) Relations : équivalence, ordre, (anti)symétrie, transitivité</h3>
+  <p><strong>But</strong> : savoir reconnaître le <em>type</em> d’une relation <code>R</code> et quoi prouver.</p>
+  <ul>
+    <li><strong>Réflexive</strong> : ∀x, <code>x R x</code>. Astuce : si la condition est une <em>égalité</em> (… = …), c’est presque automatique (ex. <code>n·m = m·n</code>).</li>
+    <li><strong>Symétrique</strong> : ∀x,y, <code>x R y ⇒ y R x</code>. Astuce : une égalité se lit dans les deux sens.</li>
+    <li><strong>Transitive</strong> : ∀x,y,z, <code>x R y ∧ y R z ⇒ x R z</code>. Astuce : écris les deux hypothèses et <em>enchaîne</em> les égalités pour éliminer le terme commun.</li>
+    <li><strong>Antisymétrique</strong> : ∀x,y, <code>x R y ∧ y R x ⇒ x = y</code>. (Pour les <em>ordres</em>, pas pour les équivalences.)</li>
+  </ul>
+  <p><strong>Équivalence</strong> = réflexive + symétrique + transitive. <strong>Ordre</strong> = réflexive + antisymétrique + transitive.</p>
+
+  <p><u>Exemple clé (Ex. 1-(1))</u> : <code>(n/m) R (p/q) ⇔ n·q = m·p</code>.  
+  — Réflexive : <code>n·m = m·n</code>.  
+  — Symétrique : <code>n·q = m·p ⇔ p·m = q·n</code>.  
+  — Transitive : <code>n·q = m·p</code> & <code>p·s = q·r</code> ⇒ <code>n·s = m·r</code>.  
+  ⇒ <em>R est une équivalence</em>; ses classes = « mêmes rationnels » (p.ex. [2/3] = {4/6, 6/9, …}).</p>
+
+  <h4>Mini-exos (corrigés très courts)</h4>
+  <ol>
+    <li>Sur ℝ, <code>x ~ y ⇔ x − y ∈ ℤ</code>. Est-ce une équivalence ?  
+      Réponse : oui (égalité modulo 1) : réflexive (0∈ℤ), symétrique (si d∈ℤ alors −d∈ℤ), transitive (somme d’entiers).</li>
+    <li>Sur ℝ, <code>x ⪯ y ⇔ x ≤ y</code>. Type ?  
+      Réponse : ordre <em>total</em> (réflexive, antisymétrique, transitive).</li>
+  </ol>
+
+  <hr>
+
+  <h3>2) Fonctions : injective, surjective, bijective (et « application »)</h3>
+  <ul>
+    <li><strong>Application</strong> : f est définie sur tout le domaine.</li>
+    <li><strong>Injective</strong> : <code>f(x)=f(y) ⇒ x=y</code>. <em>Réflexe d’examen</em> : commence par « Soient x,y avec f(x)=f(y)… » et simplifie.</li>
+    <li><strong>Surjective</strong> : ∀y dans le <em>codomaine</em>, ∃x tel que <code>f(x)=y</code>. <em>Réflexe</em> : « Soit y ; posons x = …(y). Alors f(x)=y ».</li>
+    <li><strong>Bijective</strong> : injective + surjective ⇔ l’inverse <code>f<sup>−1</sup></code> existe.</li>
+  </ul>
+
+  <p><u>Ex. 1-(2)</u> : <code>f:E→P(E)</code>, <code>f(e)={e}</code>.  
+  — Injective : <code>{e}={e’} ⇒ e=e’</code>.  
+  — Pas surjective : <code>∅ ∈ P(E)</code> mais jamais <code>f(e)=∅</code>.  
+  — Donc pas bijective. C’est une application (définie sur tout E).</p>
+
+  <p><u>Ex. 1-(3)</u> :  
+  — <code>f:ℝ→ℝ</code>, <code>f(x)=x²−2</code> : pas injective (f(2)=f(−2)), pas surjective (−3 non atteint).  
+  — <code>g:ℝ<sup>+</sup>→[0,1[</code>, <code>g(x)=x²/(x²+1)</code> : injective (égalité ⇒ <code>x²=y²</code> ⇒ x=y en ℝ<sup>+</sup>) ; surjective : pour <code>y∈[0,1[</code>, prendre <code>x=√(y/(1−y))</code>.</p>
+
+  <h4>Mini-exos</h4>
+  <ol>
+    <li><code>h:ℝ→ℝ</code>, <code>h(x)=3x+1</code> : bijective ?  
+      Oui : injective (3x+1=3y+1 ⇒ x=y), surjective (x=(y−1)/3).</li>
+    <li><code>k:ℝ→ℝ</code>, <code>k(x)=x²</code> : injective ? surjective ?  
+      Pas injective (k(1)=k(−1)), pas surjective (valeurs négatives jamais atteintes).</li>
+  </ol>
+
+  <hr>
+
+  <h3>3) Ordre lexicographique ≤<sub>lex</sub> sur ℕ×ℕ, bornes, bien-fondé</h3>
+  <p><strong>Déf.</strong> : <code>(a,b) &lt;<sub>lex</sub> (c,d)</code> ssi <code>a&lt;c</code>, ou (<code>a=c</code> et <code>b&lt;d</code>).  
+  Propriétés : <em>ordre total</em> sur ℕ×ℕ ; <em>bien fondé</em> (pas de descente infinie).</p>
+  <p><strong>Borniers/extrémaux</strong> (dans A⊆E) :  
+  — <em>majorant</em> (≥ tous), <em>borne sup.</em> (plus petit des majorants), <em>plus grand élément</em> (∈A, ≥ tous).  
+  — <em>minorant</em>, <em>borne inf.</em>, <em>plus petit élément</em>.  
+  — <em>maximaux/minimaux</em> : aucun élément de A strictement au-dessus/dessous (diffère de « plus grand/petit »).</p>
+
+  <h4>Mini-exos</h4>
+  <ol>
+    <li>Dans A={<code>(0,5),(1,0),(1,2)</code>} pour ≤<sub>lex</sub>, le plus petit ?  
+      <code>(0,5)</code> (car 0&lt;1).</li>
+    <li>Montrer que toute partie non vide de ℕ×ℕ a un élément minimal pour ≤<sub>lex</sub>.  
+      Idée : minimiser d’abord la 1<sup>re</sup> coordonnée, puis la 2<sup>e</sup>.</li>
+  </ol>
+
+  <hr>
+
+  <h3>4) Induction bien fondée & terminaison (Ex. 2-(4) : <code>foo</code>)</h3>
+  <p><strong>Principe</strong> : sur un ordre bien fondé (<em>pas</em> de chaîne descendante infinie), pour montrer ∀x, P(x), il suffit de prouver « si P(y) pour tous les <code>y≺x</code>, alors P(x) ».</p>
+  <p><u>foo(m,n)</u> : si <code>m≠n</code>, on remplace le plus grand par <code>−</code> l’autre (m−n ou n−m).  
+  <strong>Mesure</strong> qui décroît : par ex. <code>μ(m,n)=m+n</code> (ou ≤<sub>lex</sub> sur (m,n)). À chaque appel, <code>μ</code> diminue ⇒ pas de boucle ⇒ terminaison.</p>
+
+  <h4>Mini-exos</h4>
+  <ol>
+    <li>Montrer la terminaison de « tant que n&gt;0 : n ← ⌊n/2⌋ ».  
+      Mesure : n décroît strictement en ℕ.</li>
+    <li>Terminaison de « tant que (m,n)≠(0,0) : si m&gt;0, m←m−1 sinon n←n−1 ».  
+      Mesure : m+n décroît.</li>
+  </ol>
+
+  <hr>
+
+  <h3>5) Arbres binaires (AB/ABS), induction structurelle, la fonction <code>f</code></h3>
+  <ul>
+    <li><strong>AB</strong> : <code>∅</code> ; et si <code>g,d∈AB</code>, <code>(a,g,d)∈AB</code>. Définis <code>n(∅)=0</code>, <code>n(a,g,d)=1+n(g)+n(d)</code>.</li>
+    <li><strong>ABS</strong> : feuilles <code>(a,∅,∅)</code> ; et si <code>g,d∈ABS</code>, <code>(a,g,d)∈ABS</code>. Définis <code>n_s(a,∅,∅)=1</code>, <code>n_s(a,g,d)=1+n_s(g)+n_s(d)</code>.</li>
+  </ul>
+  <p><strong>Induction structurelle</strong> : Base (feuille / vide), puis <em>constructeur</em> (recoller le résultat des sous-arbres).</p>
+  <p><u>Transformation</u> <code>f:AB→ABS</code> (A={a}) : <code>f(∅)=(a,∅,∅)</code>, <code>f(a,g,d)=(a,f(g),f(d))</code>.  
+  — <em>Surjectivité</em> : toute feuille <code>(a,∅,∅)</code> est image de <code>∅</code> ; tout nœud <code>(a,g,d)</code> est image de <code>(a,g’,d’)</code> dès que g,d sont des images (H.I.).  
+  — <em>Formule</em> : <code>n_s(f(t)) = 2·n(t) + 1</code> (preuve en déroulant les définitions + H.I.).  
+  <em>Intuition</em> : chaque nœud AB « donne » 2 nœuds dans ABS (ses deux sous-arbres transformés) + 1 pour la racine, et chaque vide devient une feuille.</p>
+
+  <h4>Mini-exos</h4>
+  <ol>
+    <li>Calcule <code>f((a,∅,∅))</code>. Rép. : <code>(a, (a,∅,∅), (a,∅,∅))</code>.</li>
+    <li>Montre par structure que <code>n(t) = #nœuds(t)</code> pour tous <code>t∈AB</code>.  
+      Rép. : immédiat par définition (base + somme).</li>
+  </ol>
+
+  <hr>
+
+  <h3>6) Récurrence arithmétique & modulo (Ex. 3-(2))</h3>
+  <p><u>À montrer</u> : <code>7 | (8<sup>n</sup> − 1)</code>.  
+  — Récurrence : <code>8^{n+1} − 1 = 8·8^n − 1 = 7·8^n + (8^n − 1)</code>.  
+  — Modulo : <code>8 ≡ 1 (mod 7)</code> ⇒ <code>8^n ≡ 1</code> ⇒ <code>8^n − 1 ≡ 0</code>.</p>
+
+  <h4>Mini-exos</h4>
+  <ol>
+    <li>Montrer que <code>9^n − 1</code> est multiple de 8. (Indice : 9≡1 (mod 8).)</li>
+    <li>Montrer que <code>a^n − 1</code> est multiple de <code>a−1</code> (identité géométrique).</li>
+  </ol>
+
+  <hr>
+
+  <h3>7) Automates finis : déterminisme, complétude, acceptation</h3>
+  <ul>
+    <li><strong>DFA</strong> (déterministe) : ≤ 1 transition par (état, lettre).</li>
+    <li><strong>NFA</strong> (non déterministe) : 0, 1 ou plusieurs transitions possibles.</li>
+    <li><strong>Complet</strong> : ≥ 1 transition par (état, lettre). Sinon, on ajoute un <em>puits</em> ⊥ et on redirige les manquantes vers ⊥ (qui boucle sur lui-même).</li>
+    <li><strong>Acceptation</strong> : un mot est accepté s’il existe (NFA) ou si l’unique (DFA) exécution finit dans un état acceptant.</li>
+  </ul>
+  <p><u>Ex. 4</u> : l’automate n’est pas déterministe (deux flèches <code>b</code> depuis 0), pas complet (pas de <code>a</code> depuis 0).  
+  — <code>babb</code> accepté (on peut finir en état acceptant).  
+  — <code>baab</code> refusé (on « bloque » sur un <code>a</code> depuis 0).</p>
+
+  <h4>Mini-exos</h4>
+  <ol>
+    <li>Rendre l’automate précédent <em>complet</em>. Rép. : ajouter ⊥, relier tous les (état, lettre) manquants vers ⊥, et ⊥ boucle sur ⊥ pour toutes lettres.</li>
+    <li>Donner <em>toutes</em> les exécutions de <code>babb</code> (NFA). Rép. : énumérer les choix à chaque <code>b</code> depuis 0 (vers 0 ou 1), et garder celles qui finissent acceptantes.</li>
+  </ol>
+
+  <hr>
+
+  <h3>8) « Recettes » d’examen (copier/coller & adapter)</h3>
+  <ul>
+    <li><strong>Équivalence</strong> : « Soit x. (Réflexive) … ; Soient x,y. (Symétrique) … ; Soient x,y,z. (Transitive) … ⇒ c’est une équivalence. »</li>
+    <li><strong>Injection</strong> : « Soient x,y. Si f(x)=f(y), alors … ⇒ x=y. »</li>
+    <li><strong>Surjection</strong> : « Soit y. Posons x=…(y). Alors f(x)=y. »</li>
+    <li><strong>Terminaison</strong> : « Choisissons la mesure μ(…)∈ℕ. À chaque appel, μ diminue strictement ⇒ pas de chaîne infinie ⇒ la fonction termine. »</li>
+    <li><strong>Induction structurelle</strong> : « Base … ; Hérédité : suppose vrai sur g,d, alors pour (a,g,d), … »</li>
+    <li><strong>Automate</strong> : « Déterministe ? Inspecter (état, lettre). Complet ? Ajouter ⊥. Pour un mot : écrire la trace. »</li>
+  </ul>
+
+  <hr>
+
+  <h3>9) Erreurs à éviter (les pièges classiques)</h3>
+  <ul>
+    <li>Confondre <em>symétrie</em> (équivalence) et <em>antisymétrie</em> (ordre).</li>
+    <li>Oublier les éléments « spéciaux » du codomaine (ex. <code>∅∈P(E)</code>) pour la surjectivité.</li>
+    <li>Confondre « pas de maximum » et « pas de descente infinie » (bien-fondé).</li>
+    <li>Induction structurelle : oublier le cas de base, ou ne pas utiliser l’H.I. sur <em>chaque</em> sous-arbre.</li>
+    <li>Automates : en NFA, il suffit d’<em>un seul</em> chemin acceptant.</li>
+  </ul>
+
+  <hr>
+
+  <h3>10) Mini-mémo ultra-court</h3>
+  <pre><code>Équivalence = Réflexive + Symétrique + Transitive
+Ordre       = Réflexive + Antisymétrique + Transitive
+Injection   : f(x)=f(y) ⇒ x=y
+Surjection  : ∀y, ∃x : f(x)=y
+Bijectif    : injectif + surjectif ⇔ f⁻¹ existe
+≤_lex (ℕ×ℕ) : (a,b)&lt;(c,d) ⇔ a&lt;c ou (a=c et b&lt;d) (bien fondé)
+Induction BF : (∀y≺x, P(y)) ⇒ P(x)
+Terminaison  : mesure μ décroît strictement ∈ℕ
+AB : n(∅)=0 ; n(a,g,d)=1+n(g)+n(d)
+ABS : ns(a,∅,∅)=1 ; ns(a,g,d)=1+ns(g)+ns(d)
+f:AB→ABS (A={a}) : f(∅)=(a,∅,∅) ; f(a,g,d)=(a,f(g),f(d))
+Formule : ns(f(t)) = 2·n(t) + 1
+Automate : DFA ⇒ ≤1 flèche/(état,lettre) ; complet ⇒ ≥1 ; mot accepté ⇔ on finit acceptant
+</code></pre>
+</div>
+
+
+
+
+
+
+
+
+
+
+4) Monotone functions (applications monotones)
+Concepts taught
+
+Definition of monotone map between ordered sets: preserves order
+
+Examples showing a map can be monotone or not 
+
+cours2
+
+Notations taught
+
+Ordered sets: 
+(
+𝐸
+1
+,
+⪯
+1
+)
+(E
+1
+	​
+
+,⪯
+1
+	​
+
+), 
+(
+𝐸
+2
+,
+⪯
+2
+)
+(E
+2
+	​
+
+,⪯
+2
+	​
+
+)
+
+Function: 
+𝑓
+:
+𝐸
+1
+→
+𝐸
+2
+f:E
+1
+	​
+
+→E
+2
+	​
+
+
+Monotone condition: 
+𝑥
+1
+⪯
+1
+𝑦
+1
+⇒
+𝑓
+(
+𝑥
+1
+)
+⪯
+2
+𝑓
+(
+𝑦
+1
+)
+x
+1
+	​
+
+⪯
+1
+	​
+
+y
+1
+	​
+
+⇒f(x
+1
+	​
+
+)⪯
+2
+	​
+
+f(y
+1
+	​
+
+) 
+
+cours2
+
+5) Isomorphism of ordered sets (ensembles isomorphes)
+Concepts taught
+
+Two ordered sets are isomorphic if there exists a bijection 
+𝑓
+f such that:
+
+𝑓
+f is monotone
+
+𝑓
+−
+1
+f
+−1
+ is monotone
+
+Shape property: isomorphic orders have covering graphs of the same form
+
+Warning: a bijection can be monotone while 
+𝑓
+−
+1
+f
+−1
+ is not monotone 
+
+cours2
+
+Notations taught
+
+𝑓
+−
+1
+f
+−1
+ (inverse function)
+
+Example set: 
+{
+𝑛
+∈
+𝑁
+∣
+∃
+𝑘
+∈
+𝑁
+,
+𝑛
+=
+2
+𝑘
+}
+{n∈N∣∃k∈N,n=2k} 
+
+cours2
+
+6) Minimal / maximal elements
+Concepts taught
+
+Minimal element of a subset 
+𝑋
+⊆
+𝐸
+X⊆E
+
+Maximal element of a subset 
+𝑋
+⊆
+𝐸
+X⊆E
+
+Difference: can be several minimal/maximal elements in partial orders 
+
+cours2
+
+Notations taught
+
+Subset: 
+𝑋
+⊆
+𝐸
+X⊆E
+
+“Strictly smaller”: 
+𝑦
+≺
+𝑥
+y≺x
+
+Minimal: 
+𝑥
+∈
+𝑋
+x∈X and 
+∀
+𝑦
+∈
+𝑋
+,
+ 
+𝑦
+⊀
+𝑥
+∀y∈X, y
+
+≺x
+
+Maximal: 
+𝑥
+∈
+𝑋
+x∈X and 
+∀
+𝑦
+∈
+𝑋
+,
+ 
+𝑥
+⊀
+𝑦
+∀y∈X, x
+
+≺y 
+
+cours2
+
+7) Bounds: minorants, majorants, min/max
+Concepts taught
+
+Minorant (lower bound)
+
+Majorant (upper bound)
+
+Minimum (“plus petit élément”) = element in 
+𝑋
+X that is also a lower bound
+
+Maximum (“plus grand élément”) = element in 
+𝑋
+X that is also an upper bound
+
+Uniqueness of minimum and maximum when they exist 
+
+cours2
+
+Notations taught
+
+minorants
+(
+𝑋
+)
+minorants(X), 
+majorants
+(
+𝑋
+)
+majorants(X)
+
+Minimum: unique element of 
+𝑋
+∩
+minorants
+(
+𝑋
+)
+X∩minorants(X)
+
+Maximum: unique element of 
+𝑋
+∩
+majorants
+(
+𝑋
+)
+X∩majorants(X) 
+
+cours2
+
+8) Infimum and supremum
+Concepts taught
+
+inf(X) = greatest lower bound (borne inférieure)
+
+sup(X) = least upper bound (borne supérieure) 
+
+cours2
+
+Notations taught
+
+inf
+⁡
+(
+𝑋
+)
+inf(X), 
+sup
+⁡
+(
+𝑋
+)
+sup(X)
+
+Conditions:
+
+inf
+⁡
+(
+𝑋
+)
+⪯
+𝑥
+inf(X)⪯x for all 
+𝑥
+∈
+𝑋
+x∈X, and any lower bound 
+𝑢
+u satisfies 
+𝑢
+⪯
+inf
+⁡
+(
+𝑋
+)
+u⪯inf(X)
+
+𝑥
+⪯
+sup
+⁡
+(
+𝑋
+)
+x⪯sup(X) for all 
+𝑥
+∈
+𝑋
+x∈X, and any upper bound 
+𝑣
+v satisfies 
+sup
+⁡
+(
+𝑋
+)
+⪯
+𝑣
+sup(X)⪯v 
+
+cours2
+
+9) Well-founded orders (ordres bien fondés)
+Concepts taught
+
+Definition: no infinite strictly decreasing sequence 
+𝑒
+1
+≻
+𝑒
+2
+≻
+⋯
+e
+1
+	​
+
+≻e
+2
+	​
+
+≻⋯
+
+Examples:
+
+≤
+≤ well-founded on 
+𝑁
+N
+
+≤
+≤ not well-founded on 
+𝑍
+Z
+
+Every order on a finite set is well-founded
+
+Uses:
+
+well-founded induction
+
+proving algorithm termination
+
+Theorem (equivalence):
+
+well-founded iff every non-empty subset has a minimal element 
+
+cours2
+
+Notations taught
+
+Strict decreasing: 
+𝑒
+1
+≻
+𝑒
+2
+≻
+⋯
+e
+1
+	​
+
+≻e
+2
+	​
+
+≻⋯
+
+“Minimal element exists in every non-empty subset” criterion 
+
+cours2
+
+10) Well-founded induction (induction bien fondée)
+Concepts taught
+
+Induction principle on a well-founded order 
+(
+𝐸
+,
+⪯
+)
+(E,⪯)
+
+Proof idea using the set 
+𝑋
+=
+{
+𝑥
+∈
+𝐸
+∣
+𝑃
+(
+𝑥
+)
+ is false
+}
+X={x∈E∣P(x) is false} and minimal counterexample 
+
+cours2
+
+Notations taught
+
+Property: 
+𝑃
+(
+𝑥
+)
+P(x)
+
+Induction step form:
+
+∀
+𝑥
+∈
+𝐸
+,
+ 
+(
+(
+∀
+𝑦
+≺
+𝑥
+,
+ 
+𝑃
+(
+𝑦
+)
+)
+⇒
+𝑃
+(
+𝑥
+)
+)
+ 
+⇒
+ 
+∀
+𝑒
+∈
+𝐸
+,
+ 
+𝑃
+(
+𝑒
+)
+∀x∈E, ((∀y≺x, P(y))⇒P(x)) ⇒ ∀e∈E, P(e)
+
+Counterexample set: 
+𝑋
+=
+{
+𝑥
+∈
+𝐸
+∣
+𝑃
+(
+𝑥
+)
+ faux
+}
+X={x∈E∣P(x) faux} 
+
+cours2
+
+11) Example of well-founded induction with divisibility
+Concepts taught
+
+“Every integer 
+𝑛
+≥
+2
+n≥2 is a product of primes”
+
+Using the well-founded order 
+(
+𝑁
+∖
+{
+0
+,
+1
+}
+,
+∣
+)
+(N∖{0,1},∣)
+
+Minimal elements are primes 
+
+cours2
+
+Notations taught
+
+𝑁
+∖
+{
+0
+,
+1
+}
+N∖{0,1}
+
+𝑚
+∣
+𝑛
+m∣n and 
+𝑚
+≠
+𝑛
+m
+
+=n for the “smaller than” relation in that order 
+
+cours2
+
+12) Link with complete induction on ℕ (récurrence complète)
+Concepts taught
+
+Complete induction on 
+𝑁
+N is a special case of well-founded induction because 
+≤
+≤ is well-founded on 
+𝑁
+N
+
+Relation between:
+
+“complete induction” 
+∀
+𝑘
+<
+𝑛
+∀k<n
+
+“simple induction” 
+𝑃
+(
+𝑛
+)
+⇒
+𝑃
+(
+𝑛
++
+1
+)
+P(n)⇒P(n+1) + base case 
+
+cours2
+
+Notations taught
+
+∀
+𝑘
+<
+𝑛
+ 
+𝑃
+(
+𝑘
+)
+∀k<n P(k)
+
+Base case 
+𝑃
+(
+0
+)
+P(0)
+
+Step 
+𝑃
+(
+𝑛
+)
+⇒
+𝑃
+(
+𝑛
++
+1
+)
+P(n)⇒P(n+1) 
+
+cours2
+
+13) Lexicographic orders (ordres lexicographiques)
+Concepts taught
+
+Lexicographic order on 
+𝐸
+1
+×
+⋯
+×
+𝐸
+𝑛
+E
+1
+	​
+
+×⋯×E
+n
+	​
+
+ built from the orders on each 
+𝐸
+𝑖
+E
+i
+	​
+
+
+Proposition: lexicographic relation is an order
+
+Example on 
+𝑁
+3
+N
+3
+ 
+
+cours2
+
+Notations taught
+
+Cartesian product: 
+𝐸
+1
+×
+⋯
+×
+𝐸
+𝑛
+E
+1
+	​
+
+×⋯×E
+n
+	​
+
+
+Lexicographic order: 
+⪯
+⪯
+
+Condition: first index 
+𝑖
+i where they differ decides the comparison
+
+Special named order: 
+⪯
+𝑁
+3
+⪯
+N
+3
+	​
+
+ (shown as 
+⪯
+𝑁
+3
+⪯
+N3
+	​
+
+ in slides) 
+
+cours2
+
+14) Well-founded lexicographic orders
+Concepts taught
+
+Theorem: if each 
+⪯
+𝑖
+⪯
+i
+	​
+
+ is well-founded, then lexicographic order on the product is well-founded
+
+Example: 
+⪯
+𝑁
+3
+⪯
+N
+3
+	​
+
+ is well-founded
+
+Remark: alphabetical order on letters is well-founded (finite), but alphabetical order on words is not well-founded (infinite descending chain like 
+𝑏
+≻
+𝑎
+𝑏
+≻
+𝑎
+𝑎
+𝑏
+≻
+⋯
+b≻ab≻aab≻⋯) 
+
+cours2
+
+If you want, I can also make you a 1-page “cheat sheet” from this PDF: all definitions + “h

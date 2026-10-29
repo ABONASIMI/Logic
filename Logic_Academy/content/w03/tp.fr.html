@@ -1,0 +1,77 @@
+
+<div class="box box-objectives">
+  <div class="box-title">Laboratoire TP 3 — Analyseur Syntaxique Récursif en Python</div>
+  <p>Source officielle : <code>main_tp-etudiants.pdf</code> (p. 5–6, Thème 1.2.3, Exercice 5). Implémentation complète de l'analyseur de syntaxe prenant en compte le parenthésage arbitraire, l'équilibrage des parenthèses et la recherche du connecteur principal.</p>
+</div>
+
+<h2 id="w03-tp-parser">1. Analyseur Syntaxique Robuste (<code>decompose</code>)</h2>
+<pre><code>def trouve_prochain_connec(formule: str, index: int) -> tuple[str, int]:
+    # Recherche le premier connecteur à partir de 'index'
+    connecteurs = ["IMPLIES", "AND", "OR", "NOT"]
+    meilleur_pos = len(formule)
+    meilleur_connec = None
+    
+    for c in connecteurs:
+        pos = formule.find(c, index)
+        if pos != -1 and pos < meilleur_pos:
+            meilleur_pos = pos
+            meilleur_connec = c
+            
+    if meilleur_connec is None:
+        return ("", -1)
+    return (meilleur_connec, meilleur_pos)
+
+def decompose_simple(formule: str) -> tuple[str, list[str]]:
+    formule = formule.strip()
+    if formule.startswith("NOT "):
+        return ("NOT", [formule[4:].strip()])
+    for c in ["IMPLIES", "AND", "OR"]:
+        parts = formule.split(f" {c} ", 1)
+        if len(parts) == 2:
+            return (c, [parts[0].strip(), parts[1].strip()])
+    # C'est un atome ou une constante
+    return (formule, [])
+
+def decompose(formule: str) -> tuple[str, list[str]]:
+    formule = formule.strip()
+    
+    # Vérification de l'équilibre des parenthèses
+    if formule.count("(") != formule.count(")"):
+        return None
+        
+    # Élimination des parenthèses superflues englobantes
+    while formule.startswith("(") and formule.endswith(")"):
+        # Vérifier si la parenthèse fermante correspond bien à la première ouvrante
+        profondeur = 0
+        englobante = True
+        for i in range(len(formule) - 1):
+            if formule[i] == "(":
+                profondeur += 1
+            elif formule[i] == ")":
+                profondeur -= 1
+            if profondeur == 0:
+                englobante = False
+                break
+        if englobante:
+            formule = formule[1:-1].strip()
+        else:
+            break
+            
+    # Recherche du connecteur principal à profondeur 0
+    profondeur = 0
+    for i, ch in enumerate(formule):
+        if ch == "(":
+            profondeur += 1
+        elif ch == ")":
+            profondeur -= 1
+        elif profondeur == 0:
+            for c in ["IMPLIES", "AND", "OR"]:
+                if formule.startswith(f" {c} ", i):
+                    gauche = formule[:i].strip()
+                    droite = formule[i + len(c) + 2:].strip()
+                    return (c, [gauche, droite])
+                    
+    if formule.startswith("NOT ") and profondeur == 0:
+        return ("NOT", [formule[4:].strip()])
+        
+    return decompose_simple(formule)</code></pre>

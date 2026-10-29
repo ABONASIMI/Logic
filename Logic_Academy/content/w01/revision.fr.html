@@ -1,0 +1,111 @@
+<div class="lesson-header">
+  <div class="badge">Sorbonne Université — Fiche de Révision &amp; Auto-évaluation</div>
+  <h1>Révision Thème 1 : Les Incontournables de l'Examen</h1>
+  <p class="lead">Synthèse ultra-rapide des notions clés du Thème 1, catalogue des pièges récurrents aux examens de Sorbonne Université et quiz d'auto-évaluation immédiate.</p>
+</div>
+
+<div class="toc-box">
+  <h3>Sommaire de la fiche</h3>
+  <ul>
+    <li><a href="#rev_fiches">1. Fiche mémo express des 5 règles d'or</a></li>
+    <li><a href="#rev_pieges">2. Radar des pièges d'examen classiques</a></li>
+    <li><a href="#rev_quiz">3. Quiz interactif auto-corrigé</a></li>
+  </ul>
+</div>
+
+<h2 id="rev_fiches">1. Fiche mémo express des 5 règles d'or</h2>
+
+<div class="box tip">
+  <h4>Les 5 règles absolues à graver dans votre mémoire</h4>
+  <ol>
+    <li><strong>Hiérarchie des priorités de la Sorbonne :</strong>
+      <br/>{ 
+eg \quad > \quad \land \quad > \quad \lor \quad > \quad \Rightarrow \quad > \quad \Leftrightarrow }
+      <br/>Le connecteur de plus faible priorité est la racine de l'AST.
+    </li>
+    <li><strong>Associativité à droite :</strong> En cas d'opérateurs identiques successifs, on regroupe TOUJOURS par la droite : { A \Rightarrow B \Rightarrow C \equiv A \Rightarrow (B \Rightarrow C) }.</li>
+    <li><strong>L'implication matérielle :</strong> { A \Rightarrow B \equiv 
+eg A \lor B }. Fausse uniquement si { A=1 } et { B=0 }.</li>
+    <li><strong>Condition nécessaire vs suffisante :</strong>
+      <ul>
+        <li>« Il suffit de A pour B » (condition suffisante) : { A \Rightarrow B }.</li>
+        <li>« Il faut A pour B » (condition nécessaire) : { B \Rightarrow A }.</li>
+      </ul>
+    </li>
+    <li><strong>Nombre de lignes de la table de vérité :</strong> Pour { n } variables propositionnelles, la table comporte exactement { 2^n } lignes.</li>
+  </ol>
+</div>
+
+<h2 id="rev_pieges">2. Radar des pièges d'examen classiques</h2>
+
+<div class="box warn">
+  <h4>Les erreurs les plus pénalisées par les correcteurs de la Sorbonne</h4>
+  <ul>
+    <li><strong>Piège 1 — L'associativité à gauche par habitude du code :</strong> Écrire <code>((p &and; q) &and; r)</code> au lieu de <code>(p &and; (q &and; r))</code> fait perdre tous les points de syntaxe.</li>
+    <li><strong>Piège 2 — Confondre « seulement si » et « si » :</strong> « A seulement si B » se formalise par { A \Rightarrow B }, et NON par { B \Rightarrow A }.</li>
+    <li><strong>Piège 3 — Oublier que le faux implique tout :</strong> Penser que si { I(A)=0 }, l'implication { A \Rightarrow B } est fausse ou inconnue. Elle est <strong>vraie</strong> !</li>
+    <li><strong>Piège 4 — Table de vérité dans le désordre :</strong> Ne pas respecter l'ordre binaire naturel ({ 000, 001, 010, \dots }) agace les correcteurs et entraîne souvent des oublis de lignes.</li>
+    <li><strong>Piège 5 — Déduire sans vérifier tous les modèles :</strong> Dans une énigme, affirmer qu'une proposition est vraie alors qu'elle ne l'est que dans certains modèles mais pas dans tous. Pour qu'une affirmation soit déductible (conséquence sémantique { \mathcal{T} \models arphi }), elle doit valoir 1 dans <strong>100% des modèles</strong> de la théorie.</li>
+  </ul>
+</div>
+
+<h2 id="rev_quiz">3. Quiz interactif auto-corrigé</h2>
+
+<div class="w-quiz" data-id="w01-quiz">
+  <script type="application/json">
+{
+  "questions": [
+    {
+      "q": "Selon la convention officielle de Sorbonne Universit\u00e9, comment parenth\u00e9ser la formule {{ p \\Rightarrow q \\Rightarrow r }} ?",
+      "options": [
+        "{{ ((p \\Rightarrow q) \\Rightarrow r) }}",
+        "{{ (p \\Rightarrow (q \\Rightarrow r)) }}",
+        "Les deux parenth\u00e9sages sont syntaxiquement \u00e9quivalents"
+      ],
+      "answer": 1,
+      "explain": "En cas d'op\u00e9rateurs de m\u00eame priorit\u00e9, la r\u00e8gle du cours stipule imp\u00e9rativement : \u00ab sous-formule de droite prioritaire \u00bb (associativit\u00e9 \u00e0 droite)."
+    },
+    {
+      "q": "Quelle est la racine de l'AST de la formule {{ \neg p \\land q \\Rightarrow r }} ?",
+      "options": [
+        "Le connecteur {{ \neg }}",
+        "Le connecteur {{ \\land }}",
+        "Le connecteur {{ \\Rightarrow }}"
+      ],
+      "answer": 2,
+      "explain": "L'ordre de priorit\u00e9 d\u00e9croissant est \u00ac > \u2227 > \u2228 > \u21d2. Le connecteur de priorit\u00e9 la plus faible (ici \u21d2) s'ex\u00e9cute en tout dernier lieu, il constitue donc la racine de l'arbre syntaxique."
+    },
+    {
+      "q": "Laquelle de ces propositions traduit rigoureusement \u00ab Pour que A, il faut que B \u00bb ?",
+      "options": [
+        "{{ A \\Rightarrow B }}",
+        "{{ B \\Rightarrow A }}",
+        "{{ A \\Leftrightarrow B }}"
+      ],
+      "answer": 0,
+      "explain": "\u00ab Il faut B \u00bb exprime une condition n\u00e9cessaire. Si A est r\u00e9alis\u00e9, B a obligatoirement d\u00fb se r\u00e9aliser, d'o\u00f9 A \u21d2 B."
+    },
+    {
+      "q": "Soit une formule F avec 4 variables atomiques distinctes. Combien de lignes comporte sa table de v\u00e9rit\u00e9 ?",
+      "options": [
+        "8 lignes",
+        "16 lignes",
+        "32 lignes"
+      ],
+      "answer": 1,
+      "explain": "Avec n variables bool\u00e9ennes ind\u00e9pendantes, le nombre d'interpr\u00e9tations possibles est 2^n. Pour n=4, on a 2^4 = 16 lignes."
+    },
+    {
+      "q": "Si l'hypoth\u00e8se A est fausse (I(A)=0), quelle est la valeur de l'implication {{ A \\Rightarrow B }} ?",
+      "options": [
+        "Toujours 1 (Vrai), quelle que soit la valeur de B",
+        "Toujours 0 (Faux)",
+        "Ind\u00e9termin\u00e9e tant qu'on ne conna\u00eet pas B"
+      ],
+      "answer": 0,
+      "explain": "Par le principe d'explosion (ex falso quodlibet), 0 \u21d2 B vaut toujours 1. Une promesse dont la pr\u00e9misse ne s'est pas r\u00e9alis\u00e9e n'est jamais rompue."
+    }
+  ]
+}
+  </script>
+</div>

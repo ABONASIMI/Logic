@@ -1,0 +1,34 @@
+
+<div class="box box-objectives">
+  <div class="box-title">TP Thème 10 — Découverte de SWI-Prolog (Exercices 16, 17 et 18)</div>
+  <p>Source : <code>main_tp-etudiants.pdf</code>, pages 15–18. Prise en main pratique du langage Prolog.</p>
+</div>
+
+<h2 id="w10-tp-ex16">Exercice 16 — Premières requêtes Prolog</h2>
+<p>On crée un fichier <code>exercice0.pl</code> contenant les faits :</p>
+<pre><code>toto(a, b).
+toto(c, b).</code></pre>
+<p>Dans l'interpréteur :</p>
+<ul>
+  <li>Chargement : <code>?- [exercice0].</code></li>
+  <li>Requête avec variable majuscule : <code>?- toto(X, b).</code><br>
+  Prolog répond d'abord <code>X = a</code>. En appuyant sur <code>;</code> (point-virgule), Prolog cherche par backtracking la solution suivante : <code>X = c</code>.</li>
+</ul>
+
+<h2 id="w10-tp-ex17">Exercice 17 — Arbre Généalogique des Simpson</h2>
+<pre><code>% Définition des règles familiales
+parent(X, Y) :- pere(X, Y).
+parent(X, Y) :- mere(X, Y).
+
+grandPere(X, Y) :- pere(X, Z), parent(Z, Y).
+frere(X, Y) :- parent(Z, X), parent(Z, Y), homme(X), X \= Y.</code></pre>
+
+<h2 id="w10-tp-ex18">Exercice 18 — Parcours de Graphe Orienté Sans Cycle</h2>
+<pre><code>arc(a, b). arc(a, c). arc(b, d). arc(c, d). arc(d, e).
+
+% Nœuds immédiatement intermédiaires
+entre(X, S, D) :- arc(S, X), arc(X, D).
+
+% Accessibilité transitive
+accessible(X, Y) :- arc(X, Y).
+accessible(X, Y) :- arc(X, Z), accessible(Z, Y).</code></pre>

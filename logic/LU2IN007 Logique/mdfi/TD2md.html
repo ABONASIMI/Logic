@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>TD 2 — Ensembles ordonnés, relations d’ordre (LU2IN005)</title>
+
+  <!-- ========== STYLES GÉNÉRAUX ========== -->
+
+  <style>
+    /* ====== PAGE ====== */
+    :root {
+      --blue: #1565c0;
+      --light-blue: #e3f2fd;
+      --answer: #fffde7;
+      --explain: #f3e5f5;
+      --dark: #0d47a1;
+      --ok: #1b5e20;
+      --warn: #ff6f00;
+      --err: #c62828;
+      --radius: 12px;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #fafafa;
+    }
+    body {
+      max-width: 1250px;
+      margin: 0 auto;
+      padding: 14px 18px 90px 18px;
+      font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+      color: #212121;
+      line-height: 1.55;
+      font-size: 15.2px;
+    }
+    h1, h2, h3 {
+      text-align: center;
+      color: var(--blue);
+      margin-top: 0;
+    }
+    h1 { font-weight: 700; margin-bottom: 12px; }
+    h2, h3 { font-weight: 600; margin-bottom: 10px; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code, pre {
+      background: #263238;
+      color: #fff;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      margin: 6px 0 12px 0;
+      padding: 9px 11px;
+    }
+    hr {
+      border: 0;
+      height: 1px;
+      background: #e0e0e0;
+      margin: 28px 0;
+    }
+
+    /* ====== BLOCS ====== */
+    .box {
+      padding: 16px 18px 14px 18px;
+      border-radius: var(--radius);
+      margin: 18px 0;
+      box-shadow: 0 1px 0 rgba(0,0,0,.03);
+    }
+    .question {
+      background: var(--light-blue);
+      border-left: 6px solid #1976d2;
+    }
+    .answer {
+      background: var(--answer);
+      border-left: 6px solid #fdd835;
+    }
+    .explain {
+      background: var(--explain);
+      border-left: 6px solid #8e24aa;
+    }
+    .note {
+      background: #fff;
+      border: 1px dashed rgba(0,0,0,.12);
+    }
+    .ok {
+      background: #e8f5e9;
+      border-left: 6px solid var(--ok);
+    }
+    .warn {
+      background: #fff3e0;
+      border-left: 6px solid var(--warn);
+    }
+    .err {
+      background: #ffebee;
+      border-left: 6px solid var(--err);
+    }
+
+    /* ====== INFOS HAUT DE PAGE ====== */
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      justify-content: center;
+      margin-bottom: 18px;
+      font-size: 13.3px;
+    }
+    .tag {
+      background: #e0e0e0;
+      border-radius: 999px;
+      padding: 3px 14px;
+    }
+
+    /* ====== LISTES ====== */
+    ul.clean {
+      margin: 0 0 0 18px;
+      padding: 0;
+    }
+    .sub {
+      margin-left: 22px;
+    }
+
+    /* ====== SECTIONS EXERCICES ====== */
+    .exo-title {
+      background: rgba(21,101,192,.08);
+      border-left: 5px solid var(--blue);
+      padding: 10px 14px;
+      border-radius: 10px;
+      margin-top: 36px;
+      margin-bottom: 12px;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+
+    /* ====== DIAGRAMMES ASCII ====== */
+    .diagram {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.04);
+      border-radius: 12px;
+      padding: 10px 10px 6px 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 13.5px;
+      display: inline-block;
+    }
+
+    /* ====== FOOTNOTE ====== */
+    .source {
+      font-size: 12.5px;
+      color: #666;
+      margin-top: 14px;
+      text-align: right;
+    }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 720px) {
+      body {
+        padding: 10px 10px 65px 10px;
+      }
+      .diagram {
+        max-width: 100%;
+        overflow-x: auto;
+      }
+    }
+  </style>
+
+</head>
+<body>
+
+  <h1>TD 2 — Ensembles ordonnés, relations d’ordre</h1>
+  <div class="meta">
+    <div class="tag">Licence Informatique — Sorbonne Université</div>
+    <div class="tag">UE LU2IN005 — Mathématiques discrètes</div>
+    <div class="tag">Sujet TD2 : Ensembles ordonnés</div>
+    <div class="tag">Version réécrite + corrigés + explications</div>
+  </div>
+
+  <div class="box note">
+    Ce document est la réécriture complète du TD2, structurée <b>toujours dans le même ordre</b> : d’abord l’énoncé (question), ensuite la réponse, et enfin une explication/commentaire pour bien comprendre la méthode. Tous les marqueurs techniques ont été retirés.
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- ===================== EXERCICE 1 ======================== -->
+  <!-- ========================================================= -->
+
+  <div class="exo" id="exo1">
+    <div class="exo-title">Exercice 1 — Majorants, minorants, borne supérieure, borne inférieure</div>
+
+    <div class="box question">
+      On considère l’ensemble ordonné suivant :<br><br>
+      <div class="diagram">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8<br>
+        &nbsp;&nbsp;6&nbsp;&nbsp;&nbsp;7<br>
+        &nbsp;4&nbsp;&nbsp;5<br>
+        &nbsp;&nbsp;&nbsp;3<br>
+        1&nbsp;&nbsp;&nbsp;2
+      </div>
+      <br><br>
+      L’ensemble de base est donc : <b>W = {1,2,3,4,5,6,7,8}</b> muni de l’ordre donné par le diagramme de Hasse ci-dessus.<br>
+      On considère le sous-ensemble <b>V = {4, 5, 6}</b>.<br><br>
+      Questions :
+      <ol>
+        <li>Trouver l’ensemble des <b>majorants</b> de V.</li>
+        <li>Trouver l’ensemble des <b>minorants</b> de V.</li>
+        <li>Dire si <b>sup(V)</b> existe et la déterminer.</li>
+        <li>Dire si <b>inf(V)</b> existe et la déterminer.</li>
+      </ol>
+    </div>
+
+    <div class="box answer">
+      <b>1. Majorants de V = {4,5,6}</b><br>
+      Un élément <code>x ∈ W</code> est un majorant de V si <code>4 ≤ x</code>, <code>5 ≤ x</code> et <code>6 ≤ x</code> dans le poset.<br>
+      <ul class="clean">
+        <li>Les éléments ≥ 4 : {4, 6, 8}</li>
+        <li>Les éléments ≥ 5 : {5, 7, 8}</li>
+        <li>Les éléments ≥ 6 : {6, 8}</li>
+      </ul>
+      L’intersection de ces trois ensembles est <b>{8}</b>. Donc l’ensemble des majorants de V est :
+      <p><b>M(V) = {8}</b></p>
+    </div>
+
+    <div class="box answer">
+      <b>2. Minorants de V = {4,5,6}</b><br>
+      Un élément <code>y ∈ W</code> est un minorant de V si <code>y ≤ 4</code>, <code>y ≤ 5</code> et <code>y ≤ 6</code>.<br>
+      <ul class="clean">
+        <li>Éléments ≤ 4 : {1, 2, 3, 4}</li>
+        <li>Éléments ≤ 5 : {1, 2, 3, 5}</li>
+        <li>Éléments ≤ 6 : {1, 2, 3, 4, 6}</li>
+      </ul>
+      L’intersection est <b>{1, 2, 3}</b>. Donc
+      <p><b>m(V) = {1, 2, 3}</b></p>
+    </div>
+
+    <div class="box answer">
+      <b>3. Borne supérieure de V</b><br>
+      Comme il n’y a qu’un seul majorant, <b>8</b>, il est automatiquement le plus petit des majorants.<br>
+      <p><b>sup(V) = 8</b></p>
+    </div>
+
+    <div class="box answer">
+      <b>4. Borne inférieure de V</b><br>
+      Les minorants sont {1,2,3}. Parmi eux, le plus grand (dans l’ordre donné) est <b>3</b>, car 3 est au-dessus de 1 et 2.<br>
+      <p><b>inf(V) = 3</b></p>
+    </div>
+
+    <div class="box explain">
+      <b>Explications importantes :</b><br>
+      • Dans un diagramme de Hasse, ce qui est <b>en haut</b> est plus grand, ce qui est <b>en bas</b> est plus petit.<br>
+      • Pour trouver les <b>majorants</b> d’un sous-ensemble S, tu prends chaque élément de S et tu regardes ce qu’il y a au-dessus. Puis tu fais l’intersection.<br>
+      • La <b>borne supérieure</b> (sup) doit être <u>dans le poset</u>, pas forcément dans le sous-ensemble V. Ici 8 est dans W mais pas dans V, et c’est correct.<br>
+      • Ne pas confondre « borne inférieure » et « minimum ». La borne inférieure peut être en dehors de V.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- ===================== EXERCICE 2 ======================== -->
+  <!-- ========================================================= -->
+
+  <div class="exo" id="exo2">
+    <div class="exo-title">Exercice 2 — Éléments maximaux, minimaux, bornes, plus grand/petit élément</div>
+
+    <div class="box question">
+      On considère l’ensemble
+      <p><code>E = {(1,3), (3,1), (3,5), (5,3), (5,7), (7,5), (7,7)}</code></p>
+      muni de la relation produit ≤ définie par :
+      <p><code>(m₁, m₂) ≤ (n₁, n₂) ⇔ (m₁ ≤ n₁) et (m₂ ≤ n₂)</code></p>
+      Pour l’ensemble
+      <p><code>A = {(3,5), (5,3), (5,7), (7,5)}</code></p>
+      donner, s’ils existent :
+      <ul class="clean">
+        <li>les éléments maximaux et les éléments minimaux de A ;</li>
+        <li>les majorants et les minorants de A dans E ;</li>
+        <li>le plus grand élément et le plus petit élément de A ;</li>
+        <li>la borne inférieure et la borne supérieure de A.</li>
+      </ul>
+    </div>
+
+    <div class="box answer">
+      <b>1. Comparaisons dans A</b><br>
+      On liste les 4 éléments de A :
+      <ul class="clean">
+        <li>a₁ = (3,5)</li>
+        <li>a₂ = (5,3)</li>
+        <li>a₃ = (5,7)</li>
+        <li>a₄ = (7,5)</li>
+      </ul>
+      Comparaisons utiles :
+      <ul class="clean sub">
+        <li>(3,5) ≤ (5,7) car 3 ≤ 5 et 5 ≤ 7 ✔</li>
+        <li>(3,5) ≤ (7,5) car 3 ≤ 7 et 5 ≤ 5 ✔</li>
+        <li>(3,5) ≰ (5,3) car 5 ≰ 3 ✘</li>
+        <li>(5,3) ≤ (5,7) car 5 ≤ 5 et 3 ≤ 7 ✔</li>
+        <li>(5,3) ≤ (7,5) car 5 ≤ 7 et 3 ≤ 5 ✔</li>
+        <li>(5,7) et (7,5) sont incomparables (5 ≤ 7 mais 7 ≰ 5 et 5 ≰ 7) ✘</li>
+      </ul>
+    </div>
+
+    <div class="box answer">
+      <b>2. Éléments minimaux de A</b><br>
+      Un élément est minimal s’il n’y a aucun autre élément de A strictement plus petit que lui.
+      <ul class="clean">
+        <li>(3,5) : personne n’est strictement plus petit dans A → <b>minimal</b>.</li>
+        <li>(5,3) : personne n’est strictement plus petit dans A → <b>minimal</b>.</li>
+        <li>(5,7) : il y a (3,5) ≤ (5,7) → pas minimal.</li>
+        <li>(7,5) : il y a (5,3) ≤ (7,5) → pas minimal.</li>
+      </ul>
+      <p><b>Minimaux(A) = {(3,5), (5,3)}</b></p>
+    </div>
+
+    <div class="box answer">
+      <b>3. Éléments maximaux de A</b><br>
+      Un élément est maximal s’il n’y a pas d’élément de A strictement plus grand que lui.
+      <ul class="clean">
+        <li>(5,7) : personne au-dessus dans A → <b>maximal</b>.</li>
+        <li>(7,5) : personne au-dessus dans A → <b>maximal</b>.</li>
+        <li>(3,5) : il y a au-dessus (5,7) et (7,5) → pas maximal.</li>
+        <li>(5,3) : il y a au-dessus (5,7) et (7,5) → pas maximal.</li>
+      </ul>
+      <p><b>Maximaux(A) = {(5,7), (7,5)}</b></p>
+    </div>
+
+    <div class="box answer">
+      <b>4. Majorants de A (dans E)</b><br>
+      On cherche les couples de E qui sont ≥ à chacun des 4 éléments de A.<br>
+      • (7,7) est ≥ (3,5), ≥ (5,3), ≥ (5,7), ≥ (7,5) → oui<br>
+      • aucun autre élément de E ne domine simultanément (5,7) ET (7,5).<br>
+      Donc :
+      <p><b>Majorants(A) = {(7,7)}</b></p>
+    </div>
+
+    <div class="box answer">
+      <b>5. Minorants de A (dans E)</b><br>
+      Être ≤ à (3,5), (5,3), (5,7), (7,5) oblige :
+      <ul class="clean">
+        <li>de (3,5) et (5,3) on déduit : première composante ≤ 3 et deuxième composante ≤ 3</li>
+      </ul>
+      Dans E, les couples avec x₁ ≤ 3 et x₂ ≤ 3 sont : <b>(1,3)</b> et <b>(3,1)</b>.<br>
+      Donc :
+      <p><b>Minorants(A) = {(1,3), (3,1)}</b></p>
+    </div>
+
+    <div class="box answer">
+      <b>6. Plus grand / plus petit élément de A</b><br>
+      • plus grand élément : il en faudrait un qui domine les 4 éléments de A, mais il n’y en a pas dans A (le seul qui domine tout est (7,7) mais il est dans E, pas dans A) → <b>pas de plus grand élément</b>.<br>
+      • plus petit élément : il faudrait un seul minimal, mais on en a deux incomparables → <b>pas de plus petit élément</b>.
+    </div>
+
+    <div class="box answer">
+      <b>7. Bornes</b><br>
+      • <b>Borne supérieure</b> : c’est le plus petit majorant. Le seul majorant dans E est (7,7) → <b>sup(A) = (7,7)</b>.<br>
+      • <b>Borne inférieure</b> : il y a deux minorants incomparables ((1,3) et (3,1)) → il n’y a pas de plus grand des minorants → <b>inf(A) n’existe pas</b>.
+    </div>
+
+    <div class="box explain">
+      <b>Explications à retenir :</b><br>
+      • « maximal » ≠ « plus grand ». Ici il y a deux maximaux mais aucun « plus grand » élément.<br>
+      • Pour qu’une borne inférieure existe, il faut que l’ensemble des minorants ait un plus grand élément.<br>
+      • Dès qu’on travaille avec l’ordre produit, les couples peuvent être incomparables très vite.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- ===================== EXERCICE 3 ======================== -->
+  <!-- ========================================================= -->
+
+  <div class="exo" id="exo3">
+    <div class="exo-title">Exercice 3 — Ordre défini par la somme des composantes</div>
+
+    <div class="box question">
+      On définit sur <b>ℕ × ℕ</b> la relation <code>≼</code> par :
+      <p><code>(a,b) ≼ (c,d) ⇔ a + b &lt; c + d  ou  (a,b) = (c,d)</code></p>
+      Questions :
+      <ol>
+        <li>Montrer que <code>≼</code> est une relation d’ordre.</li>
+        <li>Dire si cet ordre est total ; dire s’il est bien fondé.</li>
+        <li>Pour <code>A = {(0,2), (2,1), (1,2), (2,2)}</code>, déterminer minorants, majorants, éléments minimaux, éléments maximaux, inf, sup, min, max.</li>
+        <li>Faire la même chose pour <code>B = {(0,1), (1,0), (1,1), (1,2), (2,1), (3,0)}</code>.</li>
+      </ol>
+    </div>
+
+    <div class="box answer">
+      <b>1. Montrer que c’est un ordre</b><br>
+      • Réflexive : pour tout (a,b), on a (a,b) = (a,b), donc (a,b) ≼ (a,b).<br>
+      • Antisymétrique : si (a,b) ≼ (c,d) et (c,d) ≼ (a,b), on ne peut pas avoir en même temps a+b &lt; c+d et c+d &lt; a+b, donc on est dans le cas (a,b) = (c,d).<br>
+      • Transitive : si a+b &lt; c+d et c+d &lt; e+f alors a+b &lt; e+f, et si on a une égalité sur l’un des deux, ça reste bon.<br>
+      Donc c’est bien un <b>ordre</b>.
+    </div>
+
+    <div class="box answer">
+      <b>2. Total ? bien fondé ?</b><br>
+      • Total : pour deux couples (a,b) et (c,d), leurs sommes sont deux entiers naturels donc comparables → oui, c’est un <b>ordre total</b>.<br>
+      • Bien fondé : tout sous-ensemble non vide de ℕ×ℕ a un élément de somme minimale → oui, donc <b>bien fondé</b>.
+    </div>
+
+    <div class="box answer">
+      <b>3. Étude de A = {(0,2), (2,1), (1,2), (2,2)}</b><br>
+      On calcule les sommes :
+      <ul class="clean">
+        <li>(0,2) → 2</li>
+        <li>(2,1) → 3</li>
+        <li>(1,2) → 3</li>
+        <li>(2,2) → 4</li>
+      </ul>
+      • éléments de somme 2 → candidats minimaux : (0,2) (et il est dans A) → <b>min(A) = (0,2)</b>.<br>
+      • éléments de somme 4 → candidats maximaux : (2,2) → <b>max(A) = (2,2)</b>.<br>
+      • borne inf = min = (0,2).<br>
+      • borne sup = max = (2,2).<br>
+      • minorants dans ℕ×ℕ : tous les couples de somme ≤ 2 : (0,0), (1,0), (0,1), (2,0), (1,1), (0,2).<br>
+      • majorants dans ℕ×ℕ : tous les couples de somme ≥ 4.
+    </div>
+
+    <div class="box answer">
+      <b>4. Étude de B = {(0,1), (1,0), (1,1), (1,2), (2,1), (3,0)}</b><br>
+      Sommes :
+      <ul class="clean">
+        <li>(0,1) → 1</li>
+        <li>(1,0) → 1</li>
+        <li>(1,1) → 2</li>
+        <li>(1,2) → 3</li>
+        <li>(2,1) → 3</li>
+        <li>(3,0) → 3</li>
+      </ul>
+      • Il y a <b>deux éléments de somme 1</b> dans B : (0,1) et (1,0) → 2 minimaux incomparables → <b>pas de minimum</b>.<br>
+      • Il y a <b>trois éléments de somme 3</b> dans B : (1,2), (2,1), (3,0) → 3 maximaux incomparables → <b>pas de maximum</b>.<br>
+      • minorants dans ℕ×ℕ : couples de somme ≤ 1 : (0,0), (0,1), (1,0). Parmi eux, il n’y a pas de plus grand (0,1) et (1,0) sont incomparables) → <b>inf(B) n’existe pas</b>.<br>
+      • majorants dans ℕ×ℕ : couples de somme ≥ 3. Il y en a plusieurs dont trois sont dans B mais incomparables → <b>sup(B) n’existe pas</b>.
+    </div>
+
+    <div class="box explain">
+      <b>Explications :</b><br>
+      • Ici on voit bien la différence entre “l’ordre sur tout l’ensemble (ℕ×ℕ)”, qui est total, et “l’ordre induit sur un sous-ensemble”, qui peut avoir plusieurs minimaux ou plusieurs maximaux.<br>
+      • Sup et inf sont des objets de l’ensemble total, pas seulement du sous-ensemble.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- ===================== EXERCICE 4 ======================== -->
+  <!-- ========================================================= -->
+
+  <div class="exo" id="exo4">
+    <div class="exo-title">Exercice 4 — Relation « x divise y » sur ℕ \ {0,1}</div>
+
+    <div class="box question">
+      Soit <code>E = {2,3,4,...}</code> ordonné par : <b>x ≤ y ⇔ x divise y</b>.
+      <ol>
+        <li>Vérifier que c’est une relation d’ordre.</li>
+        <li>Déterminer les éléments minimaux de E.</li>
+        <li>Déterminer les éléments maximaux de E.</li>
+      </ol>
+    </div>
+
+    <div class="box answer">
+      <b>1. C’est un ordre</b><br>
+      • Réflexive : x divise x (x = 1·x) → ok.<br>
+      • Antisymétrique : si x | y et y | x, alors x = y → ok.<br>
+      • Transitive : si x | y (y = x·k) et y | z (z = y·h = x·k·h), alors x | z → ok.<br>
+      Donc c’est un <b>ordre partiel</b>.
+    </div>
+
+    <div class="box answer">
+      <b>2. Éléments minimaux</b><br>
+      Un élément est minimal si <u>aucun autre élément de E</u> ne le divise à part lui-même.<br>
+      Dans E = {2,3,4,5,6,...}, les éléments qui n’ont pas de diviseur dans E en dessous d’eux sont les <b>nombres premiers</b> (2,3,5,7,11,...).<br>
+      Donc :
+      <p><b>Minimaux(E) = {tous les nombres premiers}</b></p>
+    </div>
+
+    <div class="box answer">
+      <b>3. Éléments maximaux</b><br>
+      Dans cet ordre, pour tout x ∈ E, on peut regarder 2x, 3x, 4x... qui sont encore dans E et qui sont au-dessus de x.<br>
+      Donc on peut toujours monter. On ne s’arrête jamais.<br>
+      <p><b>Conclusion : E n’a pas d’élément maximal.</b></p>
+    </div>
+
+    <div class="box explain">
+      <b>Pourquoi “tous les nombres premiers” ?</b><br>
+      Parce que si n = p est premier, le seul diviseur ≥ 2 de p c’est p lui-même. Donc tu ne peux pas trouver q ≠ p dans E tel que q | p. Donc p est minimal.<br>
+      <b>Piège :</b> 4 n’est pas minimal parce que 2 | 4 et 2 ∈ E.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- ===================== EXERCICE 5 ======================== -->
+  <!-- ========================================================= -->
+
+  <div class="exo" id="exo5">
+    <div class="exo-title">Exercice 5 — Bornes dans (ℕ\{0}, |)</div>
+
+    <div class="box question">
+      On se place dans <b>F = ℕ \ {0}</b> ordonné par la relation « x divise y ».
+      <ol>
+        <li>Existe-t-il une borne supérieure et une borne inférieure pour tout sous-ensemble de 2 éléments ?</li>
+        <li>Soient <code>A = {6,15,21}</code> et <code>B = {1,6,14,21}</code>. Donner les majorants, les minorants, le plus petit et le plus grand élément, les bornes.</li>
+        <li>Soit <code>A' = {3,6,12,15}</code>. Faire la même chose.</li>
+      </ol>
+    </div>
+
+    <div class="box answer">
+      <b>1. Pour 2 éléments</b><br>
+      Soit a,b ∈ ℕ\{0}.<br>
+      • le plus grand diviseur commun de a et b est le <b>pgcd(a,b)</b> → c’est la <b>borne inférieure</b> (plus grand élément qui divise les deux).<br>
+      • le plus petit multiple commun de a et b est le <b>ppcm(a,b)</b> → c’est la <b>borne supérieure</b> (plus petit élément divisé par les deux).<br>
+      Donc oui, pour 2 éléments on a toujours les deux bornes.
+    </div>
+
+    <div class="box answer">
+      <b>2. Ensemble A = {6,15,21}</b><br>
+      <u>Minorants</u> = diviseurs communs de 6, 15, 21 :
+      <ul class="clean">
+        <li>Div(6) = {1,2,3,6}</li>
+        <li>Div(15) = {1,3,5,15}</li>
+        <li>Div(21) = {1,3,7,21}</li>
+      </ul>
+      Intersection → {1,3}.<br>
+      Le plus grand d’entre eux est 3 → <b>inf(A) = 3</b>.<br><br>
+      <u>Majorants</u> = multiples communs de 6, 15, 21 → c’est-à-dire multiples de ppcm(6,15,21).<br>
+      6 = 2×3 ; 15 = 3×5 ; 21 = 3×7 → ppcm = 2×3×5×7 = 210.<br>
+      Donc les majorants sont {210, 420, 630, ...} → <b>sup(A) = 210</b>.<br><br>
+      <u>Plus petit élément ?</u> Il faudrait un élément de A qui divise les deux autres. 6 ne divise ni 15 ni 21, 15 ne divise ni 6 ni 21, 21 ne divise ni 6 ni 15 → <b>pas de plus petit élément</b>.<br>
+      <u>Plus grand élément ?</u> Il faudrait un élément de A qui soit multiple des 2 autres → aucun → <b>pas de plus grand élément</b>.
+    </div>
+
+    <div class="box answer">
+      <b>2. Ensemble B = {1,6,14,21}</b><br>
+      <u>Minorants</u> : comme 1 est dans l’ensemble, et 1 divise tout, l’intersection des diviseurs c’est {1}.<br>
+      Donc <b>m(B) = {1}</b> et <b>inf(B) = 1</b>.<br>
+      En plus 1 ∈ B donc 1 est le <b>plus petit élément</b> de B.<br><br>
+      <u>Majorants</u> : on cherche les multiples communs de 1,6,14,21 → c’est la même chose que pour {6,14,21}.<br>
+      ppcm(6,14,21) = 42 → les majorants sont {42, 84, ...}. Donc <b>sup(B) = 42</b>.<br>
+      42 ne fait pas partie de B → <b>pas de plus grand élément</b>.
+    </div>
+
+    <div class="box answer">
+      <b>3. Ensemble A' = {3,6,12,15}</b><br>
+      <u>Minorants</u> = diviseurs communs :
+      <ul class="clean">
+        <li>Div(3) = {1,3}</li>
+        <li>Div(6) = {1,2,3,6}</li>
+        <li>Div(12) = {1,2,3,4,6,12}</li>
+        <li>Div(15) = {1,3,5,15}</li>
+      </ul>
+      Intersection → {1,3}. Le plus grand est 3 → <b>inf(A') = 3</b>.<br><br>
+      <u>Majorants</u> = multiples communs → ppcm(12,15) = 60 → donc sup(A') = 60.<br><br>
+      <u>Plus petit élément ?</u> 3 est dans A' et 3 divise 6, 12 et 15 → <b>oui, 3 est le plus petit élément</b>.<br>
+      <u>Plus grand élément ?</u> il n’y en a pas (12 ne divise pas 15 et 15 ne divise pas 12).<br>
+      <u>Éléments maximaux</u> : 12 et 15 (6 est dominé par 12, donc pas maximal).
+    </div>
+
+    <div class="box explain">
+      <b>Explications :</b><br>
+      • Dans l’ordre par divisibilité : <b>inf = pgcd</b>, <b>sup = ppcm</b>.<br>
+      • MAIS : la borne peut exister sans être dans le sous-ensemble → pas de “plus grand élément”.<br>
+      • Dès qu’il y a 1 dans le sous-ensemble, l’inf est 1.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- ===================== EXERCICE 6 ======================== -->
+  <!-- ========================================================= -->
+
+  <div class="exo" id="exo6">
+    <div class="exo-title">Exercice 6 — Un seul maximal mais pas de plus grand élément ?</div>
+
+    <div class="box question">
+      Donner un exemple d’ensemble ordonné qui a exactement un élément maximal mais qui n’a pas de plus grand élément.
+    </div>
+
+    <div class="box answer">
+      <b>Réponse :</b> un tel exemple n’existe pas.<br>
+      En effet, si un ensemble ordonné possède <b>un unique</b> élément maximal, alors cet élément est automatiquement plus grand que tous les autres → c’est le <b>plus grand élément</b>.
+    </div>
+
+    <div class="box explain">
+      <b>Pourquoi ?</b><br>
+      Soit m l’unique élément maximal. Prenons n’importe quel x dans l’ensemble.<br>
+      • soit x ≤ m → tout va bien ;<br>
+      • soit x n’est pas ≤ m → alors m et x sont incomparables → mais alors x serait aussi maximal → contradiction avec “unique maximal”.<br>
+      Donc tout élément est ≤ m. Donc m est le plus grand élément.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- ===================== EXERCICE 7 ======================== -->
+  <!-- ========================================================= -->
+
+  <div class="exo" id="exo7">
+    <div class="exo-title">Exercice 7 — Sous-ensembles totalement ordonnés d’un petit poset</div>
+
+    <div class="box question">
+      Soit <code>A = {a, b, c}</code> avec l’ordre :
+      <div class="diagram">
+        b → a ← c
+      </div>
+      (donc b ≤ a et c ≤ a, mais b et c sont incomparables).<br><br>
+      Soit 𝒜 l’ensemble de tous les sous-ensembles non vides et <b>totalement ordonnés</b> de A. L’ensemble 𝒜 est partiellement ordonné par l’inclusion.<br>
+      Représenter graphiquement l’ordre de 𝒜.
+    </div>
+
+    <div class="box answer">
+      <b>1. Sous-ensembles non vides de A</b><br>
+      {a}, {b}, {c}, {a,b}, {a,c}, {b,c}, {a,b,c}.<br>
+      On ne garde que ceux qui sont totalement ordonnés par l’ordre de départ :<br>
+      • {a} : ok<br>
+      • {b} : ok<br>
+      • {c} : ok<br>
+      • {a,b} : ok car b ≤ a<br>
+      • {a,c} : ok car c ≤ a<br>
+      • {b,c} : pas ok (b et c incomparables)<br>
+      • {a,b,c} : pas ok (b et c incomparables)<br>
+      Donc :
+      <p><b>𝒜 = { {a}, {b}, {c}, {a,b}, {a,c} }</b></p>
+    </div>
+
+    <div class="box answer">
+      <b>2. Ordre par inclusion</b><br>
+      Les inclusions vraies sont :
+      <ul class="clean">
+        <li>{a} ⊂ {a,b}</li>
+        <li>{b} ⊂ {a,b}</li>
+        <li>{a} ⊂ {a,c}</li>
+        <li>{c} ⊂ {a,c}</li>
+      </ul>
+      Représentation :
+      <div class="diagram">
+        &nbsp;&nbsp;&nbsp;{a,b} &nbsp;&nbsp;&nbsp; {a,c}<br>
+        {a} {b} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {a} {c}
+      </div>
+    </div>
+
+    <div class="box explain">
+      On retrouve deux petits “V” parce que dans l’ensemble de départ on avait deux branches qui arrivaient sur a.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- ===================== EXERCICE 8 ======================== -->
+  <!-- ========================================================= -->
+
+  <div class="exo" id="exo8">
+    <div class="exo-title">Exercice 8 — Préfixe, ordre lexicographique, bien-fondation</div>
+
+    <div class="box question">
+      1. Définir la relation “est un préfixe de” sur A* et dire si c’est un ordre total ou partiel.<br>
+      2. Si A est totalement ordonné, définir l’ordre lexicographique sur A* et dire s’il est total ou partiel.<br>
+      3. Avec A = {a,b} et a &lt; b, montrer que l’ordre lexicographique n’est pas bien fondé.
+    </div>
+
+    <div class="box answer">
+      <b>1. Relation “est un préfixe de”</b><br>
+      Pour deux mots u, v ∈ A* :
+      <p><code>u ⪯ₚ v ⇔ il existe w ∈ A* tel que v = u·w</code> (v commence par u).</p>
+      • réflexive (v = v·ε)<br>
+      • antisymétrique (si u est préfixe de v et v de u → même mot)<br>
+      • transitive (si u préfixe de v et v préfixe de w → u préfixe de w)<br>
+      Donc c’est un <b>ordre partiel</b> (pas total, car “ab” et “ba” sont incomparables).
+    </div>
+
+    <div class="box answer">
+      <b>2. Ordre lexicographique</b><br>
+      On suppose A totalement ordonné (a &lt; b &lt; c ...).<br>
+      Pour comparer deux mots u = u₁...uₙ et v = v₁...vₘ :
+      <ul class="clean">
+        <li>si u est préfixe strict de v → u &lt; v</li>
+        <li>sinon, on regarde le premier indice i où uᵢ ≠ vᵢ et on compare uᵢ et vᵢ dans A</li>
+      </ul>
+      On peut toujours décider qui est plus petit → <b>ordre total</b>.
+    </div>
+
+    <div class="box answer">
+      <b>3. Non bien fondé</b><br>
+      Avec A = {a,b} et a &lt; b, considérons la suite :
+      <p><code>b &gt; ab &gt; aab &gt; aaab &gt; ...</code></p>
+      Chaque mot suivant est plus petit (lexicographiquement) que le précédent, et on peut continuer à l’infini → il existe une chaîne infinie strictement décroissante → l’ordre lexicographique sur A* n’est <b>pas bien fondé</b>.
+    </div>
+
+    <div class="box explain">
+      <b>À retenir :</b> le lexico est très pratique mais pas toujours bien fondé, parce qu’on peut toujours rajouter des lettres “plus petites” devant.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- ===================== EXERCICE 9 ======================== -->
+  <!-- ========================================================= -->
+
+  <div class="exo" id="exo9">
+    <div class="exo-title">Exercice 9 — Ordres bien fondés ou pas ?</div>
+
+    <div class="box question">
+      Dire si les ordres suivants sont bien fondés :
+      <ol>
+        <li>sur A², l’ordre lexicographique ;</li>
+        <li>sur ℕ, m ≤ n ⇔ m divise n ;</li>
+        <li>sur l’ensemble des diviseurs d’un entier donné, la même relation ;</li>
+        <li>sur A*, l’ordre préfixe ;</li>
+        <li>sur A*, l’ordre “u ≤ v si u est un sous-mot de v” ;</li>
+        <li>sur A*, l’ordre lexicographique ;</li>
+        <li>sur A*/≡, l’ordre des longueurs.</li>
+      </ol>
+    </div>
+
+    <div class="box answer">
+      <ol>
+        <li><b>A², lexicographique :</b> si A est fini, A² est fini → bien fondé.</li>
+        <li><b>(ℕ, divise) :</b> 1 est le plus petit → tout ensemble non vide a un minimal → bien fondé.</li>
+        <li><b>Diviseurs d’un entier n :</b> ensemble fini → bien fondé.</li>
+        <li><b>A*, préfixe :</b> un mot ne peut pas avoir une suite infinie de préfixes de plus en plus petits → bien fondé.</li>
+        <li><b>A*, sous-mot :</b> c’est un quasi-ordre bien connu → bien fondé.</li>
+        <li><b>A*, lexicographique :</b> pas bien fondé (exercice 8).</li>
+        <li><b>A*/≡, ordre des longueurs :</b> c’est juste (ℕ, ≤) → bien fondé.</li>
+      </ol>
+    </div>
+
+    <div class="box explain">
+      Pour savoir si c’est bien fondé : demande-toi si tu peux fabriquer une suite infinie <b>strictement décroissante</b>. Si oui → pas bien fondé.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- ===================== EXERCICE 10 ======================= -->
+  <!-- ========================================================= -->
+
+  <div class="exo" id="exo10">
+    <div class="exo-title">Exercice 10 — Deux posets isomorphes</div>
+
+    <div class="box question">
+      Montrer que les ensembles ordonnés <code>℘({a,b,c}), ⊆</code> et <code>{1,2,3,6,7,14,21,42}, |</code> sont isomorphes.
+    </div>
+
+    <div class="box answer">
+      On définit l’application suivante :
+      <ul class="clean">
+        <li>∅ ↦ 1</li>
+        <li>{a} ↦ 2</li>
+        <li>{b} ↦ 3</li>
+        <li>{a,b} ↦ 6</li>
+        <li>{c} ↦ 7</li>
+        <li>{a,c} ↦ 14</li>
+        <li>{b,c} ↦ 21</li>
+        <li>{a,b,c} ↦ 42</li>
+      </ul>
+      On vérifie que :
+      <ul class="clean">
+        <li>si X ⊆ Y alors f(X) | f(Y)</li>
+        <li>l’application est bijective</li>
+      </ul>
+      Donc les deux posets sont isomorphes.
+    </div>
+
+    <div class="box explain">
+      Ici 42 = 2×3×7 → ça correspond au fait d’avoir les trois lettres en même temps.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- ===================== EXERCICE 11 ======================= -->
+  <!-- ========================================================= -->
+
+  <div class="exo" id="exo11">
+    <div class="exo-title">Exercice 11 — Élément maximal vs plus grand élément</div>
+
+    <div class="box question">
+      Soit (E, ≤) un ensemble ordonné et A ⊆ E.
+      <ol>
+        <li>Montrer que si A admet un plus grand élément alors cet élément est l’unique élément maximal.</li>
+        <li>La réciproque est-elle vraie ? Justifier.</li>
+      </ol>
+    </div>
+
+    <div class="box answer">
+      <b>1. Plus grand ⇒ unique maximal</b><br>
+      Si g est le plus grand élément de A, alors pour tout x ∈ A on a x ≤ g. Donc aucun autre élément ne peut être maximal (il serait ≤ g). Donc g est l’unique élément maximal.
+    </div>
+
+    <div class="box answer">
+      <b>2. Réciproque</b><br>
+      Supposons que A possède un unique élément maximal m.<br>
+      Si un élément x ∈ A n’était pas ≤ m, alors x serait incomparable avec m, donc x serait aussi maximal → contradiction. Donc tout x ∈ A est ≤ m. Donc m est plus grand élément.<br>
+      <p><b>Donc la réciproque est vraie.</b></p>
+    </div>
+
+    <div class="box explain">
+      C’est exactement ce qu’on a utilisé dans l’exercice 6 pour dire que l’exemple demandé n’existe pas.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- ===================== EXERCICE 12 ======================= -->
+  <!-- ========================================================= -->
+
+  <div class="exo" id="exo12">
+    <div class="exo-title">Exercice 12 — Ordre total et comparabilité</div>
+
+    <div class="box question">
+      Soit (E, ≤) un ensemble ordonné tel que ≤ est total. Montrer que pour tout x,y ∈ E :
+      <p><code>(x ≤ y et x ≠ y) ⇔ (y ≰ x)</code></p>
+    </div>
+
+    <div class="box answer">
+      (<b>⇒</b>) Si x ≤ y et x ≠ y, alors on ne peut pas avoir y ≤ x (sinon x = y). Donc y ≰ x.<br><br>
+      (<b>⇐</b>) Si y ≰ x, comme l’ordre est total, on doit avoir x ≤ y. Comme y ≰ x, ça veut dire que x ≠ y. Donc x ≤ y et x ≠ y.
+    </div>
+
+    <div class="box explain">
+      C’est juste la caractérisation de « plus petit » dans un ordre total : si l’autre n’est pas ≤ toi, c’est que toi tu es ≤ lui.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- ===================== EXERCICE 13 ======================= -->
+  <!-- ========================================================= -->
+
+  <div class="exo" id="exo13">
+    <div class="exo-title">Exercice 13 — Ordre induit par une opération idempotente</div>
+
+    <div class="box question">
+      Soit E un ensemble muni d’une opération binaire t qui est
+      <ul class="clean">
+        <li>commutative,</li>
+        <li>associative,</li>
+        <li>idempotente (x t x = x).</li>
+      </ul>
+      On définit : <code>x ≤ y ⇔ x t y = y</code>.
+      <ol>
+        <li>Montrer que c’est une relation d’ordre.</li>
+        <li>Montrer que toute paire d’éléments admet une borne supérieure.</li>
+      </ol>
+    </div>
+
+    <div class="box answer">
+      <b>1. C’est un ordre</b><br>
+      • Réflexive : x t x = x → x ≤ x.<br>
+      • Antisymétrique : si x ≤ y et y ≤ x, alors x t y = y et y t x = x. Mais t est commutative → x t y = y t x → x = y.<br>
+      • Transitive : si x ≤ y (x t y = y) et y ≤ z (y t z = z), alors x t z = x t (y t z) = (x t y) t z = y t z = z → x ≤ z.
+    </div>
+
+    <div class="box answer">
+      <b>2. Borne supérieure</b><br>
+      Pour deux éléments x,y, on prend s = x t y.<br>
+      • x ≤ s car x t s = x t (x t y) = (x t x) t y = x t y = s.<br>
+      • y ≤ s de même.<br>
+      Si z est un autre majorant de {x,y}, alors x t z = z et y t z = z, donc (x t y) t z = z → s ≤ z.<br>
+      Donc s est bien la <b>borne supérieure</b> de {x,y}.
+    </div>
+
+    <div class="box explain">
+      Typiquement, si t = ∪ sur des ensembles, on retombe sur l’ordre par inclusion et sur sup = union.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- ===================== EXERCICE 14 ======================= -->
+  <!-- ========================================================= -->
+
+  <div class="exo" id="exo14">
+    <div class="exo-title">Exercice 14 — Bornes dans (℘(E), ⊆)</div>
+
+    <div class="box question">
+      Soit E un ensemble. Dans (℘(E), ⊆), montrer que pour tout n ≥ 2 :
+      <p><code>inf({A₁,...,Aₙ}) = ⋂ᵢ Aᵢ</code> et <code>sup({A₁,...,Aₙ}) = ⋃ᵢ Aᵢ</code></p>
+    </div>
+
+    <div class="box answer">
+      • Un ensemble B est un <b>minorant</b> de {Aᵢ} ssi B ⊆ Aᵢ pour tout i → donc B ⊆ ⋂ Aᵢ. Et ⋂ Aᵢ est lui-même un minorant. C’est le plus grand → <b>inf = ⋂ Aᵢ</b>.<br>
+      • Un ensemble C est un <b>majorant</b> de {Aᵢ} ssi Aᵢ ⊆ C pour tout i → donc ⋃ Aᵢ ⊆ C. La réunion est donc le plus petit des majorants → <b>sup = ⋃ Aᵢ</b>.
+    </div>
+
+    <div class="box explain">
+      C’est l’exemple le plus classique : dans un treillis de parties, l’inf c’est l’intersection, la sup c’est la réunion.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- ===================== EXERCICE 15 ======================= -->
+  <!-- ========================================================= -->
+
+  <div class="exo" id="exo15">
+    <div class="exo-title">Exercice 15 — Ordre induit par l’intersection avec X</div>
+
+    <div class="box question">
+      Soit E un ensemble, X ⊆ E. On travaille sur ℘(E).
+      <ol>
+        <li>La relation <code>A₁ ≤ₓ A₂ ⇔ A₁ ∩ X ⊆ A₂ ∩ X</code> est-elle un ordre ?</li>
+        <li>La relation <code>A₁ ≡ₓ A₂ ⇔ A₁ ∩ X = A₂ ∩ X</code> est-elle une équivalence ?</li>
+        <li>Sur l’ensemble des classes d’équivalence pour ≡ₓ, on définit <code>[A₁] ≤ [A₂] ⇔ A₁ ≤ₓ A₂</code>. Montrer que c’est un ordre.</li>
+      </ol>
+    </div>
+
+    <div class="box answer">
+      <b>1. ≤ₓ est un ordre</b><br>
+      • réflexive : A ∩ X ⊆ A ∩ X<br>
+      • antisymétrique : si A₁ ∩ X ⊆ A₂ ∩ X et A₂ ∩ X ⊆ A₁ ∩ X alors A₁ ∩ X = A₂ ∩ X<br>
+      • transitive : inclusion est transitive<br>
+      Donc oui.
+    </div>
+
+    <div class="box answer">
+      <b>2. ≡ₓ est une équivalence</b><br>
+      C’est l’égalité de deux ensembles A ∩ X et B ∩ X → réflexive, symétrique, transitive.
+    </div>
+
+    <div class="box answer">
+      <b>3. Ordre sur les classes</b><br>
+      Si on change de représentant, l’intersection avec X ne change pas → la définition est bien posée. Et comme c’est l’inclusion d’ensembles, c’est un ordre.
+    </div>
+
+    <div class="box explain">
+      Idée : on “regarde” seulement ce qui se passe sur X, pas sur tout E. Deux ensembles différents hors de X peuvent être considérés comme égaux.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- ===================== EXERCICE 16 ======================= -->
+  <!-- ========================================================= -->
+
+  <div class="exo" id="exo16">
+    <div class="exo-title">Exercice 16 — Application monotone entre deux posets</div>
+
+    <div class="box question">
+      1. On définit f : ℘(ℕ) → ℕ par f(X) = ∑<sub>x∈X</sub> x. f est-elle monotone ?<br>
+      2. Soit E = ℘({1,2,3}) ordonné par ⊆. Représenter le graphe. Puis, pour A = E \ {1,2,3}, donner majorants, minorants, bornes et éléments mini/maxi.<br>
+      3. Soient (E,≤₁), (F,≤₂) et f : E → F monotone. Montrer :
+      <ul class="clean">
+        <li>si A ⊆ E admet un plus grand élément M, alors f(M) est plus grand élément de f(A) ;</li>
+        <li>mais que ce n’est pas forcément vrai pour la borne supérieure.</li>
+      </ul>
+    </div>
+
+    <div class="box answer">
+      <b>1. f est monotone</b><br>
+      Si X ⊆ Y alors tout élément de X est dans Y → la somme des éléments de X est ≤ somme des éléments de Y → f(X) ≤ f(Y). Donc f est monotone.
+    </div>
+
+    <div class="box answer">
+      <b>2. E = ℘({1,2,3})</b><br>
+      E = { ∅, {1}, {2}, {3}, {1,2}, {1,3}, {2,3}, {1,2,3} }. C’est le cube habituel.<br>
+      A = E \ {1,2,3} = { ∅, {1}, {2}, {3}, {1,2}, {1,3}, {2,3} }. (on a enlevé seulement {1,2,3}).<br>
+      • minorants de A : seul ∅.<br>
+      • majorants de A (dans E) : {1,2,3} uniquement → sup(A) = {1,2,3}.<br>
+      • plus petit élément de A : ∅.<br>
+      • plus grand élément dans A : aucun (car {1,2}, {1,3}, {2,3} sont trois maximaux incomparables).<br>
+      • éléments maximaux de A : {1,2}, {1,3}, {2,3}.
+    </div>
+
+    <div class="box answer">
+      <b>3. Image d’un plus grand élément</b><br>
+      Si M est plus grand élément de A, pour tout x ∈ A, x ≤₁ M. f est monotone → f(x) ≤₂ f(M). Donc f(M) est plus grand élément de f(A).<br><br>
+      Mais : l’image d’une <b>borne supérieure</b> n’est pas forcément la borne supérieure de l’image (on peut perdre le caractère “le plus petit des majorants”).
+    </div>
+
+    <div class="box explain">
+      L’idée : la monotonie conserve les ordres mais pas toujours les bornes.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- ===================== EXERCICE 17 ======================= -->
+  <!-- ========================================================= -->
+
+  <div class="exo" id="exo17">
+    <div class="exo-title">Exercice 17 — Ordre lexicographique sur ℕ×ℕ et terminaison d’un algorithme</div>
+
+    <div class="box question">
+      1. On définit ≤<sub>lex</sub> sur ℕ×ℕ par : <code>(n,m) ≤lex (n',m') ⇔ n &lt; n' ou (n = n' et m ≤ m')</code>. Dire s’il est total ou partiel ; représenter la partie A = {1,2,3} × {0,2}. Donner ses bornes et éléments mini/maxi.<br>
+      2. Montrer que ≤<sub>lex</sub> est bien fondé en général.<br>
+      3. On considère la fonction
+      <pre>def foo(m,n):
+    if (m != n):
+        if (m > n):
+            return foo(m-n, n)
+        else:
+            return foo(m, n-m)
+    else:
+        return (m,n)</pre>
+      Montrer, à l’aide de l’ordre précédent, que foo termine toujours.
+    </div>
+
+    <div class="box answer">
+      <b>1. Total ou partiel ?</b><br>
+      On compare d’abord la 1<sup>re</sup> composante. Si elles sont différentes, on sait qui est plus petit. Si elles sont égales, on compare la 2ᵉ. Donc on peut toujours décider.<br>
+      <p><b>Donc l’ordre est total.</b></p>
+    </div>
+
+    <div class="box answer">
+      <b>1. Partie A = {1,2,3} × {0,2}</b><br>
+      A = {(1,0), (1,2), (2,0), (2,2), (3,0), (3,2)}.<br>
+      Ordre lex :
+      <p>(1,0) &lt; (1,2) &lt; (2,0) &lt; (2,2) &lt; (3,0) &lt; (3,2)</p>
+      Donc :
+      <ul class="clean">
+        <li>min(A) = (1,0)</li>
+        <li>max(A) = (3,2)</li>
+        <li>borne inf (dans ℕ×ℕ) = (1,0)</li>
+        <li>borne sup (dans ℕ×ℕ) = (3,2)</li>
+      </ul>
+    </div>
+
+    <div class="box answer">
+      <b>2. ≤<sub>lex</sub> bien fondé</b><br>
+      Soit X ⊆ ℕ×ℕ non vide. Prenons le plus petit n qui apparaît comme 1<sup>re</sup> composante. Puis dans ceux qui ont cette 1<sup>re</sup> composante, prenons le plus petit m. Ce couple est minimal. Donc pas de chaîne infinie strictement décroissante → bien fondé.
+    </div>
+
+    <div class="box answer">
+      <b>3. Terminaison de foo</b><br>
+      Dans foo :
+      <ul class="clean">
+        <li>si m &gt; n → on remplace (m,n) par (m-n, n) → 1<sup>re</sup> composante diminue → le couple diminue pour ≤<sub>lex</sub></li>
+        <li>si m ≤ n et m ≠ n → on remplace (m,n) par (m, n-m) → 1<sup>re</sup> composante ne bouge pas mais 2ᵉ diminue → le couple diminue pour ≤<sub>lex</sub></li>
+      </ul>
+      À chaque appel récursif, le couple (m,n) <b>diminue strictement</b> dans un ordre bien fondé → on ne peut pas faire une infinité d’appels → <b>foo termine toujours</b>.
+    </div>
+
+    <div class="box explain">
+      C’est la méthode classique : on expose une fonction récursive, on montre qu’à chaque appel un certain “mesure” (ici le couple lexicographique) diminue dans un ordre bien fondé → terminaison.
+    </div>
+  </div>
+
+  <div class="source">
+    Document réécrit à partir du TD2 « Ensembles ordonnés, relations d’ordre » (version étudiante).
+  </div>
+
+
+    <!-- ========================================================= -->
+  <!-- ================== RÉCAPITULATIF FINAL ================== -->
+  <!-- ========================================================= -->
+
+  <div class="exo" id="recap">
+    <div class="exo-title">Récapitulatif — Comment résoudre ce type d’exercices ?</div>
+
+    <div class="box explain">
+      Voici la méthode générale que tu peux réutiliser à l’examen ou au TD.
+    </div>
+
+    <div class="box question">
+      <b>1. On te donne un diagramme de Hasse (comme dans l’exo 1)</b><br>
+      Que faire ?
+    </div>
+    <div class="box answer">
+      <ul class="clean">
+        <li>Repère bien ce qui est en <b>haut</b> (plus grand) et en <b>bas</b> (plus petit).</li>
+        <li>Pour trouver les <b>majorants</b> d’un sous-ensemble S : regarde tous les éléments au-dessus de <u>tous</u> les éléments de S, puis fais l’<b>intersection</b>.</li>
+        <li>Pour les <b>minorants</b> : pareil mais en dessous.</li>
+        <li><b>sup(S)</b> = le plus petit des majorants (s’il existe).</li>
+        <li><b>inf(S)</b> = le plus grand des minorants (s’il existe).</li>
+      </ul>
+    </div>
+    <div class="box explain">
+      Astuce : si tu trouves <u>un seul</u> majorant → c’est directement la borne supérieure. S’il y a plusieurs minorants incomparables → souvent pas d’infimum.
+    </div>
+
+    <div class="box question">
+      <b>2. On te demande “élément maximal / élément minimal / plus grand élément / plus petit élément”</b>
+    </div>
+    <div class="box answer">
+      <ul class="clean">
+        <li><b>Élément maximal</b> : personne au-dessus de lui dans l’ensemble <u>considéré</u> (pas forcément dans le poset complet).</li>
+        <li><b>Plus grand élément</b> : il est au-dessus de <u>tous</u> les autres → donc il est aussi maximal.</li>
+        <li>Donc : <b>plus grand ⇒ maximal</b> mais <b>maximal ⇏ plus grand</b> (sauf s’il est l’unique maximal → alors il est plus grand).</li>
+        <li>Même chose en bas avec minimal / plus petit.</li>
+      </ul>
+    </div>
+    <div class="box explain">
+      C’est exactement ce qu’on a montré dans les exos 6 et 11 : “unique maximal” ⇒ “plus grand élément”. Si tu cherches un contre-exemple… il n’y en a pas.
+    </div>
+
+    <div class="box question">
+      <b>3. Ordre produit (comme dans l’exo 2)</b>
+    </div>
+    <div class="box answer">
+      <ul class="clean">
+        <li>(a,b) ≤ (c,d) ⇔ a ≤ c <b>et</b> b ≤ d.</li>
+        <li>C’est très fréquent d’avoir des éléments <b>incomparables</b> (un plus petit en première coordonnée mais plus grand en deuxième).</li>
+        <li>Du coup on obtient souvent plusieurs minimaux et plusieurs maximaux.</li>
+        <li>Pour trouver les <b>majorants</b> d’un sous-ensemble, il faut un couple qui domine <u>tous</u> les autres → souvent c’est le plus “gros” couple (comme (7,7)).</li>
+      </ul>
+    </div>
+    <div class="box explain">
+      Méthode rapide : tu écris les couples les uns sous les autres, tu compares coordonnée par coordonnée, tu coches ceux qui dominent tout.
+    </div>
+
+    <div class="box question">
+      <b>4. Ordre “divise” (exos 4 et 5)</b>
+    </div>
+    <div class="box answer">
+      <ul class="clean">
+        <li>Dans (ℕ\{0}, |), “aller vers le haut” = prendre des <b>multiples</b>.</li>
+        <li>“aller vers le bas” = prendre des <b>diviseurs</b>.</li>
+        <li><b>inf</b> d’un petit ensemble de nombres = <b>pgcd</b>.</li>
+        <li><b>sup</b> d’un petit ensemble de nombres = <b>ppcm</b>.</li>
+        <li>Mais : pgcd et ppcm peuvent ne pas appartenir au sous-ensemble → donc pas de plus petit / pas de plus grand élément.</li>
+      </ul>
+    </div>
+    <div class="box explain">
+      Très bon réflexe : dès que tu vois “divise”, pense « pgcd = borne inf » et « ppcm = borne sup ».
+    </div>
+
+    <div class="box question">
+      <b>5. Ordre lexicographique (exos 8, 9, 17)</b>
+    </div>
+    <div class="box answer">
+      <ul class="clean">
+        <li>On compare d’abord la première chose (1re lettre, 1re composante, 1er entier), puis seulement si c’est égal on compare la suite.</li>
+        <li>Sur ℕ×ℕ avec lexico : c’est un ordre <b>total</b> et même <b>bien fondé</b>.</li>
+        <li>Sur A* (les mots) avec lexico : c’est total, mais <b>pas</b> bien fondé (on peut faire b &gt; ab &gt; aab &gt; ...).</li>
+        <li>Cet ordre sert souvent à <b>prouver la terminaison</b> d’un algorithme récursif : on montre que l’argument décroît dans cet ordre.</li>
+      </ul>
+    </div>
+    <div class="box explain">
+      Conseil examen : si on te donne une fonction récursive à la Euclide (m,n) ↦ (m-n,n) ou (m,n-m), pense immédiatement à “je vais ordonner ℕ×ℕ par lexicographique et montrer que ça descend”.
+    </div>
+
+    <div class="box question">
+      <b>6. Posets de parties (℘(E), ⊆)</b>
+    </div>
+    <div class="box answer">
+      <ul class="clean">
+        <li>Dans (℘(E), ⊆), tout est simple : <b>inf</b> = intersection, <b>sup</b> = réunion.</li>
+        <li>Si on enlève le sommet (comme dans l’exo 16 avec {1,2,3}), on perd le plus grand élément mais on garde la borne sup dans le poset complet.</li>
+        <li>C’est le modèle parfait de “treillis”.</li>
+      </ul>
+    </div>
+
+    <div class="box question">
+      <b>7. Comment répondre vite le jour du contrôle ?</b>
+    </div>
+    <div class="box answer">
+      <ol>
+        <li><b>Identifier le type d’ordre</b> : Hasse ? produit ? divisibilité ? inclusion ? lexicographique ?</li>
+        <li><b>Écrire le sous-ensemble</b> qu’on étudie (A, B, V, …).</li>
+        <li><b>Faire les comparaisons</b> (tableau ou petites puces) → ça te donne directement minimaux / maximaux.</li>
+        <li><b>Majorants</b> : intersection des “au-dessus”.</li>
+        <li><b>Minorants</b> : intersection des “en-dessous”.</li>
+        <li>Si un seul majorant → sup. Si un seul minorant le plus grand → inf.</li>
+        <li>Si sup (ou inf) est dans le sous-ensemble → ça devient max (ou min).</li>
+      </ol>
+    </div>
+
+    <div class="box explain">
+      <b>Conclusion :</b><br>
+      Tous les exercices du TD2 reviennent en fait à 4 idées :
+      <ul class="clean">
+        <li>bien lire l’ordre (ce qui est “plus grand” ici ?)</li>
+        <li>savoir faire “ensemble des majorants / minorants”</li>
+        <li>comprendre la différence entre “maximal” et “plus grand élément”</li>
+        <li>et reconnaître les cas standards : divisibilité → pgcd/ppcm, inclusion → ∩/∪, lexicographique → terminaison.</li>
+      </ul>
+      Si tu maîtrises ça, tu peux refaire tout le TD sans regarder la correction.
+    </div>
+  </div>
+    <!-- ========================================================= -->
+  <!-- ===================== ANNEXES / EXTRA =================== -->
+  <!-- ========================================================= -->
+
+  <div class="exo" id="annexe-methodes">
+    <div class="exo-title">Annexe 1 — Méthode générale pour les exercices d’ordres</div>
+
+    <div class="box question">
+      <b>Q1. Quand on me donne un ensemble E avec une relation “≤”, qu’est-ce que je dois toujours vérifier en premier ?</b>
+    </div>
+    <div class="box answer">
+      Tu vérifies si c’est bien une <b>relation d’ordre</b> :
+      <ul class="clean">
+        <li><b>Réflexive</b> : ∀x, x ≤ x</li>
+        <li><b>Antisymétrique</b> : x ≤ y et y ≤ x ⇒ x = y</li>
+        <li><b>Transitive</b> : x ≤ y et y ≤ z ⇒ x ≤ z</li>
+      </ul>
+      Si une des trois manque → ce n’est pas un ordre.
+    </div>
+    <div class="box explain">
+      Astuce : pour la <b>divisibilité</b>, c’est toujours un ordre partiel. Pour <b>l’inclusion</b>, c’est toujours un ordre partiel. Pour <b>le lexicographique</b> (sur des choses déjà ordonnées), c’est un ordre total.
+    </div>
+
+    <div class="box question">
+      <b>Q2. Comment je vois si l’ordre est total ?</b>
+    </div>
+    <div class="box answer">
+      Un ordre est <b>total</b> si pour tous x,y on a <u>toujours</u> x ≤ y ou y ≤ x.  
+      Donc pour tester : tu prends deux éléments qui “se ressemblent” et tu regardes si on peut ne pas les comparer.
+    </div>
+    <div class="box explain">
+      Exemples :
+      <ul class="clean">
+        <li>Sur (℘(E), ⊆) : <b>pas</b> total (ex. {1} et {2} incomparables)</li>
+        <li>Sur (ℕ, |) : <b>pas</b> total (2 et 3 incomparables)</li>
+        <li>Sur (ℕ×ℕ, ordre par somme) : <b>total</b> (sommes comparables)</li>
+        <li>Sur (mots, lexicographique) : <b>total</b></li>
+      </ul>
+    </div>
+
+    <div class="box question">
+      <b>Q3. Quelle différence entre “maximal” et “plus grand” ?</b>
+    </div>
+    <div class="box answer">
+      <ul class="clean">
+        <li><b>Plus grand élément</b> de A : un élément g ∈ A tel que ∀x ∈ A, x ≤ g.</li>
+        <li><b>Élément maximal</b> de A : un élément m ∈ A tel qu’il n’existe pas de x ∈ A avec m &lt; x.</li>
+      </ul>
+      Donc : plus grand ⇒ maximal, mais maximal ⇏ plus grand (sauf s’il est unique).
+    </div>
+    <div class="box explain">
+      Dans tes exercices :  
+      • Exo 2 : il y avait 2 maximaux mais pas de plus grand élément.  
+      • Exo 6 + 11 : “un seul maximal” force = “plus grand”.  
+      Ça, c’est une question classique d’examen.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+
+  <div class="exo" id="annexe-sup-inf">
+    <div class="exo-title">Annexe 2 — Tableau mémo sup / inf / max / min</div>
+
+    <div class="box answer">
+      <table style="width:100%;border-collapse:collapse;font-size:14px">
+        <tr style="background:#e3f2fd">
+          <th style="text-align:left;padding:6px 4px;">Notion</th>
+          <th style="text-align:left;padding:6px 4px;">Définition rapide</th>
+          <th style="text-align:left;padding:6px 4px;">Quand ça existe ?</th>
+        </tr>
+        <tr>
+          <td style="padding:5px 4px;"><b>max(A)</b></td>
+          <td style="padding:5px 4px;">Élément de A qui est ≥ tous les autres</td>
+          <td style="padding:5px 4px;">Il faut qu’un élément de A domine tous les autres <u>et</u> qu’il soit dans A</td>
+        </tr>
+        <tr>
+          <td style="padding:5px 4px;"><b>min(A)</b></td>
+          <td style="padding:5px 4px;">Élément de A qui est ≤ tous les autres</td>
+          <td style="padding:5px 4px;">Il faut qu’un élément de A soit en dessous de tous les autres <u>et</u> qu’il soit dans A</td>
+        </tr>
+        <tr>
+          <td style="padding:5px 4px;"><b>sup(A)</b></td>
+          <td style="padding:5px 4px;">Plus petit des <u>majorants</u></td>
+          <td style="padding:5px 4px;">Il faut au moins un majorant. Peut être <b>en dehors</b> de A.</td>
+        </tr>
+        <tr>
+          <td style="padding:5px 4px;"><b>inf(A)</b></td>
+          <td style="padding:5px 4px;">Plus grand des <u>minorants</u></td>
+          <td style="padding:5px 4px;">Il faut au moins un minorant. Peut être <b>en dehors</b> de A.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="box explain">
+      🔁 Règle d’or :  
+      <ul class="clean">
+        <li>si <b>sup(A) ∈ A</b> → alors c’est le <b>maximum</b></li>
+        <li>si <b>inf(A) ∈ A</b> → alors c’est le <b>minimum</b></li>
+      </ul>
+      C’est ce qu’on a vu dans l’exo 3 pour A : la plus grande somme était dans A → donc sup = max.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+
+  <div class="exo" id="annexe-erreurs">
+    <div class="exo-title">Annexe 3 — Erreurs fréquentes (et comment les éviter)</div>
+
+    <div class="box warn">
+      <b>Erreur 1 :</b> confondre “pas comparable” et “plus grand”.  
+      <br>➡️ Si deux éléments sont incomparables, <u>aucun</u> n’est plus grand que l’autre.
+    </div>
+    <div class="box warn">
+      <b>Erreur 2 :</b> croire que s’il y a plusieurs maximaux alors il y a plusieurs maximums.  
+      <br>➡️ Non. “Maximum” = unique. “Maximal” = parfois plusieurs.
+    </div>
+    <div class="box warn">
+      <b>Erreur 3 :</b> oublier que “sup” et “inf” peuvent être <b>en dehors</b> de l’ensemble étudié.
+      <br>➡️ Exemple : dans la divisibilité, sup({6,15,21}) = 210 mais 210 n’était pas dans l’ensemble.
+    </div>
+    <div class="box warn">
+      <b>Erreur 4 :</b> dans les produits (couples), ne pas comparer les deux composantes.  
+      <br>➡️ Pour (a,b) ≤ (c,d) il faut <u>les deux</u> : a ≤ c <b>et</b> b ≤ d.
+    </div>
+    <div class="box warn">
+      <b>Erreur 5 :</b> oublier de préciser “dans quel ensemble” on cherche les majorants/minorants.  
+      <br>➡️ Dans l’exo 2 on cherchait les majorants “dans E”, pas seulement dans A.
+    </div>
+    <div class="box explain">
+      ➤ Si tu écris toujours : “On cherche les majorants de A <b>dans E</b>” tu ne te trompes pas.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+
+  <div class="exo" id="annexe-entrainement">
+    <div class="exo-title">Annexe 4 — Mini-exercices d’entraînement (corrigés)</div>
+
+    <!-- Mini-exo 1 -->
+    <div class="box question">
+      <b>Mini-exo 1.</b> On reprend le diagramme de l’exercice 1 :
+      <div class="diagram">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8<br>
+        &nbsp;&nbsp;6&nbsp;&nbsp;&nbsp;7<br>
+        &nbsp;4&nbsp;&nbsp;5<br>
+        &nbsp;&nbsp;&nbsp;3<br>
+        1&nbsp;&nbsp;&nbsp;2
+      </div>
+      Trouver les majorants, minorants, sup, inf du sous-ensemble <b>S = {3,4}</b>.
+    </div>
+    <div class="box answer">
+      <u>Éléments ≥ 3</u> : 3,4,5,6,7,8  
+      <u>Éléments ≥ 4</u> : 4,6,8  
+      ⇒ Majorants = intersection = {4,6,8}.  
+      Le plus petit est 4 → <b>sup(S) = 4</b>.
+      <br><br>
+      <u>Éléments ≤ 3</u> : 1,2,3  
+      <u>Éléments ≤ 4</u> : 1,2,3,4  
+      ⇒ Minorants = {1,2,3}.  
+      Le plus grand est 3 → <b>inf(S) = 3</b>.
+    </div>
+    <div class="box explain">
+      Ici on voit un cas intéressant : la borne sup est <b>dans</b> le sous-ensemble → donc c’est aussi le <b>maximum</b>. La borne inf est aussi dedans → donc c’est aussi le <b>minimum</b>.
+    </div>
+
+    <!-- Mini-exo 2 -->
+    <div class="box question">
+      <b>Mini-exo 2.</b> Dans (ℕ\{0}, |), trouver sup et inf de {4,6}.
+    </div>
+    <div class="box answer">
+      <ul class="clean">
+        <li>inf = pgcd(4,6) = 2</li>
+        <li>sup = ppcm(4,6) = 12</li>
+      </ul>
+    </div>
+    <div class="box explain">
+      Tu peux réviser comme ça :  
+      pgcd = “en bas”, ppcm = “en haut”.
+    </div>
+
+    <!-- Mini-exo 3 -->
+    <div class="box question">
+      <b>Mini-exo 3.</b> Dans A = {(1,0), (0,1)} avec l’ordre produit (sur ℕ×ℕ), y a-t-il un plus petit élément ?
+    </div>
+    <div class="box answer">
+      (1,0) ≤ (0,1) ? Non (1 ≤ 0 est faux).  
+      (0,1) ≤ (1,0) ? Non (1 ≤ 0 est faux).  
+      Donc ils sont incomparables → <b>pas</b> de plus petit élément.  
+      Mais ce sont <b>deux éléments minimaux</b>.
+    </div>
+    <div class="box explain">
+      Ça ressemble à l’exo 2 : plusieurs minimaux ⇒ pas de minimum.
+    </div>
+
+    <!-- Mini-exo 4 -->
+    <div class="box question">
+      <b>Mini-exo 4.</b> Soit A* avec l’ordre “préfixe”. Qui est le minimum ?
+    </div>
+    <div class="box answer">
+      Le mot vide ε est préfixe de tous les mots → c’est le <b>minimum</b>.
+    </div>
+    <div class="box explain">
+      C’est toujours comme ça dans les ordres de mots : le mot vide est tout en bas.
+    </div>
+
+    <!-- Mini-exo 5 -->
+    <div class="box question">
+      <b>Mini-exo 5.</b> On considère l’ensemble des diviseurs de 60 avec l’ordre “divise”. Cet ensemble a-t-il un plus grand élément ? a-t-il un plus petit élément ?
+    </div>
+    <div class="box answer">
+      Diviseurs(60) = {1,2,3,4,5,6,10,12,15,20,30,60}.  
+      <ul class="clean">
+        <li>1 divise tout → <b>plus petit élément = 1</b></li>
+        <li>60 est divisé par tous → <b>plus grand élément = 60</b></li>
+      </ul>
+    </div>
+    <div class="box explain">
+      Quand on prend “tous les diviseurs de n”, l’ensemble est fini et structuré comme un petit cube → il a toujours min = 1 et max = n.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+
+  <div class="exo" id="annexe-preuves">
+    <div class="exo-title">Annexe 5 — Modèle de preuve “c’est bien un ordre”</div>
+
+    <div class="box question">
+      <b>But :</b> tu veux montrer que la relation R est un ordre sur E.
+    </div>
+    <div class="box answer">
+      Tu écris toujours dans cet ordre :
+      <ol>
+        <li><b>Réflexivité :</b> montrer x R x</li>
+        <li><b>Antisymétrie :</b> supposer x R y et y R x puis conclure x = y</li>
+        <li><b>Transitivité :</b> supposer x R y et y R z puis conclure x R z</li>
+      </ol>
+    </div>
+    <div class="box explain">
+      Exemple rapide (comme exo 13) :  
+      <u>Réflexive</u> : x t x = x donc x ≤ x  
+      <u>Antisymétrique</u> : x t y = y et y t x = x ⇒ (commutativité) ⇒ x = y  
+      <u>Transitive</u> : tu utilises l’associativité.  
+      C’est presque toujours la même histoire.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+
+  <div class="exo" id="annexe-chaines">
+    <div class="exo-title">Annexe 6 — Chaînes, antichaînes, bien-fondation</div>
+
+    <div class="box question">
+      <b>Q1. C’est quoi une chaîne ?</b>
+    </div>
+    <div class="box answer">
+      Une <b>chaîne</b> d’un poset (E,≤) c’est un sous-ensemble C ⊆ E tel que <u>tout</u> y est comparable : ∀x,y ∈ C, x ≤ y ou y ≤ x.
+    </div>
+
+    <div class="box question">
+      <b>Q2. C’est quoi une antichaîne ?</b>
+    </div>
+    <div class="box answer">
+      Une <b>antichaîne</b> c’est l’inverse : aucun élément n’est comparable à un autre.  
+      Exemple : dans l’exo 2, {(5,7), (7,5)} est une antichaîne.
+    </div>
+
+    <div class="box question">
+      <b>Q3. Comment voir si un ordre est bien fondé ?</b>
+    </div>
+    <div class="box answer">
+      Un ordre est <b>bien fondé</b> s’il n’y a <u>pas</u> de chaîne <b>strictement décroissante infinie</b>.  
+      Méthodes classiques :
+      <ul class="clean">
+        <li>si l’ensemble est fini → c’est bien fondé</li>
+        <li>si l’ordre fait baisser une “taille” (longueur du mot, somme des composantes, première composante…) → souvent bien fondé</li>
+        <li>si tu peux toujours “ajouter un a devant” pour rendre plus petit → souvent <b>pas</b> bien fondé (cas lexico sur A*)</li>
+      </ul>
+    </div>
+    <div class="box explain">
+      C’est exactement ce qu’on a utilisé dans l’exo 17 pour prouver la terminaison de la fonction Python.
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+
+  <div class="exo" id="conclusion">
+    <div class="exo-title">Conclusion générale</div>
+    <div class="box explain">
+      Tu peux maintenant :
+      <ul class="clean">
+        <li>lire un diagramme de Hasse et trouver sup/inf</li>
+        <li>distinguer maximal / minimum / borne sup / borne inf</li>
+        <li>travailler dans la divisibilité avec pgcd/ppcm</li>
+        <li>reconnaître un ordre produit (et repérer les incomparables)</li>
+        <li>utiliser un ordre bien fondé pour prouver qu’un algo s’arrête</li>
+        <li>et surtout : écrire la <b>preuve standard “c’est un ordre”</b></li>
+      </ul>
+      Si tu écris tes réponses dans le même format “<b>Question → Réponse → Explications</b>”, ton corrigé sera clair même pour un correcteur fatigué 😉
+    </div>
+  </div>
+
+
+</body>
+</html>

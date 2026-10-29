@@ -1,0 +1,61 @@
+
+<div class="box box-objectives">
+  <div class="box-title">Objectifs d'apprentissage — Semaine 3</div>
+  <ul>
+    <li>Comprendre la notion de fonction booléenne et son dénombrement ({{ 2^{2^n} }}).</li>
+    <li>Définir rigoureusement les littéraux, clauses disjonctives, termes, FNC et FND.</li>
+    <li>Maîtriser l'algorithme canonique de passage de la table de vérité vers la FND (mintermes) et vers la FNC (maxtermes).</li>
+    <li>Convertir une formule arbitraire en FNC ou FND par calcul algébrique pur sans table.</li>
+    <li>Reconnaître instantanément la satisfiabilité triviale d'une FND et la validité triviale d'une FNC.</li>
+    <li>Comprendre la complétude fonctionnelle d'un jeu de connecteurs et les connecteurs universels NAND et NOR.</li>
+  </ul>
+</div>
+
+<h2 id="w03-c-fonctions">1. Fonctions Booléennes et Dénombrement</h2>
+<div class="box box-definition">
+  <div class="box-title">Définition 3.1 — Fonction Booléenne</div>
+  <p>Une <strong>fonction booléenne</strong> à {{ n }} variables est une application :</p>
+  {{ f : \{0, 1\}^n \longrightarrow \{0, 1\} }}
+  <p>Puisque le domaine {{ \{0, 1\}^n }} contient exactement {{ 2^n }} n-uplets (lignes de la table de vérité), et que pour chacun de ces n-uplets {{ f }} peut valoir 0 ou 1, il existe exactement :</p>
+  {{ 2^{2^n} \quad \text{fonctions booléennes distinctes à } n \text{ variables}. }}
+</div>
+
+<h2 id="w03-c-fnc-fnd">2. Formes Normales : FNC et FND</h2>
+<div class="box box-definition">
+  <div class="box-title">Définition 3.2 — Vocabulaire Normalisé</div>
+  <ul>
+    <li><strong>Littéral :</strong> Une variable propositionnelle {{ p }} (littéral positif) ou sa négation {{ \neg p }} (littéral négatif).</li>
+    <li><strong>Clause disjonctive (ou simplement Clause) :</strong> Une disjonction de littéraux : {{ (l_1 \lor l_2 \lor \dots \lor l_k) }}.</li>
+    <li><strong>Terme (ou Clause conjonctive) :</strong> Une conjonction de littéraux : {{ (l_1 \land l_2 \land \dots \land l_k) }}.</li>
+    <li><strong>Forme Normale Conjonctive (FNC / CNF) :</strong> Une conjonction de clauses : {{ \bigwedge_{i=1}^m \left( \bigvee_{j=1}^{k_i} l_{i,j} \right) }}</li>
+    <li><strong>Forme Normale Disjonctive (FND / DNF) :</strong> Une disjonction de termes : {{ \bigvee_{i=1}^m \left( \bigwedge_{j=1}^{k_i} l_{i,j} \right) }}</li>
+  </ul>
+</div>
+
+<h2 id="w03-c-conversion">3. Passage de la Table de Vérité aux Formes Normales</h2>
+<div class="box box-method">
+  <div class="box-title">Algorithme canonique à partir d'une table de vérité</div>
+  <ul>
+    <li><strong>Pour construire la FND :</strong> On repère chaque ligne de la table où la formule vaut <strong>1</strong>. Pour chaque telle ligne, on forme un <em>minterme</em> (conjonction où la variable apparaît positive si elle vaut 1, et négative si elle vaut 0). On prend la disjonction ({{ \lor }}) de tous ces mintermes.</li>
+    <li><strong>Pour construire la FNC :</strong> On repère chaque ligne où la formule vaut <strong>0</strong>. Pour chaque telle ligne, on forme un <em>maxterme</em> (disjonction où la variable apparaît négative si elle vaut 1, et positive si elle vaut 0). On prend la conjonction ({{ \land }}) de tous ces maxtermes.</li>
+  </ul>
+</div>
+
+<h2 id="w03-c-completude">4. Complétude Fonctionnelle des Jeux de Connecteurs</h2>
+<div class="box box-definition">
+  <div class="box-title">Définition 3.3 — Système Complet de Connecteurs</div>
+  <p>Un ensemble de connecteurs {{ \mathcal{C} }} est dit <strong>complet</strong> si toute fonction booléenne peut être représentée par une formule utilisant uniquement les connecteurs de {{ \mathcal{C} }}.</p>
+  <ul>
+    <li>$\{
+eg, \land, \lor\}$ est complet (démontré par la construction de la FND pour toute table).</li>
+    <li>$\{
+eg, \land\}{{  est complet (car  }}A \lor B \equiv \neg(\neg A \land \neg B)$).</li>
+    <li>$\{
+eg, \lor\}{{  est complet (car  }}A \land B \equiv \neg(\neg A \lor \neg B)$).</li>
+    <li>$\{
+eg, \Rightarrow\}{{  est complet (car  }}\neg A \lor B \equiv A \Rightarrow B$).</li>
+    <li><strong>{{ \{\land, \lor\} }} est INCOMPLET :</strong> toute formule construite uniquement avec {{ \land }} et {{ \lor }} est <em>monotone croissante</em> ; elle ne peut jamais exprimer la négation {{ \neg p }}.</li>
+    <li><strong>Connecteur universel NAND (barre de Sheffer {{ | }}) :</strong> {{ \{|\} }} est complet à lui seul ! ({{ p | q \equiv \neg(p \land q) }}).</li>
+    <li><strong>Connecteur universel NOR (flèche de Peirce {{ \downarrow }}) :</strong> {{ \{\downarrow\} }} est complet à lui seul ! ({{ p \downarrow q \equiv \neg(p \lor q) }}).</li>
+  </ul>
+</div>
